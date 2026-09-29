@@ -1,6 +1,12 @@
 name: Refresh football data and publish
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - scripts/sync-football-data.mjs
+      - .github/workflows/publish.yml
   workflow_dispatch:
   schedule:
     - cron: '17 5,17 * * *'
