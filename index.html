@@ -19,6 +19,7 @@
     .tab-button{border:1px solid #3b4e65;background:#17263a;color:#a9becd;border-radius:10px;padding:10px 18px;font-weight:750;min-height:44px}
     #matchTitle,#betTitle{scroll-margin-top:86px}
     .tab-button[aria-selected="true"]{background:#64e5bf;border-color:#64e5bf;color:#09221e}.tab-button:focus-visible{outline:3px solid #8af2d4;outline-offset:2px}.tab-panel[hidden]{display:none}
+    .calibration{border:1px solid #304157;border-radius:13px;margin-top:4px;padding:14px}.calibration[open] summary{margin-bottom:6px}.calibration-wrap{overflow-x:auto;margin-top:12px}.calibration-table{width:100%;min-width:470px;border-collapse:collapse;font-size:13px;text-align:left}.calibration-table th,.calibration-table td{padding:9px 7px;border-bottom:1px solid #304157}.calibration-table th{color:#a8c1d0;font-weight:750}.calibration-table td{color:#e3edf5}.calibration-table td:first-child{font-weight:800}
     @media(max-width:750px){.grid{grid-template-columns:1fr}.shell{padding:18px 14px 50px}.card{padding:18px}.top{margin-bottom:24px}.metrics{gap:6px}.metric{padding:10px}.metric strong{font-size:19px}.tag{font-size:10px}.row.triple{grid-template-columns:1fr 1fr}.row.triple>div:last-child{grid-column:1/-1}}
   </style>
 </head>
@@ -103,8 +104,83 @@
   function parseGames(text,league){const rows=csvRows(text);if(rows.length<2)throw Error('Datoteka nima tekem.');const headers=rows.shift().map(x=>x.trim().toLowerCase());const col=(...aliases)=>headers.findIndex(h=>aliases.includes(h));const d=col('date'),h=col('hometeam','home'),a=col('awayteam','away'),hg=col('fthg','homegoals'),ag=col('ftag','awaygoals');if([d,h,a,hg,ag].includes(-1))throw Error('Manjkajo obvezni stolpci: Date, HomeTeam, AwayTeam, FTHG, FTAG.');const result=[];let skipped=0;for(const row of rows){const date=isoDate(row[d]),home=String(row[h]||'').trim(),away=String(row[a]||'').trim(),gh=Number(row[hg]),ga=Number(row[ag]);if(!date||!home||!away||home===away||row[hg]===''||row[ag]===''||!Number.isInteger(gh)||!Number.isInteger(ga)||gh<0||ga<0||gh>30||ga>30){skipped++;continue}result.push({league,date,home,away,hg:gh,ag:ga})}return {result,skipped}}
   function poisson(lambda){const p=[Math.exp(-lambda)];for(let i=1;i<=12;i++)p.push(p[i-1]*lambda/i);return p}
   function predict(games,league,home,away,date){if(!validDate(date)||!home||!away||home===away)return {error:'Izberi datum in dve različni ekipi.'};const hist=games.filter(g=>g.league===league&&g.date<date);const hh=hist.filter(g=>g.home===home),ha=hist.filter(g=>g.away===home),ah=hist.filter(g=>g.home===away),aa=hist.filter(g=>g.away===away);if(hist.length<30||hh.length+ha.length<8||ah.length+aa.length<8||hh.length<3||aa.length<3)return {error:'Premalo preteklih tekem pred tem datumom: potrebujeva vsaj 30 tekem lige, 8 tekem na ekipo ter 3 domače/gostujoče.'};const homeAvg=hist.reduce((s,g)=>s+g.hg,0)/hist.length,awayAvg=hist.reduce((s,g)=>s+g.ag,0)/hist.length;if(homeAvg<.2||awayAvg<.2)return {error:'Podatki o golih so videti nepopolni.'};const avg=(arr,k,prior)=>(arr.reduce((s,g)=>s+g[k],0)+8*prior)/(arr.length+8);const lh=Math.max(.15,Math.min(5,homeAvg*(avg(hh,'hg',homeAvg)/homeAvg)*(avg(aa,'hg',homeAvg)/homeAvg)));const la=Math.max(.15,Math.min(5,awayAvg*(avg(aa,'ag',awayAvg)/awayAvg)*(avg(hh,'ag',awayAvg)/awayAvg)));const ph=poisson(lh),pa=poisson(la),probs=[0,0,0];for(let i=0;i<ph.length;i++)for(let j=0;j<pa.length;j++)probs[i>j?0:i===j?1:2]+=ph[i]*pa[j];const total=probs.reduce((x,y)=>x+y,0);return {probs:probs.map(p=>p/total),lh,la,n:hist.length,homeN:hh.length+ha.length,awayN:ah.length+aa.length}}
-  function backtestGames(games){const summaries=[];for(const league of [...new Set(games.map(g=>g.league))].sort()){const matches=games.filter(g=>g.league===league).sort((a,b)=>a.date.localeCompare(b.date));let n=0,modelScore=0,baseScore=0,correct=0,baseCorrect=0,favN=0,favHits=0,favProbability=0;for(const match of matches){const past=matches.filter(g=>g.date<match.date);const result=predict(past,league,match.home,match.away,match.date);if(result.error)continue;const counts=[0,0,0];for(const g of past)counts[g.hg>g.ag?0:g.hg===g.ag?1:2]++;const base=counts.map(x=>x/past.length),actual=match.hg>match.ag?0:match.hg===match.ag?1:2;const score=p=>p.reduce((sum,value,i)=>sum+(value-(i===actual?1:0))**2,0);modelScore+=score(result.probs);baseScore+=score(base);const pick=result.probs.indexOf(Math.max(...result.probs));correct+=Number(pick===actual);baseCorrect+=Number(base.indexOf(Math.max(...base))===actual);if(result.probs[pick]>=.55){favN++;favHits+=Number(pick===actual);favProbability+=result.probs[pick]}n++}if(n)summaries.push({league,n,modelBrier:modelScore/n,baseBrier:baseScore/n,accuracy:correct/n,baseAccuracy:baseCorrect/n,favN,favHits:favN?favHits/favN:0,favProbability:favN?favProbability/favN:0})}return summaries}
-  function renderBacktest(){const area=$('backtestResults');area.innerHTML='';if(!state.games.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Najprej osveži rezultate vsaj ene lige.';area.append(empty);return}const results=backtestGames(state.games);if(!results.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Premalo primernih preteklih tekem za preverjanje.';area.append(empty);return}for(const r of results){const card=document.createElement('article');card.className='bet';const main=document.createElement('div'),title=document.createElement('strong'),info=document.createElement('small');title.textContent=`${r.league} · ${r.n} preverjenih tekem`;info.textContent=`Brierjeva napaka: model ${r.modelBrier.toFixed(3).replace('.',',')} · osnovni deleži ${r.baseBrier.toFixed(3).replace('.',',')} (manj je bolje)`;main.append(title,info);const right=document.createElement('div');right.className='right';const accuracy=document.createElement('strong'),base=document.createElement('small');accuracy.textContent=`${pct(r.accuracy)} zadetkov`;base.textContent=`osnovni deleži: ${pct(r.baseAccuracy)}`;right.append(accuracy,base);const fav=document.createElement('small');fav.style.gridColumn='1/-1';fav.textContent=r.favN?`Pri ${r.favN} izidih z oceno vsaj 55 %: povprečna napoved ${pct(r.favProbability)}, dejanski delež zadetkov ${pct(r.favHits)}.`:'Ni izidov z oceno vsaj 55 %.';card.append(main,right,fav);area.append(card)}}
+  function backtestGames(games){
+    const summaries=[],bands=[[0,.1,'0–10 %'],[.1,.2,'10–20 %'],[.2,.35,'20–35 %'],[.35,.5,'35–50 %'],[.5,1.001,'50–100 %']];
+    const calibration=Array.from({length:3},()=>bands.map(()=>({n:0,predicted:0,hits:0})));
+    for(const league of [...new Set(games.map(g=>g.league))].sort()){
+      const matches=games.filter(g=>g.league===league).sort((a,b)=>a.date.localeCompare(b.date));
+      let n=0,modelScore=0,baseScore=0,correct=0,baseCorrect=0,favN=0,favHits=0,favProbability=0;
+      for(const match of matches){
+        const past=matches.filter(g=>g.date<match.date);
+        const result=predict(past,league,match.home,match.away,match.date);
+        if(result.error)continue;
+        const counts=[0,0,0];
+        for(const g of past)counts[g.hg>g.ag?0:g.hg===g.ag?1:2]++;
+        const base=counts.map(x=>x/past.length),actual=match.hg>match.ag?0:match.hg===match.ag?1:2;
+        const score=p=>p.reduce((sum,value,i)=>sum+(value-(i===actual?1:0))**2,0);
+        modelScore+=score(result.probs);baseScore+=score(base);
+        const pick=result.probs.indexOf(Math.max(...result.probs));
+        correct+=Number(pick===actual);
+        baseCorrect+=Number(base.indexOf(Math.max(...base))===actual);
+        if(result.probs[pick]>=.55){
+          favN++;favHits+=Number(pick===actual);favProbability+=result.probs[pick]
+        }
+        for(let i=0;i<3;i++){
+          const p=result.probs[i],band=bands.findIndex(([low,high])=>p>=low&&p<high);
+          if(band<0)continue;
+          const bucket=calibration[i][band];
+          bucket.n++;bucket.predicted+=p;bucket.hits+=Number(i===actual);
+        }
+        n++;
+      }
+      if(n)summaries.push({league,n,modelBrier:modelScore/n,baseBrier:baseScore/n,accuracy:correct/n,baseAccuracy:baseCorrect/n,favN,favHits:favN?favHits/favN:0,favProbability:favN?favProbability/favN:0});
+    }
+    return {summaries,calibration,bands}
+  }
+  function renderBacktest(){
+    const area=$('backtestResults');area.innerHTML='';
+    if(!state.games.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Najprej osveži rezultate vsaj ene lige.';area.append(empty);return}
+    const {summaries,calibration,bands}=backtestGames(state.games);
+    if(!summaries.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Premalo primernih preteklih tekem za preverjanje.';area.append(empty);return}
+    for(const r of summaries){
+      const card=document.createElement('article');card.className='bet';
+      const main=document.createElement('div'),title=document.createElement('strong'),info=document.createElement('small');
+      title.textContent=`${r.league} · ${r.n} preverjenih tekem`;
+      info.textContent=`Brierjeva napaka: model ${r.modelBrier.toFixed(3).replace('.',',')} · osnovni deleži ${r.baseBrier.toFixed(3).replace('.',',')} (manj je bolje)`;
+      main.append(title,info);
+      const right=document.createElement('div');right.className='right';
+      const accuracy=document.createElement('strong'),base=document.createElement('small');
+      accuracy.textContent=`${pct(r.accuracy)} zadetkov`;base.textContent=`osnovni deleži: ${pct(r.baseAccuracy)}`;
+      right.append(accuracy,base);
+      const fav=document.createElement('small');fav.style.gridColumn='1/-1';
+      fav.textContent=r.favN?`Pri ${r.favN} izidih z oceno vsaj 55 %: povprečna napoved ${pct(r.favProbability)}, dejanski delež zadetkov ${pct(r.favHits)}.`:'Ni izidov z oceno vsaj 55 %.';
+      card.append(main,right,fav);area.append(card);
+    }
+    const details=document.createElement('details');details.className='advanced-data calibration';
+    const summary=document.createElement('summary');summary.textContent='Umerjenost verjetnosti za 1 / X / 2';
+    const intro=document.createElement('p');intro.className='hint';
+    intro.textContent='Primerjava vseh preverjenih tekem: če model izidu pripiše približno 10–20 %, kako pogosto se ta izid dejansko zgodi?';
+    const wrap=document.createElement('div');wrap.className='calibration-wrap';
+    const table=document.createElement('table');table.className='calibration-table';
+    const head=document.createElement('thead'),headRow=document.createElement('tr');
+    for(const label of ['Izid','Ocena modela','Tekem','Povprečna ocena','Dejanski delež']){
+      const th=document.createElement('th');th.scope='col';th.textContent=label;headRow.append(th)
+    }
+    head.append(headRow);table.append(head);
+    const body=document.createElement('tbody');
+    for(let i=0;i<3;i++)for(let j=0;j<bands.length;j++){
+      const bucket=calibration[i][j];if(bucket.n<20)continue;
+      const row=document.createElement('tr');
+      for(const value of [['1','X','2'][i],bands[j][2],String(bucket.n),pct(bucket.predicted/bucket.n),pct(bucket.hits/bucket.n)]){
+        const cell=document.createElement('td');cell.textContent=value;row.append(cell)
+      }
+      body.append(row)
+    }
+    table.append(body);wrap.append(table);
+    const note=document.createElement('p');note.className='fine';
+    note.textContent='Skupaj vse lige. Razredi z manj kot 20 tekmami so izpuščeni; tudi večji vzorci in stare tekme ne dokazujejo donosnosti pri današnjih kvotah.';
+    details.append(summary,intro,wrap,note);area.append(details)
+  }
   function selectedProbability(){return current?.probs[{H:0,D:1,A:2}[$('pick').value]]}
   function refreshValue(){if(!current){$('value').innerHTML='';return}const odds=Number($('odds').value),p=selectedProbability();if(!Number.isFinite(odds)||odds<=1||odds>1000){$('value').innerHTML='';return}const ev=p*odds-1,breakeven=1/odds;show('value',`Ocena: ${pct(p)} · zahtevana verjetnost pri tej kvoti: ${pct(breakeven)} · teoretični donos: ${ev>=0?'+':''}${pct(ev)}. ${ev>0?'Matematično pozitivno po nepreverjenem modelu.':'Po tem modelu ni pozitivne vrednosti.'}`,ev>0?'good':'alert')}
   function options(select,values,placeholder){const el=$(select);el.innerHTML='';const start=document.createElement('option');start.value='';start.textContent=placeholder;el.append(start);for(const v of values){const o=document.createElement('option');o.value=v;o.textContent=v;el.append(o)}}
