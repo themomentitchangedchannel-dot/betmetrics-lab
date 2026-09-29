@@ -39,7 +39,7 @@
     <section class="card span" aria-labelledby="candidateTitle"><p class="eyebrow">Bližnje tekme</p><h2 id="candidateTitle">Tekme za preverjanje kvot</h2><p class="hint">Prikazanih je pet bližnjih tekem z visoko ocenjeno verjetnostjo. To niso predlogi za stave: tudi favorit pri prenizki kvoti nima pozitivne vrednosti. Model še ni umerjen.</p><div id="candidates" class="list" style="margin-top:16px"></div></section>
     <section class="card span" aria-labelledby="backtestTitle"><p class="eyebrow">Preverjanje</p><h2 id="backtestTitle">Kako se je model odrezal za nazaj?</h2><p class="hint">Za vsako že odigrano tekmo uporabi samo rezultate pred njenim datumom. Oceno primerja s preprostim izhodiščem: deleži 1 / X / 2 na prejšnjih tekmah iste lige.</p><div class="actions"><button class="button secondary" id="runBacktest">Preveri model na preteklih tekmah</button></div><div id="backtestResults" class="list" style="margin-top:16px" aria-live="polite"></div><p class="fine">Ni primerjave z dejanskimi kvotami, zato ta pregled ne meri donosnosti. Iste podatke uporabljava tudi pri razvoju modela; za zanesljiv sklep bodo potrebne nove, vnaprej shranjene napovedi.</p></section>
     <section class="card" aria-labelledby="matchTitle"><p class="eyebrow">02 · Napoved</p><h2 id="matchTitle">Preveri tekmo</h2>
-      <label for="fixtureRange">Prikaži tekme</label><select id="fixtureRange"><option value="14">Naslednjih 14 dni</option><option value="60">Naslednjih 60 dni</option><option value="all">Vse prihodnje</option></select>
+      <label for="fixtureRange">Prikaži tekme</label><select id="fixtureRange"><option value="3">Naslednje 3 dni</option><option value="7">Naslednjih 7 dni</option><option value="14" selected>Naslednjih 14 dni</option></select>
       <label for="fixture">Prihajajoča tekma iz API</label><select id="fixture"><option value="">Izberi po osvežitvi ali vnesi ročno spodaj</option></select>
       <p class="hint" id="fixtureCount"></p>
       <div class="row"><div><label for="matchDate">Začetek tekme (lokalni čas)</label><input id="matchDate" type="datetime-local"></div><div><label for="matchLeague">Liga</label><select id="matchLeague"><option value="">Najprej osveži ali uvozi rezultate</option></select></div></div>
@@ -85,7 +85,7 @@
   function options(select,values,placeholder){const el=$(select);el.innerHTML='';const start=document.createElement('option');start.value='';start.textContent=placeholder;el.append(start);for(const v of values){const o=document.createElement('option');o.value=v;o.textContent=v;el.append(o)}}
   function refreshLists(){const leagues=[...new Set(state.games.map(g=>g.league))].sort();const previous=$('matchLeague').value;options('matchLeague',leagues,'Izberi ligo');$('matchLeague').value=leagues.includes(previous)?previous:(leagues[0]||'');refreshTeams();refreshFixtures();renderCandidates();$('dataSummary').textContent=`Uvoženih tekem: ${state.games.length} · lige: ${leagues.length}.`}
   function refreshFixtures(){
-    const range=$('fixtureRange').value,now=Date.now(),end=range==='all'?Infinity:now+Number(range)*86400000;
+    const range=Number($('fixtureRange').value),now=Date.now(),end=now+range*86400000;
     const list=state.fixtures.filter(f=>{const time=Date.parse(f.utc);return time>now&&time<=end}).sort((a,b)=>a.utc.localeCompare(b.utc));
     const el=$('fixture'),previous=el.value;
     el.innerHTML='';
