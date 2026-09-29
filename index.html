@@ -22,7 +22,7 @@
     <section class="card" aria-labelledby="dataTitle">
       <p class="eyebrow">01 · Podatki</p><h2 id="dataTitle">Tekme prek API</h2>
       <p class="hint">Podatki iz football-data.org se pripravijo dvakrat na dan. API ključ je shranjen kot skrivnost v GitHub Actions, zato ga tukaj ni treba vnašati.</p>
-      <label for="apiLeague">Tekmovanje</label><select id="apiLeague"><option value="PL">Premier League</option><option value="PD">La Liga</option><option value="SA">Serie A</option></select>
+      <label for="apiLeague">Tekmovanje</label><select id="apiLeague"><option value="ALL">Vse tri lige</option><option value="PL">Premier League</option><option value="PD">La Liga</option><option value="SA">Serie A</option></select>
       <div class="actions"><button class="button" id="syncApi">Osveži tekme in rezultate</button></div><div id="apiMessage" role="status"></div>
       <hr class="divider"><h2>Rezervni uvoz CSV</h2>
       <p class="hint">CSV mora vsebovati stolpce <code>Date,HomeTeam,AwayTeam,FTHG,FTAG</code>. Sprejme datume YYYY-MM-DD ali DD/MM/YYYY ter eno ligo na datoteko. Podpira tudi običajni format football-data.co.uk.</p>
@@ -84,7 +84,59 @@
   function renderCandidates(){const area=$('candidates');area.innerHTML='';const limit=Date.now()+14*86400000;const ranked=state.fixtures.filter(f=>Date.parse(f.utc)>Date.now()&&Date.parse(f.utc)<=limit).map(f=>({f,model:predict(state.games,f.league,f.home,f.away,localDateTime(f.utc).slice(0,10))})).filter(x=>!x.model.error).map(x=>({...x,p:Math.max(...x.model.probs),pick:x.model.probs.indexOf(Math.max(...x.model.probs))})).filter(x=>x.p>=.55).sort((a,b)=>b.p-a.p).slice(0,5);if(!ranked.length){const empty=document.createElement('div');empty.className='empty';empty.textContent=state.fixtures.length?'Trenutno ni kandidatov nad 55 % v naslednjih 14 dneh.':'Najprej osveži podatke za izbrane lige.';area.append(empty);return}for(const {f,p,pick} of ranked){const card=document.createElement('article');card.className='bet';const main=document.createElement('div'),title=document.createElement('strong'),info=document.createElement('small');title.textContent=`${f.home} – ${f.away}`;info.textContent=`${new Date(f.utc).toLocaleString('sl-SI')} · ${f.league}`;main.append(title,info);const right=document.createElement('div');right.className='right';const bold=document.createElement('strong'),small=document.createElement('small');bold.textContent=`${['1','X','2'][pick]} · ${pct(p)}`;small.textContent=`modelna meja kvote: ${(1/p).toFixed(2).replace('.',',')}`;right.append(bold,small);const actions=document.createElement('div');actions.className='settle';const btn=document.createElement('button');btn.type='button';btn.textContent='Preveri tekmo';btn.addEventListener('click',()=>{$('fixture').value=String(f.id);selectFixture();calculate();$('matchTitle').scrollIntoView({behavior:'smooth',block:'start'})});actions.append(btn);card.append(main,right,actions);area.append(card)}}
   function apiMatch(m,league){const home=m.homeTeam?.name,away=m.awayTeam?.name,utc=m.utcDate;if(!m.id||!home||!away||!utc||Number.isNaN(Date.parse(utc)))return null;const date=localDateTime(utc).slice(0,10);if(m.status==='FINISHED'){const hg=m.score?.fullTime?.home,ag=m.score?.fullTime?.away;if(!Number.isInteger(hg)||!Number.isInteger(ag))return null;return {id:m.id,league,date,home,away,hg,ag,source:'api'}}if(['SCHEDULED','TIMED'].includes(m.status)&&Date.parse(utc)>Date.now())return {id:m.id,league,utc,home,away};return null}
   async function apiRequest(code){let response;try{response=await fetch(`data/${code}.json`,{cache:'no-store'})}catch{throw Error('Objavljenih podatkov ni mogoče prenesti. Preveri internet in ponovno poskusi.')}if(!response.ok)throw Error('Podatki še niso objavljeni. Najprej nastavi GitHub skrivnost in zaženi osvežitev podatkov.');const body=await response.json();if(!Array.isArray(body.matches))throw Error('Datoteka s tekmami je neveljavna.');return body}
-  async function syncApi(){const btn=$('syncApi'),code=$('apiLeague').value,league=API_LEAGUES[code];btn.disabled=true;show('apiMessage','Prenašam pripravljene podatke …');try{const payload=await apiRequest(code),converted=payload.matches.map(m=>apiMatch(m,league)).filter(Boolean),games=converted.filter(m=>'hg'in m),fixtures=converted.filter(m=>'utc'in m);const oldGames=state.games,oldFixtures=state.fixtures,oldResults=state.bets.map(b=>b.result);const gameMap=new Map(state.games.map(g=>[g.id?`id:${g.id}`:`csv:${g.league}|${g.date}|${g.home}|${g.away}`,g]));for(const g of games)gameMap.set(`id:${g.id}`,g);const fixtureMap=new Map(state.fixtures.filter(f=>f.league!==league).map(f=>[f.id,f]));for(const f of fixtures)fixtureMap.set(f.id,f);state.games=[...gameMap.values()];state.fixtures=[...fixtureMap.values()];let settled=0;const results=new Map(games.map(g=>[g.id,g]));for(const b of state.bets){const result=results.get(b.apiId);if(b.result===null&&result){b.result=result.hg>result.ag?'H':result.hg===result.ag?'D':'A';settled++}}if(!persist()){state.games=oldGames;state.fixtures=oldFixtures;state.bets.forEach((b,i)=>b.result=oldResults[i]);return}refreshLists();$('matchLeague').value=league;refreshTeams();renderBets();show('apiMessage',`Podatki pripravljeni: ${new Date(payload.generatedAt).toLocaleString('sl-SI')}. ${games.length} rezultatov, ${fixtures.length} prihodnjih tekem; samodejno zaključenih napovedi: ${settled}.${payload.historyAvailable?'':' Prejšnja sezona ni bila dostopna.'}`,'good')}catch(e){show('apiMessage',e.message||'Napaka pri osvežitvi.','bad')}finally{btn.disabled=false}}
+  async function syncApi(){
+    const btn=$('syncApi'),selection=$('apiLeague').value,codes=selection==='ALL'?Object.keys(API_LEAGUES):[selection];
+    btn.disabled=true;
+    show('apiMessage',codes.length>1?'Prenašam podatke za vse tri lige …':'Prenašam pripravljene podatke …');
+    try{
+      const downloads=await Promise.allSettled(codes.map(code=>apiRequest(code)));
+      const ready=[],failed=[];
+      downloads.forEach((result,i)=>{
+        const code=codes[i];
+        if(result.status==='fulfilled'){
+          const payload=result.value,league=API_LEAGUES[code];
+          const converted=payload.matches.map(m=>apiMatch(m,league)).filter(Boolean);
+          ready.push({league,payload,games:converted.filter(m=>'hg'in m),fixtures:converted.filter(m=>'utc'in m)});
+        }else failed.push(API_LEAGUES[code].replace(' · API',''));
+      });
+      if(!ready.length)throw Error('Podatkov ni bilo mogoče prenesti za nobeno izbrano ligo. Preveri povezavo in objavljene podatke.');
+      const oldGames=state.games,oldFixtures=state.fixtures,oldResults=state.bets.map(b=>b.result);
+      const gameMap=new Map(state.games.map(g=>[g.id?`id:${g.id}`:`csv:${g.league}|${g.date}|${g.home}|${g.away}`,g]));
+      const updatedLeagues=new Set(ready.map(item=>item.league));
+      const fixtureMap=new Map(state.fixtures.filter(f=>!updatedLeagues.has(f.league)).map(f=>[f.id,f]));
+      const results=new Map();
+      for(const item of ready){
+        for(const g of item.games){gameMap.set(`id:${g.id}`,g);results.set(g.id,g)}
+        for(const f of item.fixtures)fixtureMap.set(f.id,f);
+      }
+      state.games=[...gameMap.values()];
+      state.fixtures=[...fixtureMap.values()];
+      let settled=0;
+      for(const b of state.bets){
+        const result=results.get(b.apiId);
+        if(b.result===null&&result){
+          b.result=result.hg>result.ag?'H':result.hg===result.ag?'D':'A';
+          settled++;
+        }
+      }
+      if(!persist()){
+        state.games=oldGames;state.fixtures=oldFixtures;
+        state.bets.forEach((b,i)=>b.result=oldResults[i]);
+        return;
+      }
+      refreshLists();
+      if(selection!=='ALL'){
+        $('matchLeague').value=API_LEAGUES[selection];
+        refreshTeams();
+      }
+      renderBets();
+      const details=ready.map(item=>`${item.league.replace(' · API','')}: ${item.games.length} rezultatov, ${item.fixtures.length} prihodnjih tekem`).join('; ');
+      const history=ready.filter(item=>!item.payload.historyAvailable).map(item=>item.league.replace(' · API',''));
+      const message=`Posodobljeno: ${details}. Samodejno zaključenih napovedi: ${settled}.${history.length?` Prejšnja sezona ni bila dostopna: ${history.join(', ')}.`:''}${failed.length?` Prenos ni uspel: ${failed.join(', ')}; poskusi znova.`:''}`;
+      show('apiMessage',message,failed.length?'alert':'good');
+    }catch(e){show('apiMessage',e.message||'Napaka pri osvežitvi.','bad')}
+    finally{btn.disabled=false}
+  }
   function refreshTeams(){const league=$('matchLeague').value,oldH=$('home').value,oldA=$('away').value;const teams=[...new Set(state.games.filter(g=>g.league===league).flatMap(g=>[g.home,g.away]))].sort();options('home',teams,'Izberi domače');options('away',teams,'Izberi goste');$('home').value=teams.includes(oldH)?oldH:'';$('away').value=teams.includes(oldA)?oldA:'';invalidate()}
   function invalidate(){current=null;$('forecast').innerHTML='';$('value').innerHTML='';$('oddsComparison').innerHTML='';$('saveBet').disabled=true}
   function calculate(){const league=$('matchLeague').value,home=$('home').value,away=$('away').value,kickoff=$('matchDate').value,date=kickoff.slice(0,10);invalidate();if(!kickoff||!Number.isFinite(new Date(kickoff).getTime())||new Date(kickoff).getTime()<=Date.now()){show('forecast','Vnesi prihodnji datum in uro začetka tekme.','bad');return}const result=predict(state.games,league,home,away,date);if(result.error){show('forecast',result.error);return}const linked=selectedFixture&&selectedFixture.league===league&&selectedFixture.home===home&&selectedFixture.away===away&&localDateTime(selectedFixture.utc)===kickoff?selectedFixture:null;current={...result,league,home,away,date,kickoff,apiId:linked?.id||null};const area=$('forecast');area.innerHTML='';const box=document.createElement('div');box.className='prob';for(const [i,label] of ['1','X','2'].entries()){const item=document.createElement('div'),b=document.createElement('b'),small=document.createElement('small');b.textContent=pct(result.probs[i]);small.textContent=label;item.append(b,small);box.append(item)}const foot=document.createElement('p');foot.className='fine';foot.textContent=`Pričakovani goli: ${result.lh.toFixed(2)} : ${result.la.toFixed(2)}. Model je uporabil ${result.n} tekem lige pred datumom tekme (${result.homeN} domačih, ${result.awayN} gostujočih). To je preprost Poissonov model, še brez potrjene donosnosti.`;area.append(box,foot);$('saveBet').disabled=false;refreshValue()}
