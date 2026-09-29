@@ -15,6 +15,9 @@
     .comparison-card{border:1px solid #2c4159;background:#101b2c;padding:15px;border-radius:13px}
     .comparison-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.comparison-head strong,.comparison-return strong{display:block;font-size:16px}.comparison-head small,.comparison-return small{display:block;color:#96adbf;font-size:12px;margin-top:3px}.comparison-return{text-align:right;flex-shrink:0}.comparison-return .positive{color:#aaf0d7}.comparison-return .negative{color:#f3d98e}
     .comparison-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:14px 0}.comparison-metrics>div{min-width:0;padding:10px;background:#18283a;border-radius:9px}.comparison-metrics small{display:block;color:#a5bac9;font-size:11px;line-height:1.3;min-height:28px}.comparison-metrics strong{display:block;font-size:15px;margin-top:4px}.comparison-action{display:block;margin-left:auto;border:1px solid #47627b;background:#1b2c41;color:#e6f3fc;border-radius:8px;padding:8px 12px;font-size:12px}.comparison-action:hover{border-color:#69e9c7}
+    .tabs{display:flex;gap:8px;position:sticky;top:0;z-index:5;background:#0b1220f2;padding:10px 0 14px;margin:0 0 10px;border-bottom:1px solid #304157;backdrop-filter:blur(8px)}
+    .tab-button{border:1px solid #3b4e65;background:#17263a;color:#a9becd;border-radius:10px;padding:10px 18px;font-weight:750;min-height:44px}
+    .tab-button[aria-selected="true"]{background:#64e5bf;border-color:#64e5bf;color:#09221e}.tab-button:focus-visible{outline:3px solid #8af2d4;outline-offset:2px}.tab-panel[hidden]{display:none}
     @media(max-width:750px){.grid{grid-template-columns:1fr}.shell{padding:18px 14px 50px}.card{padding:18px}.top{margin-bottom:24px}.metrics{gap:6px}.metric{padding:10px}.metric strong{font-size:19px}.tag{font-size:10px}.row.triple{grid-template-columns:1fr 1fr}.row.triple>div:last-child{grid-column:1/-1}}
   </style>
 </head>
@@ -23,14 +26,18 @@
   <header class="top"><div class="logo">BetMetrics<span> Lab</span></div><div class="tag">LOKALNI PREIZKUS · V2</div></header>
   <h1>Najprej verjetnost.<br>Potem kvota.</h1>
   <p class="lead">Osveži rezultate in prihajajoče tekme prek API, preveri napoved in jo zabeleži pred začetkom. Aplikacija meri, ali ima model sploh prednost.</p>
-  <div class="grid">
-    <section class="card" aria-labelledby="dataTitle">
+  <nav class="tabs" id="tabBar" role="tablist" aria-label="Deli aplikacije">
+    <button type="button" class="tab-button" role="tab" id="tab-matches" aria-selected="true" aria-controls="panel-matches" data-tab="matches">Tekme</button>
+    <button type="button" class="tab-button" role="tab" id="tab-model" aria-selected="false" aria-controls="panel-model" tabindex="-1" data-tab="model">Model</button>
+    <button type="button" class="tab-button" role="tab" id="tab-diary" aria-selected="false" aria-controls="panel-diary" tabindex="-1" data-tab="diary">Dnevnik</button>
+  </nav>
+  <div class="grid tab-panel" id="panel-matches" role="tabpanel" aria-labelledby="tab-matches">
+    <section class="card span" aria-labelledby="dataTitle">
       <p class="eyebrow">01 · Podatki</p><h2 id="dataTitle">Tekme prek API</h2>
       <p class="hint">Podatki iz football-data.org se pripravijo dvakrat na dan. API ključ je shranjen kot skrivnost v GitHub Actions, zato ga tukaj ni treba vnašati.</p>
       <label for="apiLeague">Tekmovanje</label><select id="apiLeague"><option value="ALL">Vse tri lige</option><option value="PL">Premier League</option><option value="PD">La Liga</option><option value="SA">Serie A</option></select>
       <div class="actions"><button class="button" id="syncApi">Osveži tekme in rezultate</button></div><div id="apiMessage" role="status"></div>
       <p class="hint" id="dataSummary">Podatki še niso uvoženi.</p>
-      <div class="actions"><button class="button secondary" id="exportData">Izvozi moje podatke</button></div>
       <details class="advanced-data">
         <summary>Rezervni uvoz CSV</summary>
         <p class="hint">Uporabi, če objavljeni podatki niso na voljo. CSV mora vsebovati stolpce <code>Date,HomeTeam,AwayTeam,FTHG,FTAG</code>. Sprejme datume YYYY-MM-DD ali DD/MM/YYYY ter eno ligo na datoteko.</p>
@@ -39,10 +46,8 @@
         <div id="importMessage" role="status"></div>
       </details>
     </section>
-    <section class="card" aria-labelledby="scoreTitle"><p class="eyebrow">Pregled</p><h2 id="scoreTitle">Rezultati napovedi</h2><label for="scoreMode">Prikaži</label><select id="scoreMode"><option value="paper">Papirne napovedi</option><option value="real">Dejanske stave</option></select><div class="metrics" style="margin-top:14px"><div class="metric"><strong id="countMetric">0</strong><small>Zaključene</small></div><div class="metric"><strong id="profitMetric">€0,00</strong><small>Dobiček</small></div><div class="metric"><strong id="roiMetric">—</strong><small>ROI</small></div></div><p class="hint" id="openMetric">Odprte napovedi: 0</p><p class="fine">ROI = dobiček ÷ skupni vložek zaključenih napovedi izbranega načina. Prikazan donos sam po sebi ne dokazuje statistične prednosti.</p></section>
     <section class="card span" aria-labelledby="candidateTitle"><p class="eyebrow">Bližnje tekme</p><h2 id="candidateTitle">Tekme za preverjanje kvot</h2><p class="hint">Prikazanih je pet bližnjih tekem z visoko ocenjeno verjetnostjo. To niso predlogi za stave: tudi favorit pri prenizki kvoti nima pozitivne vrednosti. Model še ni umerjen.</p><div id="candidates" class="list" style="margin-top:16px"></div></section>
-    <section class="card span" aria-labelledby="backtestTitle"><p class="eyebrow">Preverjanje</p><h2 id="backtestTitle">Kako se je model odrezal za nazaj?</h2><p class="hint">Za vsako že odigrano tekmo uporabi samo rezultate pred njenim datumom. Oceno primerja s preprostim izhodiščem: deleži 1 / X / 2 na prejšnjih tekmah iste lige.</p><div class="actions"><button class="button secondary" id="runBacktest">Preveri model na preteklih tekmah</button></div><div id="backtestResults" class="list" style="margin-top:16px" aria-live="polite"></div><p class="fine">Ni primerjave z dejanskimi kvotami, zato ta pregled ne meri donosnosti. Iste podatke uporabljava tudi pri razvoju modela; za zanesljiv sklep bodo potrebne nove, vnaprej shranjene napovedi.</p></section>
-    <section class="card" aria-labelledby="matchTitle"><p class="eyebrow">02 · Napoved</p><h2 id="matchTitle">Preveri tekmo</h2>
+    <section class="card span" aria-labelledby="matchTitle"><p class="eyebrow">02 · Napoved</p><h2 id="matchTitle">Preveri tekmo</h2>
       <label for="fixtureRange">Prikaži tekme</label><select id="fixtureRange"><option value="3">Naslednje 3 dni</option><option value="7">Naslednjih 7 dni</option><option value="14" selected>Naslednjih 14 dni</option></select>
       <label for="fixture">Prihajajoča tekma iz API</label><select id="fixture"><option value="">Izberi po osvežitvi ali vnesi ročno spodaj</option></select>
       <p class="hint" id="fixtureCount"></p>
@@ -53,13 +58,19 @@
       <div class="row triple"><div><label for="oddsH">Kvota 1</label><input id="oddsH" type="number" min="1.01" max="1000" step="0.01" inputmode="decimal" placeholder="1.80"></div><div><label for="oddsD">Kvota X</label><input id="oddsD" type="number" min="1.01" max="1000" step="0.01" inputmode="decimal" placeholder="3.50"></div><div><label for="oddsA">Kvota 2</label><input id="oddsA" type="number" min="1.01" max="1000" step="0.01" inputmode="decimal" placeholder="4.50"></div></div>
       <div class="actions"><button class="button secondary" id="compareOdds">Primerjaj kvote</button></div><div id="oddsComparison" class="list" style="margin-top:14px" aria-live="polite"></div>
     </section>
+  </div>
+  <div class="grid tab-panel" id="panel-model" role="tabpanel" aria-labelledby="tab-model" hidden>
+    <section class="card span" aria-labelledby="backtestTitle"><p class="eyebrow">Preverjanje</p><h2 id="backtestTitle">Kako se je model odrezal za nazaj?</h2><p class="hint">Za vsako že odigrano tekmo uporabi samo rezultate pred njenim datumom. Oceno primerja s preprostim izhodiščem: deleži 1 / X / 2 na prejšnjih tekmah iste lige.</p><div class="actions"><button class="button secondary" id="runBacktest">Preveri model na preteklih tekmah</button></div><div id="backtestResults" class="list" style="margin-top:16px" aria-live="polite"></div><p class="fine">Ni primerjave z dejanskimi kvotami, zato ta pregled ne meri donosnosti. Iste podatke uporabljava tudi pri razvoju modela; za zanesljiv sklep bodo potrebne nove, vnaprej shranjene napovedi.</p></section>
+  </div>
+  <div class="grid tab-panel" id="panel-diary" role="tabpanel" aria-labelledby="tab-diary" hidden>
+    <section class="card" aria-labelledby="scoreTitle"><p class="eyebrow">Pregled</p><h2 id="scoreTitle">Rezultati napovedi</h2><label for="scoreMode">Prikaži</label><select id="scoreMode"><option value="paper">Papirne napovedi</option><option value="real">Dejanske stave</option></select><div class="metrics" style="margin-top:14px"><div class="metric"><strong id="countMetric">0</strong><small>Zaključene</small></div><div class="metric"><strong id="profitMetric">€0,00</strong><small>Dobiček</small></div><div class="metric"><strong id="roiMetric">—</strong><small>ROI</small></div></div><p class="hint" id="openMetric">Odprte napovedi: 0</p><p class="fine">ROI = dobiček ÷ skupni vložek zaključenih napovedi izbranega načina. Prikazan donos sam po sebi ne dokazuje statistične prednosti.</p></section>
     <section class="card" aria-labelledby="betTitle"><p class="eyebrow">03 · Evidenca</p><h2 id="betTitle">Zabeleži napoved</h2>
       <div class="row"><div><label for="pick">Izid</label><select id="pick"><option value="H">1 · domači</option><option value="D">X · remi</option><option value="A">2 · gostje</option></select></div><div><label for="odds">Dejanska decimalna kvota</label><input id="odds" type="number" min="1.01" max="1000" step="0.01" inputmode="decimal" placeholder="1.80"></div></div>
       <div class="row"><div><label for="stake">Vložek v €</label><input id="stake" type="number" min="0.01" step="0.01" inputmode="decimal" value="2"></div><div><label for="mode">Način</label><select id="mode"><option value="paper">Papirna napoved</option><option value="real">Dejanska stava</option></select></div></div>
       <div id="value" role="status"></div><div class="actions"><button class="button" id="saveBet" disabled>Shrani napoved</button></div>
       <p class="fine">»Pozitivna vrednost« je samo izračun iz ocene modela. Model še ni umerjen na novih tekmah, zato to ni priporočilo za vložek.</p>
     </section>
-    <section class="card span" aria-labelledby="diaryTitle"><p class="eyebrow">Dnevnik</p><h2 id="diaryTitle">Shranjene napovedi</h2><div id="bets" class="list"></div><hr class="divider"><p class="fine">API ob osvežitvi prenese tekme in zaključi povezane napovedi po uradnem rezultatu. Kvote vnesi ročno ob času napovedi. Podatki ostanejo samo v tem brskalniku; uporabi »Izvozi moje podatke« za varnostno kopijo. Samodejnega osveževanja v ozadju in sinhronizacije med napravami ni.</p></section>
+    <section class="card span" aria-labelledby="diaryTitle"><p class="eyebrow">Dnevnik</p><h2 id="diaryTitle">Shranjene napovedi</h2><div class="actions" style="margin:0 0 16px"><button class="button secondary" id="exportData">Izvozi moje podatke</button></div><div id="bets" class="list"></div><hr class="divider"><p class="fine">API ob osvežitvi prenese tekme in zaključi povezane napovedi po uradnem rezultatu. Kvote vnesi ročno ob času napovedi. Podatki ostanejo samo v tem brskalniku; uporabi »Izvozi moje podatke« za varnostno kopijo. Samodejnega osveževanja v ozadju in sinhronizacije med napravami ni.</p></section>
   </div>
   <p class="fine" style="margin-top:22px">Football data provided by the Football-Data.org API</p>
 </main>
@@ -73,6 +84,15 @@
   const API_LEAGUES={PL:'Premier League · API',PD:'La Liga · API',SA:'Serie A · API'};
   const money=n=>new Intl.NumberFormat('sl-SI',{style:'currency',currency:'EUR'}).format(n);
   const pct=n=>(100*n).toFixed(1).replace('.',',')+' %';
+  function switchTab(view,{scroll=true}={}){
+    for(const tab of document.querySelectorAll('[role="tab"][data-tab]')){
+      const active=tab.dataset.tab===view;
+      tab.setAttribute('aria-selected',String(active));
+      tab.tabIndex=active?0:-1;
+      $('panel-'+tab.dataset.tab).hidden=!active;
+    }
+    if(scroll)$('tabBar').scrollIntoView({behavior:'smooth',block:'start'});
+  }
   function readState(){try{const x=JSON.parse(localStorage.getItem(KEY));return x&&Array.isArray(x.games)&&Array.isArray(x.bets)?{...x,fixtures:Array.isArray(x.fixtures)?x.fixtures:[]}:{games:[],bets:[],fixtures:[]}}catch{return {games:[],bets:[],fixtures:[]}}}
   function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));return true}catch{show('importMessage','Shranjevanje ni uspelo. Preveri prostor ali nastavitve brskalnika.','bad');return false}}
   function show(id,msg,kind='alert'){const el=$(id);el.innerHTML='';const node=document.createElement('div');node.className='alert '+(kind==='alert'?'':kind);node.textContent=msg;el.append(node)}
@@ -216,7 +236,7 @@
       btn.textContent='Zabeleži na papirju';
       btn.addEventListener('click',()=>{
         $('pick').value=['H','D','A'][i];$('odds').value=odds[i].toFixed(2);$('mode').value='paper';
-        refreshValue();$('betTitle').scrollIntoView({behavior:'smooth',block:'start'})
+        refreshValue();switchTab('diary',{scroll:false});$('betTitle').scrollIntoView({behavior:'smooth',block:'start'})
       });
       card.append(header,metrics,btn);area.append(card)
     }
@@ -229,6 +249,14 @@
   function renderBets(){const mode=$('scoreMode').value,subset=state.bets.filter(b=>b.mode===mode),done=subset.filter(b=>b.result!==null),open=subset.length-done.length,staked=done.reduce((s,b)=>s+b.stake,0),profit=done.reduce((s,b)=>s+(b.pick===b.result?b.stake*(b.odds-1):-b.stake),0);$('countMetric').textContent=done.length;$('profitMetric').textContent=money(profit);$('roiMetric').textContent=staked?pct(profit/staked):'—';$('openMetric').textContent=`Odprte: ${open} · skupaj v tem načinu: ${subset.length}`;const area=$('bets');area.innerHTML='';if(!state.bets.length){const e=document.createElement('div');e.className='empty';e.textContent='Prva napoved se bo pojavila tukaj.';area.append(e);return}for(const b of state.bets){const card=document.createElement('article');card.className='bet';const main=document.createElement('div'),title=document.createElement('strong'),info=document.createElement('small');title.textContent=`${b.home} – ${b.away}`;info.textContent=`${b.kickoff?b.kickoff.replace('T',' '):b.date} · ${b.league} · ${b.mode==='paper'?'papirna':'dejanska'} · shranjeno ${new Date(b.created).toLocaleString('sl-SI')}`;main.append(title,info);const right=document.createElement('div');right.className='right';const line=document.createElement('strong'),detail=document.createElement('small');line.textContent=`${b.pick==='H'?'1':b.pick==='D'?'X':'2'} @ ${b.odds.toFixed(2)}`;detail.textContent=`${pct(b.p)} · ${money(b.stake)}`;right.append(line,detail);card.append(main,right);if(b.result===null){const controls=document.createElement('div');controls.className='settle';const label=document.createElement('small');label.textContent='Končni izid: ';controls.append(label);for(const [value,name] of [['H','1'],['D','X'],['A','2']]){const btn=document.createElement('button');btn.type='button';btn.textContent=name;btn.addEventListener('click',()=>settle(b.id,value));controls.append(btn)}card.append(controls)}else{const status=document.createElement('div');status.className='settle';const tag=document.createElement('span');tag.className='pill '+(b.pick===b.result?'win':'loss');tag.textContent=`${b.pick===b.result?'Zadetek':'Zgrešeno'} · ${b.pick===b.result?'+':''}${money(b.pick===b.result?b.stake*(b.odds-1):-b.stake)}`;status.append(tag);card.append(status)}area.append(card)}}
   $('importCsv').addEventListener('click',async()=>{const file=$('csv').files[0],league=$('league').value.trim();if(!file||!league){show('importMessage','Izberi CSV in vpiši ime lige.','bad');return}try{const {result,skipped}=parseGames(await file.text(),league);if(!result.length)throw Error('Ni veljavnih odigranih tekem.');const map=new Map(state.games.map(g=>[`${g.league}|${g.date}|${g.home}|${g.away}`,g]));for(const g of result)map.set(`${g.league}|${g.date}|${g.home}|${g.away}`,g);const before=state.games;state.games=[...map.values()];if(!persist()){state.games=before;return}refreshLists();$('matchLeague').value=league;refreshTeams();show('importMessage',`Uvoženih vrstic: ${result.length}; preskočenih: ${skipped}; novih ali posodobljenih: ${state.games.length-before.length} neto.`, 'good')}catch(e){show('importMessage',e.message||'Uvoz ni uspel.','bad')}});
   $('exportData').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({version:1,exported:new Date().toISOString(),...state},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='betmetrics-lab-podatki.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),30000)});
+  for(const tab of document.querySelectorAll('[role="tab"][data-tab]')){
+    tab.addEventListener('click',()=>switchTab(tab.dataset.tab));
+    tab.addEventListener('keydown',event=>{
+      const tabs=[...document.querySelectorAll('[role="tab"][data-tab]')],i=tabs.indexOf(tab);
+      const next=event.key==='ArrowRight'?tabs[(i+1)%tabs.length]:event.key==='ArrowLeft'?tabs[(i+tabs.length-1)%tabs.length]:event.key==='Home'?tabs[0]:event.key==='End'?tabs[tabs.length-1]:null;
+      if(next){event.preventDefault();switchTab(next.dataset.tab,{scroll:false});next.focus()}
+    });
+  }
   $('syncApi').addEventListener('click',syncApi);$('runBacktest').addEventListener('click',renderBacktest);$('fixture').addEventListener('change',selectFixture);$('fixtureRange').addEventListener('change',refreshFixtures);$('matchLeague').addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();refreshTeams()});for(const id of ['matchDate','home','away'])$(id).addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();invalidate()});$('calculate').addEventListener('click',calculate);$('compareOdds').addEventListener('click',compareOdds);for(const id of ['oddsH','oddsD','oddsA'])$(id).addEventListener('input',()=>{$('oddsComparison').innerHTML=''});for(const id of ['pick','odds'])$(id).addEventListener('input',refreshValue);$('saveBet').addEventListener('click',saveBet);$('scoreMode').addEventListener('change',renderBets);
   const tomorrow=new Date(Date.now()+86400000);tomorrow.setHours(18,0,0,0);$('matchDate').value=`${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,'0')}-${String(tomorrow.getDate()).padStart(2,'0')}T18:00`;refreshLists();renderBets();
   window.BetMetricsMath={csvRows,parseGames,predict,isoDate};
