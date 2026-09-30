@@ -5,6 +5,16 @@ const codes = { PL: 'Premier League · API', PD: 'La Liga · API', SA: 'Serie A 
 const day = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Ljubljana', year: 'numeric', month: '2-digit', day: '2-digit' });
 const dateOf = utc => day.format(new Date(utc));
 const poisson = lambda => { const p = [Math.exp(-lambda)]; for (let i = 1; i <= 12; i++) p.push(p[i - 1] * lambda / i); return p; };
+export function goalProbabilities(homeLambda, awayLambda) {
+  const total = homeLambda + awayLambda;
+  return { over25: 1 - Math.exp(-total) * (1 + total + total * total / 2),
+    btts: (1 - Math.exp(-homeLambda)) * (1 - Math.exp(-awayLambda)) };
+}
+function goalsForecast(forecast, at) {
+  return { model: 'independent-poisson-goals-v1', predictedAt: at,
+    expectedHome: forecast.lh, expectedAway: forecast.la,
+    probs: goalProbabilities(forecast.lh,forecast.la) };
+}
 
 export function predict(games, league, home, away, date) {
   const hist = games.filter(g => g.league === league && g.date < date);
@@ -22,7 +32,7 @@ export function predict(games, league, home, away, date) {
   const total = probs.reduce((x, y) => x + y, 0);
   const counts = [0, 0, 0];
   for (const g of hist) counts[g.hg > g.ag ? 0 : g.hg === g.ag ? 1 : 2]++;
-  return { probs: probs.map(p => p / total), baseline: counts.map(n => n / hist.length), n: hist.length };
+  return { probs: probs.map(p => p / total), baseline: counts.map(n => n / hist.length), n: hist.length, lh, la };
 }
 
 // A fixed challenger: the same Poisson score grid, with recent league and
@@ -92,6 +102,7 @@ export function evolveLedger(previous, payloads, nowIso) {
       if (!record) continue;
       const result = m.score.fullTime.home > m.score.fullTime.away ? 'H' : m.score.fullTime.home === m.score.fullTime.away ? 'D' : 'A';
       if (record.result !== result) { record.result = result; settled++; }
+      record.resultGoals = { home: m.score.fullTime.home, away: m.score.fullTime.away };
     }
     for (const m of matches) {
       const kickoff = Date.parse(m.utcDate);
@@ -100,6 +111,10 @@ export function evolveLedger(previous, payloads, nowIso) {
       if (!m.id || !home || !away || home === away) { skipped++; continue; }
       const existing = byId.get(String(m.id));
       if (existing) {
+        if (!existing.goalsForecast && existing.league === league) {
+          const goalModel = predict(games, league, home, away, dateOf(m.utcDate));
+          if (goalModel) existing.goalsForecast = goalsForecast(goalModel, nowIso);
+        }
         if (!existing.challenger && existing.league === league) {
           const challenge = predictChallenger(games, league, home, away, dateOf(m.utcDate));
           if (challenge) existing.challenger = { model: 'recency-v2', predictedAt: nowIso, probs: challenge.probs };
@@ -109,6 +124,7 @@ export function evolveLedger(previous, payloads, nowIso) {
       const forecast = predict(games, league, home, away, dateOf(m.utcDate));
       if (!forecast) { skipped++; continue; }
       const record = { id: m.id, league, kickoffUtc: m.utcDate, home, away, predictedAt: nowIso, probs: forecast.probs, baseline: forecast.baseline, trainingMatches: forecast.n, result: null };
+      record.goalsForecast = goalsForecast(forecast, nowIso);
       const challenge = predictChallenger(games, league, home, away, dateOf(m.utcDate));
       if (challenge) record.challenger = { model: 'recency-v2', predictedAt: nowIso, probs: challenge.probs };
       records.push(record); byId.set(String(m.id), record); added++;
