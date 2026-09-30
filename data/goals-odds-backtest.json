@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "generatedAt": "2026-09-30T13:12:47.168Z",
+  "source": "football-data.co.uk",
+  "book": "Bet365",
+  "oddsType": "closing",
+  "strategy": "Poisson goals v1; max EV >= 5%; odds 1.4–5; one over/under 2.5 per match; 1 unit",
+  "seasons": [
+    {
+      "season": 2025,
+      "n": 900,
+      "matched": 842,
+      "priced": 842,
+      "selected": 514,
+      "brierOver": 0.5105827889942143,
+      "baselineOver": 0.5009343223115701,
+      "brierBtts": 0.5039433732000302,
+      "baselineBtts": 0.49574002496748465,
+      "pairedModelOver": 0.5048144323474111,
+      "pairedMarketOver": 0.4896250214898308,
+      "profitUnits": -4.720000000000001,
+      "roi": -0.009182879377431908,
+      "byLeague": [
+        {
+          "league": "Premier League · API",
+          "completed": 380,
+          "eligible": 300,
+          "matched": 300,
+          "priced": 300,
+          "selected": 182,
+          "scoreMismatch": 0
+        },
+        {
+          "league": "La Liga · API",
+          "completed": 380,
+          "eligible": 300,
+          "matched": 300,
+          "priced": 300,
+          "selected": 176,
+          "scoreMismatch": 0
+        },
+        {
+          "league": "Serie A · API",
+          "completed": 380,
+          "eligible": 300,
+          "matched": 242,
+          "priced": 242,
+          "selected": 156,
+          "scoreMismatch": 0
+        }
+      ]
+    },
+    {
+      "season": 2026,
+      "n": 121,
+      "matched": 117,
+      "priced": 117,
+      "selected": 68,
+      "brierOver": 0.4871962519048634,
+      "baselineOver": 0.5031407550189438,
+      "brierBtts": 0.5040317100407319,
+      "baselineBtts": 0.5018783245532875,
+      "pairedModelOver": 0.48408448409263827,
+      "pairedMarketOver": 0.45313806298653775,
+      "profitUnits": -13.219999999999999,
+      "roi": -0.19441176470588234,
+      "byLeague": [
+        {
+          "league": "Premier League · API",
+          "completed": 50,
+          "eligible": 36,
+          "matched": 36,
+          "priced": 36,
+          "selected": 21,
+          "scoreMismatch": 0
+        },
+        {
+          "league": "La Liga · API",
+          "completed": 69,
+          "eligible": 49,
+          "matched": 49,
+          "priced": 49,
+          "selected": 27,
+          "scoreMismatch": 0
+        },
+        {
+          "league": "Serie A · API",
+          "completed": 50,
+          "eligible": 36,
+          "matched": 32,
+          "priced": 32,
+          "selected": 20,
+          "scoreMismatch": 0
+        }
+      ]
+    }
+  ],
+  "warnings": []
+}
