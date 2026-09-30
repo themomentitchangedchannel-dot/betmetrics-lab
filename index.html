@@ -65,7 +65,7 @@
   </div>
   <div class="grid tab-panel" id="panel-model" role="tabpanel" aria-labelledby="tab-model" hidden>
     <section class="card span" aria-labelledby="backtestTitle"><p class="eyebrow">Preverjanje</p><h2 id="backtestTitle">Kako se je model odrezal za nazaj?</h2><p class="hint">Za vsako že odigrano tekmo uporabi samo rezultate pred njenim datumom. Oceno primerja s preprostim izhodiščem: deleži 1 / X / 2 na prejšnjih tekmah iste lige.</p><div class="actions"><button class="button secondary" id="runBacktest">Preveri model na preteklih tekmah</button></div><div id="backtestResults" class="list" style="margin-top:16px" aria-live="polite"></div><p class="fine">Ni primerjave z dejanskimi kvotami, zato ta pregled ne meri donosnosti. Iste podatke uporabljava tudi pri razvoju modela; za zanesljiv sklep bodo potrebne nove, vnaprej shranjene napovedi.</p></section>
-    <section class="card span" aria-labelledby="snapshotTitle"><p class="eyebrow">Nove tekme</p><h2 id="snapshotTitle">Shranjene napovedi 1 / X / 2</h2><p class="hint">Verjetnosti se ob shranitvi zaklenejo. Po uradnem rezultatu primerjava ne preračunava napovedi za nazaj.</p><div id="snapshotResults" class="list" aria-live="polite"></div><p class="fine">Veljajo le tekme, izbrane iz API. Shranjene napovedi niso naključni vzorec vseh tekem; Brierjeva napaka ne meri donosnosti pri kvotah. Zapisi ostanejo v tem brskalniku.</p></section>
+    <section class="card span" aria-labelledby="snapshotTitle"><p class="eyebrow">Nove tekme</p><h2 id="snapshotTitle">Shranjene napovedi 1 / X / 2</h2><p class="hint">Verjetnosti se ob shranitvi zaklenejo. Po uradnem rezultatu primerjava ne preračunava napovedi za nazaj.</p><div class="row"><div><label for="snapshotRange">Obdobje za shranitev</label><select id="snapshotRange"><option value="3">Naslednji 3 dnevi</option><option value="7">Naslednjih 7 dni</option><option value="14" selected>Naslednjih 14 dni</option></select></div><div class="actions" style="align-items:end"><button class="button secondary" id="saveAllForecasts">Shrani vse tekme v obdobju</button></div></div><div id="snapshotMessage" role="status"></div><div id="snapshotResults" class="list" aria-live="polite"></div><p class="fine">Veljajo le tekme iz API. Skupinsko shranjevanje zajame vse razpoložljive tekme izbranega obdobja, če ima model dovolj podatkov; ročno izbrane napovedi lahko spremenijo vzorec. Brierjeva napaka ne meri donosnosti pri kvotah. Zapisi ostanejo v tem brskalniku.</p></section>
     <section class="card span" aria-labelledby="forwardTitle"><p class="eyebrow">Sprotno preverjanje</p><h2 id="forwardTitle">Vnaprej shranjene papirne napovedi</h2><p class="hint">Pri vsaki zaključeni napovedi primerjajva verjetnost, shranjeno pred začetkom tekme, z dejanskim izidom.</p><div id="forwardResults" class="list" aria-live="polite"></div><p class="fine">Prikazane so samo zaključene papirne napovedi s časom shranitve pred začetkom tekme. Ker izbereš, katere napovedi shraniš, ta vzorec ne zajame vseh tekem modela. Podatki so samo v tem brskalniku.</p></section>
   </div>
   <div class="grid tab-panel" id="panel-diary" role="tabpanel" aria-labelledby="tab-diary" hidden>
@@ -350,17 +350,45 @@
     controls.append(snapshot);area.append(controls);
     if(!current.apiId){const hint=document.createElement('p');hint.className='fine';hint.textContent='Za samodejno preverjanje izberi prihajajočo tekmo iz API.';area.append(hint)}
     $('saveBet').disabled=false;refreshValue()}
+  function forecastEntry(f,model,created){
+    const kickoff=localDateTime(f.utc),date=kickoff.slice(0,10);
+    const past=state.games.filter(g=>g.league===f.league&&g.date<date);
+    if(!past.length)return null;
+    const counts=[0,0,0];for(const g of past)counts[g.hg>g.ag?0:g.hg===g.ag?1:2]++;
+    return {apiId:f.id,league:f.league,date,kickoff,home:f.home,away:f.away,probs:[...model.probs],baseline:counts.map(n=>n/past.length),created,result:null};
+  }
   function saveForecast(button){
     if(!current?.apiId||Date.parse(current.kickoff)<=Date.now())return;
     if(state.forecasts.some(f=>f.apiId===current.apiId)){button.disabled=true;return}
-    const past=state.games.filter(g=>g.league===current.league&&g.date<current.date);
-    const counts=[0,0,0];for(const g of past)counts[g.hg>g.ag?0:g.hg===g.ag?1:2]++;
-    if(!past.length)return;
-    const entry={apiId:current.apiId,league:current.league,date:current.date,kickoff:current.kickoff,home:current.home,away:current.away,probs:[...current.probs],baseline:counts.map(n=>n/past.length),created:new Date().toISOString(),result:null};
+    const fixture=state.fixtures.find(f=>f.id===current.apiId);
+    if(!fixture)return;
+    const entry=forecastEntry(fixture,current,new Date().toISOString());
+    if(!entry)return;
     state.forecasts.unshift(entry);
     if(!persist()){state.forecasts.shift();return}
     button.disabled=true;button.textContent='Modelna napoved je shranjena';
     renderSnapshots();
+  }
+  function saveAllForecasts(){
+    const days=Number($('snapshotRange').value),now=Date.now(),end=now+days*86400000;
+    const fixtures=state.fixtures.filter(f=>Date.parse(f.utc)>now&&Date.parse(f.utc)<=end).sort((a,b)=>a.utc.localeCompare(b.utc));
+    if(!fixtures.length){show('snapshotMessage','Ni prihodnjih tekem v tem obdobju. Na zavihku Tekme osveži podatke ali izberi daljše obdobje.');return}
+    const existing=new Set(state.forecasts.map(f=>f.apiId)),created=new Date().toISOString();
+    const additions=[];let withoutModel=0,already=0;
+    for(const f of fixtures){
+      if(existing.has(f.id)){already++;continue}
+      const date=localDateTime(f.utc).slice(0,10);
+      const model=predict(state.games,f.league,f.home,f.away,date);
+      if(model.error){withoutModel++;continue}
+      const entry=forecastEntry(f,model,created);
+      if(entry){additions.push(entry);existing.add(f.id)}else withoutModel++;
+    }
+    if(additions.length){
+      state.forecasts.unshift(...additions);
+      if(!persist()){state.forecasts.splice(0,additions.length);return}
+      renderSnapshots();
+    }
+    show('snapshotMessage',`Shranjenih novih modelnih napovedi: ${additions.length}. Že shranjenih: ${already}. Brez dovolj podatkov: ${withoutModel}. Napovedi se po shranitvi ne spremenijo.`,additions.length?'good':'alert');
   }
   function renderSnapshots(){
     const area=$('snapshotResults');area.innerHTML='';
@@ -468,7 +496,7 @@
       if(next){event.preventDefault();switchTab(next.dataset.tab,{scroll:false});next.focus()}
     });
   }
-  $('syncApi').addEventListener('click',syncApi);$('runBacktest').addEventListener('click',renderBacktest);$('fixture').addEventListener('change',selectFixture);$('fixtureRange').addEventListener('change',refreshFixtures);$('matchLeague').addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();refreshTeams()});for(const id of ['matchDate','home','away'])$(id).addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();invalidate()});$('calculate').addEventListener('click',calculate);$('compareOdds').addEventListener('click',compareOdds);for(const id of ['oddsH','oddsD','oddsA'])$(id).addEventListener('input',()=>{$('oddsComparison').innerHTML=''});for(const id of ['pick','odds'])$(id).addEventListener('input',refreshValue);$('saveBet').addEventListener('click',saveBet);$('scoreMode').addEventListener('change',renderBets);
+  $('syncApi').addEventListener('click',syncApi);$('saveAllForecasts').addEventListener('click',saveAllForecasts);$('runBacktest').addEventListener('click',renderBacktest);$('fixture').addEventListener('change',selectFixture);$('fixtureRange').addEventListener('change',refreshFixtures);$('matchLeague').addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();refreshTeams()});for(const id of ['matchDate','home','away'])$(id).addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();invalidate()});$('calculate').addEventListener('click',calculate);$('compareOdds').addEventListener('click',compareOdds);for(const id of ['oddsH','oddsD','oddsA'])$(id).addEventListener('input',()=>{$('oddsComparison').innerHTML=''});for(const id of ['pick','odds'])$(id).addEventListener('input',refreshValue);$('saveBet').addEventListener('click',saveBet);$('scoreMode').addEventListener('change',renderBets);
   const tomorrow=new Date(Date.now()+86400000);tomorrow.setHours(18,0,0,0);$('matchDate').value=`${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,'0')}-${String(tomorrow.getDate()).padStart(2,'0')}T18:00`;refreshLists();renderBets();
   window.BetMetricsMath={csvRows,parseGames,predict,isoDate};
 })();
