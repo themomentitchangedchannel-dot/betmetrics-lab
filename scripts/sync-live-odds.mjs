@@ -6,7 +6,15 @@ const sports = { PL: 'soccer_epl', PD: 'soccer_spain_la_liga', SA: 'soccer_italy
 const leagues = { PL: 'Premier League · API', PD: 'La Liga · API', SA: 'Serie A · API' };
 const bookmaker = 'betsson';
 const picks = ['H', 'D', 'A'];
-const clubKey = name => teamKey(String(name || '').replace(/\b(and|&|y)\b/gi, ' '));
+const clubAliases = {
+  'atletico madrid': 'ath madrid', 'athletic bilbao': 'ath bilbao',
+  'celta vigo': 'celta', 'real betis': 'betis',
+  'inter milan': 'inter', 'genoa cfc': 'genoa'
+};
+const clubKey = name => {
+  const key = teamKey(String(name || '').replace(/\b(and|y)\b/gi, ' '));
+  return clubAliases[key] || key;
+};
 
 export function eventFor(record, events) {
   const start = Date.parse(record.kickoffUtc);
