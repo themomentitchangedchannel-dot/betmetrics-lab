@@ -562,7 +562,7 @@
     for(const {r,kind,pickIndex,odds,probability,ev,quoted,kickoff,marketProbability,margin} of rows){
       const day=candidateDay(kickoff);
       if(sort==='time'&&day!==lastDay){const heading=document.createElement('h3');heading.textContent=new Date(kickoff).toLocaleDateString('sl-SI',{timeZone:'Europe/Ljubljana',weekday:'long',day:'numeric',month:'long'});area.append(heading);lastDay=day}
-      const card=document.createElement('article');card.className='bet',main=document.createElement('div'),title=document.createElement('strong'),meta=document.createElement('small'),detail=document.createElement('small');
+      const card=document.createElement('article'),main=document.createElement('div'),title=document.createElement('strong'),meta=document.createElement('small'),detail=document.createElement('small');card.className='bet';
       title.textContent=r.home+' – '+r.away;
       meta.textContent=r.league.replace(' · API','')+' · '+new Date(kickoff).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+' · '+(kind==='h2h'?'1 / X / 2':'Več/manj 2,5');
       detail.textContent='Betsson · zajeto '+new Date(quoted).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+(Date.now()-quoted>86400000?' · starejša kvota':'');main.append(title,meta,detail);
