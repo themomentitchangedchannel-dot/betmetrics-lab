@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "generatedAt": "2026-09-30T14:13:41.431Z",
+  "source": "The Odds API",
+  "bookmaker": "Betsson",
+  "configured": true,
+  "fetched": false,
+  "warnings": [],
+  "coverage": null
+}
