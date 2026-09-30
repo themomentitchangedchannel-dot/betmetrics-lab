@@ -381,6 +381,9 @@
     else if(c.valid25===0)reason.textContent='Meja 2,5 je prisotna, toda čas ali popolnost kvot ne ustreza pravilom za zaklep.';
     else reason.textContent='Razpoložljive kvote 2,5 se zaklenejo pri prvem ustreznem zajemu pred tekmo.';
     area.append(reason);
+    for(const [league,row] of Object.entries(status.coverage.byLeague||{}).sort(([a],[b])=>a.localeCompare(b))){
+      const line=document.createElement('p');line.textContent=league.replace(' · API','')+': '+row.matched+'/'+row.forecasts+' tekem v viru · '+row.totals+' s trgom golov · '+row.line25+' z mejo 2,5 · '+row.valid25+' veljavnih kvot.';area.append(line)
+    }
     if(status.warnings?.length){const warning=document.createElement('p');warning.textContent='Nekatere lige niso bile preverjene: '+status.warnings.join(' · ');area.append(warning)}
   }
   function renderGoalMarkets(data,report){
