@@ -19,8 +19,14 @@ test('models past games only; pairs closing total quotes on the exact score and 
   assert.equal(quoted.date,'2026-10-10');assert.ok(Number.isFinite(quoted.modelBtts));
   assert.equal(quoted.profit,quoted.pick==='Over'?3:-1);
   const report=summarizeGoalHistory([{season:2026,league,...result}],'2026-10-11T00:00:00Z');
+  assert.equal(report.version,2);
   assert.equal(report.seasons[0].priced,1);assert.equal(report.seasons[0].selected,1);
   assert.ok(Number.isFinite(report.seasons[0].pairedMarketOver));
+  const split=report.seasons[0].byLeague[0];
+  assert.equal(split.n,result.rows.length);assert.equal(split.selected,1);
+  assert.equal(split.profitUnits,quoted.profit);
+  assert.equal(split.roi,quoted.profit);
+  assert.ok(Number.isFinite(split.pairedMarketOver));
 });
 
 test('rejects discrepant results and missing closing prices',()=>{
