@@ -1,6 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { evolveLedger, predict, predictChallenger, benchmarkModels } from './build-forecast-ledger.mjs';
+import { evolveLedger, predict, predictChallenger, benchmarkModels, goalProbabilities } from './build-forecast-ledger.mjs';
+
+test('goal markets come from the same independent Poisson rates', () => {
+  const p=goalProbabilities(1.5,1.2);
+  assert.ok(Math.abs(p.over25-(1-Math.exp(-2.7)*(1+2.7+2.7**2/2)))<1e-12);
+  assert.ok(Math.abs(p.btts-(1-Math.exp(-1.5))*(1-Math.exp(-1.2)))<1e-12);
+});
 
 const league = 'Premier League · API';
 const oldMatches = Array.from({ length: 60 }, (_, i) => ({
@@ -25,15 +31,28 @@ test('creates once before kickoff and settles without changing original probabil
   const first = evolveLedger(empty, { PL: [...oldMatches, fixture], PD: [], SA: [] }, time);
   assert.equal(first.added, 1);
   assert.equal(first.ledger.records[0].predictedAt, time);
+  assert.equal(first.ledger.records[0].goalsForecast.predictedAt, time);
   const frozen = first.ledger.records[0].probs;
   const again = evolveLedger(first.ledger, { PL: [...oldMatches, fixture], PD: [], SA: [] }, '2026-10-01T08:00:00Z');
   assert.equal(again.added, 0);
   assert.deepEqual(again.ledger.records[0].probs, frozen);
+  assert.deepEqual(again.ledger.records[0].goalsForecast,first.ledger.records[0].goalsForecast);
   const played = { ...fixture, status: 'FINISHED', score: { fullTime: { home: 2, away: 1 } } };
   const finished = evolveLedger(again.ledger, { PL: [...oldMatches, played], PD: [], SA: [] }, '2026-10-11T08:00:00Z');
   assert.equal(finished.settled, 1);
   assert.equal(finished.ledger.records[0].result, 'H');
+  assert.deepEqual(finished.ledger.records[0].resultGoals,{home:2,away:1});
   assert.deepEqual(finished.ledger.records[0].probs, frozen);
+});
+
+test('adds goal probabilities to existing upcoming fixtures but never after kickoff', () => {
+  const old=evolveLedger(empty,{PL:[...oldMatches,fixture]},'2026-09-30T08:00:00Z').ledger;
+  delete old.records[0].goalsForecast;
+  const updated=evolveLedger(old,{PL:[...oldMatches,fixture]},'2026-10-01T08:00:00Z').ledger;
+  assert.equal(updated.records[0].goalsForecast.predictedAt,'2026-10-01T08:00:00Z');
+  const frozen=updated.records[0].goalsForecast;
+  const later=evolveLedger(updated,{PL:[...oldMatches,fixture]},'2026-10-10T18:01:00Z').ledger;
+  assert.deepEqual(later.records[0].goalsForecast,frozen);
 });
 
 test('does not create a prediction after a match has begun', () => {
