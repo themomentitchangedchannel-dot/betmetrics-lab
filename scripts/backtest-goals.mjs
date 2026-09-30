@@ -31,7 +31,8 @@ export function evaluateGoalHistory(apiMatches,csvText,league,season){
     const past=games.filter(x=>x.date<g.date),p=goalProbabilities(model.lh,model.la);
     const over=g.hg+g.ag>2,btts=g.hg>0&&g.ag>0;
     const baseline={over25:past.filter(x=>x.hg+x.ag>2).length/past.length,btts:past.filter(x=>x.hg>0&&x.ag>0).length/past.length};
-    const row={date:g.date,modelOver:score(p.over25,over),baselineOver:score(baseline.over25,over),modelBtts:score(p.btts,btts),baselineBtts:score(baseline.btts,btts),marketOver:null,pick:null,profit:null};
+    const row={date:g.date,modelProbOver:p.over25,baselineProbOver:baseline.over25,overActual:over,
+      modelOver:score(p.over25,over),baselineOver:score(baseline.over25,over),modelBtts:score(p.btts,btts),baselineBtts:score(baseline.btts,btts),marketOver:null,odds25:null,pick:null,profit:null};
     const candidates=byMatch.get(`${g.date}:${teamKey(g.home)}:${teamKey(g.away)}`);
     if(candidates?.length===1){
       const csv=candidates[0];
@@ -41,6 +42,7 @@ export function evaluateGoalHistory(apiMatches,csvText,league,season){
         const odds=['B365C>2.5','B365C<2.5'].map(k=>Number(csv[k]));
         if(odds.every(o=>Number.isFinite(o)&&o>1.01&&o<100)){
           counts.priced++;
+          row.odds25=odds;
           const sum=1/odds[0]+1/odds[1],fair=(1/odds[0])/sum;
           row.marketOver=score(fair,over);
           const ev=[p.over25*odds[0]-1,(1-p.over25)*odds[1]-1];
@@ -52,6 +54,33 @@ export function evaluateGoalHistory(apiMatches,csvText,league,season){
     rows.push(row);
   }
   return {rows,counts};
+}
+
+// The blend is fitted only on the earlier season. The later season is never
+// consulted while choosing its weight. Use one weight across all leagues.
+export function calibrateGoalHistory(parts,trainingSeason=2025,holdoutSeason=2026){
+  const training=parts.filter(p=>p.season===trainingSeason).flatMap(p=>p.rows);
+  const holdout=parts.filter(p=>p.season===holdoutSeason).flatMap(p=>p.rows);
+  if(training.length<100||holdout.length<50)return null;
+  const blend=(r,weight)=>(1-weight)*r.modelProbOver+weight*r.baselineProbOver;
+  const avg=(rows,fn)=>rows.length?rows.reduce((sum,r)=>sum+fn(r),0)/rows.length:null;
+  const candidates=[0,.25,.5,.75,1];
+  const weight=candidates.map(value=>({value,error:avg(training,r=>score(blend(r,value),r.overActual))}))
+    .sort((a,b)=>a.error-b.error||a.value-b.value)[0].value;
+  const priced=holdout.filter(r=>Array.isArray(r.odds25)&&r.odds25.length===2);
+  let selected=0,profitUnits=0;
+  for(const r of priced){
+    const p=blend(r,weight),odds=r.odds25,ev=[p*odds[0]-1,(1-p)*odds[1]-1];
+    const choice=ev.map((value,i)=>({value,i})).filter(x=>x.value>=.05&&odds[x.i]>=1.4&&odds[x.i]<=5).sort((a,b)=>b.value-a.value)[0];
+    if(!choice)continue;
+    selected++;profitUnits+=choice.i===Number(!r.overActual)?odds[choice.i]-1:-1;
+  }
+  return {trainingSeason,trainingMatches:training.length,weight,
+    trainingBrier:avg(training,r=>score(blend(r,weight),r.overActual)),
+    holdoutSeason,holdoutMatches:holdout.length,priced:priced.length,
+    incumbentBrier:avg(holdout,r=>r.modelOver),challengerBrier:avg(holdout,r=>score(blend(r,weight),r.overActual)),
+    incumbentPairedBrier:avg(priced,r=>r.modelOver),challengerPairedBrier:avg(priced,r=>score(blend(r,weight),r.overActual)),
+    marketPairedBrier:avg(priced,r=>r.marketOver),selected,profitUnits,roi:selected?profitUnits/selected:null};
 }
 
 export function summarizeGoalHistory(parts,generatedAt){
@@ -73,7 +102,8 @@ export function summarizeGoalHistory(parts,generatedAt){
       pairedModelOver:avg(priced,'modelOver'),pairedMarketOver:avg(priced,'marketOver'),profitUnits:profit,roi:selected.length?profit/selected.length:null,
       byLeague});
   }
-  return {version:2,generatedAt,source:'football-data.co.uk',book:'Bet365',oddsType:'closing',strategy:'Poisson goals v1; max EV >= 5%; odds 1.4–5; one over/under 2.5 per match; 1 unit',seasons};
+  return {version:3,generatedAt,source:'football-data.co.uk',book:'Bet365',oddsType:'closing',strategy:'Poisson goals v1; max EV >= 5%; odds 1.4–5; one over/under 2.5 per match; 1 unit',seasons,
+    calibration:calibrateGoalHistory(parts)};
 }
 
 async function main(){
@@ -81,7 +111,7 @@ async function main(){
   let previous=null;try{previous=JSON.parse(await readFile(cachePath,'utf8'))}catch{/* first run */}
   await mkdir(new URL('site/data/',root),{recursive:true});
   const age=Date.now()-Date.parse(previous?.generatedAt);
-  if(previous?.version===2&&Array.isArray(previous.seasons)&&Number.isFinite(age)&&age>=0&&age<7*86400000&&process.env.GOALS_BACKTEST_REFRESH!=='1'){
+  if(previous?.version===3&&Array.isArray(previous.seasons)&&Number.isFinite(age)&&age>=0&&age<7*86400000&&process.env.GOALS_BACKTEST_REFRESH!=='1'){
     await writeFile(sitePath,JSON.stringify(previous,null,2)+'\n');process.stdout.write(`Using cached goal odds report from ${previous.generatedAt}.\n`);return;
   }
   const parts=[],warnings=[];
@@ -98,7 +128,7 @@ async function main(){
       }catch(error){warnings.push(`${division} ${span}: ${error.message}`)}
     }
   }
-  if(warnings.length&&[1,2].includes(previous?.version)&&previous.seasons?.length){
+  if(warnings.length&&[1,2,3].includes(previous?.version)&&previous.seasons?.length){
     await writeFile(sitePath,JSON.stringify(previous,null,2)+'\n');process.stdout.write('Goal odds source incomplete; retaining prior report.\n');return;
   }
   const report={...summarizeGoalHistory(parts,new Date().toISOString()),warnings};
