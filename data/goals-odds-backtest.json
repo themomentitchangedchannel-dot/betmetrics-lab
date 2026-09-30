@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "generatedAt": "2026-09-30T14:27:56.618Z",
+  "version": 3,
+  "generatedAt": "2026-09-30T19:20:48.582Z",
   "source": "football-data.co.uk",
   "book": "Bet365",
   "oddsType": "closing",
@@ -137,5 +137,22 @@
       ]
     }
   ],
+  "calibration": {
+    "trainingSeason": 2025,
+    "trainingMatches": 900,
+    "weight": 0.75,
+    "trainingBrier": 0.49960176436305326,
+    "holdoutSeason": 2026,
+    "holdoutMatches": 121,
+    "priced": 117,
+    "incumbentBrier": 0.4871962519048634,
+    "challengerBrier": 0.49568814411063644,
+    "incumbentPairedBrier": 0.48408448409263827,
+    "challengerPairedBrier": 0.49497796167033953,
+    "marketPairedBrier": 0.45313806298653775,
+    "selected": 64,
+    "profitUnits": -21.49,
+    "roi": -0.33578125
+  },
   "warnings": []
 }
