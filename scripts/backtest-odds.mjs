@@ -55,13 +55,16 @@ export function evaluateOdds(apiMatches, csvText, league, season) {
     const key = `${oddsDate(r.Date)}:${teamKey(r.HomeTeam)}:${teamKey(r.AwayTeam)}`;
     byMatch.set(key,[...(byMatch.get(key)||[]),r]);
   }
-  const output = [], counts = { completed: 0, matched: 0, missingOdds: 0, resultMismatch: 0, noPrediction: 0 };
+  const output = [], unmatched = [], counts = { completed: 0, matched: 0, missingOdds: 0, resultMismatch: 0, noPrediction: 0 };
   for (const g of games) {
     const gameSeason = Number(g.date.slice(0,4)) - Number(Number(g.date.slice(5,7)) < 7);
     if (gameSeason !== season) continue;
     counts.completed++;
     const candidates = byMatch.get(`${g.date}:${teamKey(g.home)}:${teamKey(g.away)}`);
-    if (candidates?.length !== 1) continue;
+    if (candidates?.length !== 1) {
+      if (unmatched.length < 12) unmatched.push(`${g.date} ${g.home} / ${g.away} → ${(csv.filter(r=>oddsDate(r.Date)===g.date).map(r=>`${r.HomeTeam} / ${r.AwayTeam}`).slice(0,8)).join(' | ')}`);
+      continue;
+    }
     const r = candidates[0];
     const actual = g.hg > g.ag ? 'H' : g.hg === g.ag ? 'D' : 'A';
     if (r.FTR !== actual) { counts.resultMismatch++; continue; }
@@ -81,7 +84,7 @@ export function evaluateOdds(apiMatches, csvText, league, season) {
     output.push({ date:g.date, home:g.home, away:g.away, actual, probs:model.probs, odds, overround, brierModel:score(model.probs), brierMarket:score(fair),
       pick:chosen ? ['H','D','A'][chosen.i] : null, quotedEv:chosen?.value ?? null, profit:chosen ? (chosen.i===n ? odds[n]-1 : -1) : null });
   }
-  return { rows: output, counts: { ...counts, eligible: output.length, selected: output.filter(r=>r.pick).length } };
+  return { rows: output, unmatched, counts: { ...counts, eligible: output.length, selected: output.filter(r=>r.pick).length } };
 }
 
 export function summarizeOdds(parts, generatedAt) {
@@ -111,6 +114,7 @@ async function main() {
         const result = evaluateOdds(data.matches,csv,league,season);
         parts.push({ season, league, ...result });
         process.stdout.write(`${division} ${path}: matched ${result.counts.matched}/${result.counts.completed}, eligible ${result.counts.eligible}, selected ${result.counts.selected}\n`);
+        process.stdout.write(result.unmatched.map(x=>`  unmatched: ${x}`).join('\n')+'\n');
       } catch (error) {
         warnings.push(`${division} ${path}: ${error.message}`);
         process.stdout.write(`Odds unavailable: ${warnings.at(-1)}\n`);
