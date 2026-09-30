@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-30T11:55:39.925Z",
+  "generatedAt": "2026-09-30T12:25:43.452Z",
   "records": [
     {
       "id": 560593,
@@ -49,6 +49,16 @@
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 2.186831170250148,
+        "expectedAway": 0.6719053509815881,
+        "probs": {
+          "over25": 0.5444288242511686,
+          "btts": 0.4343346860201507
+        }
       }
     },
     {
@@ -98,6 +108,16 @@
         ],
         "pick": "H",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.2567392355614788,
+        "expectedAway": 1.2251550761515342,
+        "probs": {
+          "over25": 0.4515341548131987,
+          "btts": 0.5052921258447494
+        }
       }
     },
     {
@@ -147,6 +167,16 @@
         ],
         "pick": "A",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.7297388585422508,
+        "expectedAway": 1.6096928007830378,
+        "probs": {
+          "over25": 0.6484309895342043,
+          "btts": 0.6581773625593398
+        }
       }
     },
     {
@@ -196,6 +226,16 @@
         ],
         "pick": "H",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.6279364166177124,
+        "expectedAway": 1.1723652706639072,
+        "probs": {
+          "over25": 0.530618228273884,
+          "btts": 0.5548237042366274
+        }
       }
     },
     {
@@ -245,6 +285,16 @@
         ],
         "pick": "A",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.8050411989616122,
+        "expectedAway": 1.275185363545248,
+        "probs": {
+          "over25": 0.5945416740271934,
+          "btts": 0.6021019879374332
+        }
       }
     },
     {
@@ -294,6 +344,16 @@
         ],
         "pick": "A",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.1518191346363313,
+        "expectedAway": 1.6096928007830378,
+        "probs": {
+          "over25": 0.521321663493606,
+          "btts": 0.5471858307088209
+        }
       }
     },
     {
@@ -343,6 +403,16 @@
         ],
         "pick": "A",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.2851171828367898,
+        "expectedAway": 1.4403077470509578,
+        "probs": {
+          "over25": 0.5125830395109201,
+          "btts": 0.5520453331816912
+        }
       }
     },
     {
@@ -372,6 +442,16 @@
           0.23885157616891964,
           0.2293399892300104
         ]
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.5951253146864748,
+        "expectedAway": 0.9064652466656921,
+        "probs": {
+          "over25": 0.45659482300553034,
+          "btts": 0.4751218729903588
+        }
       }
     },
     {
@@ -401,6 +481,16 @@
           0.24510623722905217,
           0.32914893913815013
         ]
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.3795871043198455,
+        "expectedAway": 1.3265301367176503,
+        "probs": {
+          "over25": 0.5078728231269806,
+          "btts": 0.5497166498627605
+        }
       }
     },
     {
@@ -450,6 +540,16 @@
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 2.3202210754570123,
+        "expectedAway": 0.5196967568905209,
+        "probs": {
+          "over25": 0.5400070564972057,
+          "btts": 0.36547774516613635
+        }
       }
     },
     {
@@ -499,6 +599,16 @@
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 2.152283385932148,
+        "expectedAway": 1.0209752730982704,
+        "probs": {
+          "over25": 0.61448732923181,
+          "btts": 0.5654050292879242
+        }
       }
     },
     {
@@ -528,6 +638,16 @@
           0.2663464724927543,
           0.4128151161194512
         ]
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.0997819072385147,
+        "expectedAway": 1.2932574604512244,
+        "probs": {
+          "over25": 0.4284716147358605,
+          "btts": 0.48403236371406233
+        }
       }
     },
     {
@@ -557,6 +677,16 @@
           0.22973817917177286,
           0.1672459715723418
         ]
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.6903871213912152,
+        "expectedAway": 0.7131223253160892,
+        "probs": {
+          "over25": 0.43120788967824586,
+          "btts": 0.415840516758979
+        }
       }
     },
     {
@@ -606,6 +736,16 @@
         ],
         "pick": "H",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.6410814567271865,
+        "expectedAway": 1.5604061333651993,
+        "probs": {
+          "over25": 0.620406636067857,
+          "btts": 0.636880491685132
+        }
       }
     },
     {
@@ -635,6 +775,16 @@
           0.24438919640976145,
           0.399035494516021
         ]
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.380866489832007,
+        "expectedAway": 1.381612647256302,
+        "probs": {
+          "over25": 0.5215546944205647,
+          "btts": 0.560601223958475
+        }
       }
     },
     {
@@ -664,6 +814,16 @@
           0.1897299149391453,
           0.13905889594659027
         ]
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 2.2661007957559685,
+        "expectedAway": 0.6870068005733444,
+        "probs": {
+          "over25": 0.5662223954824668,
+          "btts": 0.4453818705878835
+        }
       }
     },
     {
@@ -713,6 +873,16 @@
         ],
         "pick": "H",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.4099658961727928,
+        "expectedAway": 1.099747695932555,
+        "probs": {
+          "over25": 0.45867614097106624,
+          "btts": 0.5041848299017828
+        }
       }
     },
     {
@@ -762,6 +932,16 @@
         ],
         "pick": "A",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 0.8548065489801517,
+        "expectedAway": 1.5664926586773227,
+        "probs": {
+          "over25": 0.43584603792966514,
+          "btts": 0.4546645453727826
+        }
       }
     },
     {
@@ -811,6 +991,16 @@
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.0144650751547302,
+        "expectedAway": 1.5881245487858522,
+        "probs": {
+          "over25": 0.4822203409834803,
+          "btts": 0.5071767235227902
+        }
       }
     },
     {
@@ -860,6 +1050,16 @@
         ],
         "pick": "D",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 0.9592609530778375,
+        "expectedAway": 1.2945816416091531,
+        "probs": {
+          "over25": 0.3916856858899781,
+          "btts": 0.44780655305387435
+        }
       }
     },
     {
@@ -909,6 +1109,16 @@
         ],
         "pick": "A",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-09-30T12:25:43.452Z",
+        "expectedHome": 1.5594621787249612,
+        "expectedAway": 1.8137938655270616,
+        "probs": {
+          "over25": 0.6550728675899146,
+          "btts": 0.6609942967164425
+        }
       }
     }
   ]
