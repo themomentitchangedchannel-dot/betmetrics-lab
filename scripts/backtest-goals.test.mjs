@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { evaluateGoalHistory, summarizeGoalHistory } from './backtest-goals.mjs';
+import { evaluateGoalHistory, summarizeGoalHistory, calibrateGoalHistory } from './backtest-goals.mjs';
 
 const league='Premier League · API';
 const prior=Array.from({length:60},(_,i)=>({
@@ -19,7 +19,7 @@ test('models past games only; pairs closing total quotes on the exact score and 
   assert.equal(quoted.date,'2026-10-10');assert.ok(Number.isFinite(quoted.modelBtts));
   assert.equal(quoted.profit,quoted.pick==='Over'?3:-1);
   const report=summarizeGoalHistory([{season:2026,league,...result}],'2026-10-11T00:00:00Z');
-  assert.equal(report.version,2);
+  assert.equal(report.version,3);
   assert.equal(report.seasons[0].priced,1);assert.equal(report.seasons[0].selected,1);
   assert.ok(Number.isFinite(report.seasons[0].pairedMarketOver));
   const split=report.seasons[0].byLeague[0];
@@ -27,6 +27,19 @@ test('models past games only; pairs closing total quotes on the exact score and 
   assert.equal(split.profitUnits,quoted.profit);
   assert.equal(split.roi,quoted.profit);
   assert.ok(Number.isFinite(split.pairedMarketOver));
+});
+
+test('calibration fits only the earlier season and scores later quotes without refitting',()=>{
+  const row=(actual)=>({modelProbOver:.8,baselineProbOver:.2,overActual:actual,
+    modelOver:2*(.8-Number(actual))**2,marketOver:2*(.5-Number(actual))**2,odds25:[2,2]});
+  const rows=[{season:2025,rows:Array.from({length:100},()=>row(false))},
+    {season:2026,rows:Array.from({length:50},()=>row(true))}];
+  const report=calibrateGoalHistory(rows);
+  assert.equal(report.weight,1);
+  assert.equal(report.trainingMatches,100);assert.equal(report.holdoutMatches,50);
+  assert.ok(report.challengerBrier>report.incumbentBrier);
+  assert.equal(report.selected,50);assert.equal(report.profitUnits,-50);
+  assert.equal(calibrateGoalHistory(rows.filter(p=>p.season===2025)),null);
 });
 
 test('rejects discrepant results and missing closing prices',()=>{
