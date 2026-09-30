@@ -68,6 +68,7 @@
     <section class="card span" aria-labelledby="backtestTitle"><p class="eyebrow">Preverjanje</p><h2 id="backtestTitle">Kako se je model odrezal za nazaj?</h2><p class="hint">Za vsako že odigrano tekmo uporabi samo rezultate pred njenim datumom. Oceno primerja s preprostim izhodiščem: deleži 1 / X / 2 na prejšnjih tekmah iste lige.</p><div class="actions"><button class="button secondary" id="runBacktest">Preveri model na preteklih tekmah</button></div><div id="backtestResults" class="list" style="margin-top:16px" aria-live="polite"></div><p class="fine">Ni primerjave z dejanskimi kvotami, zato ta pregled ne meri donosnosti. Iste podatke uporabljava tudi pri razvoju modela; za zanesljiv sklep bodo potrebne nove, vnaprej shranjene napovedi.</p></section>
     <section class="card span" aria-labelledby="publicTitle"><p class="eyebrow">Javni preizkus</p><h2 id="publicTitle">Napovedi, shranjene pred tekmami</h2><p class="hint">GitHub Actions dvakrat dnevno shrani nove napovedi za naslednjih 14 dni. Zapisi in poznejši rezultati so skupni vsem napravam.</p><div id="publicLedgerStatus" role="status"></div><div id="modelBenchmark" class="list" aria-live="polite"></div><div id="publicLedgerResults" class="list" aria-live="polite"></div><p class="fine">Napovedi se ustvarijo samo, ko se urnik uspešno izvede in ima model dovolj preteklih tekem. To je javni časovno označen dnevnik modela; Brierjeva napaka ni donos pri kvotah.</p></section>
     <section class="card span" aria-labelledby="profitTitle"><p class="eyebrow">Kvota proti modelu</p><h2 id="profitTitle">Ali bi pravilo prineslo dobiček?</h2><p class="hint">Preverjanje na zgodovinskih zaključnih kvotah Bet365. Vnaprej določeno pravilo: največ ena izbira 1 / X / 2 na tekmo, ocenjena vrednost vsaj 5 %, kvota od 1,40 do 5,00 in enak vložek ene enote.</p><div id="profitBacktest" class="list" aria-live="polite"></div><p class="fine">Za nove tekme odločajo javno shranjene napovedi in kvote, ki so bile dejansko na voljo ob odločitvi. Zgodovinski izračun sam po sebi ne dokazuje prihodnjega donosa. Podatki o kvotah: <a href="https://www.football-data.co.uk/data.php" target="_blank" rel="noopener">Football-Data.co.uk</a>.</p></section>
+    <section class="card span" aria-labelledby="liveOddsTitle"><p class="eyebrow">Sprotni preizkus</p><h2 id="liveOddsTitle">Kvote shranjene pred tekmo</h2><p class="hint">Eno določeno stavnico (Betsson) primerjava s predhodno shranjenim modelom. Prva razpoložljiva predtekmovalna kvota za vsako tekmo se zaklene; papirna izbira uporablja enako pravilo kot zgodovinski preizkus.</p><div id="liveOddsStatus" role="status"></div><div id="liveOddsResults" class="list" aria-live="polite"></div><p class="fine">Enota je namišljen enak vložek na vsako izbiro. Kvota v viru ni zagotovilo, da je uporabniku na voljo; zgodovinski preizkus tega modela je trenutno negativen. Vir: <a href="https://the-odds-api.com/" target="_blank" rel="noopener">The Odds API</a>.</p></section>
     <section class="card span" aria-labelledby="snapshotTitle"><p class="eyebrow">Nove tekme</p><h2 id="snapshotTitle">Shranjene napovedi 1 / X / 2</h2><p class="hint">Verjetnosti se ob shranitvi zaklenejo. Po uradnem rezultatu primerjava ne preračunava napovedi za nazaj.</p><div class="row"><div><label for="snapshotRange">Obdobje za shranitev</label><select id="snapshotRange"><option value="3">Naslednji 3 dnevi</option><option value="7">Naslednjih 7 dni</option><option value="14" selected>Naslednjih 14 dni</option></select></div><div class="actions" style="align-items:end"><button class="button secondary" id="saveAllForecasts">Shrani vse tekme v obdobju</button></div></div><label class="auto-capture"><input type="checkbox" id="autoCapture"><span>Ob odprtju samodejno shrani nove tekme za naslednjih 14 dni</span></label><p class="fine">Deluje, ko odpreš aplikacijo v tem brskalniku. Za nazaj ne shrani napovedi in ne sklepa stav.</p><div id="snapshotMessage" role="status"></div><div class="row"><div><label for="snapshotStatus">Stanje napovedi</label><select id="snapshotStatus"><option value="all">Vse</option><option value="open">Odprte</option><option value="done">Zaključene</option></select></div><div><label for="snapshotLeague">Liga</label><select id="snapshotLeague"><option value="">Vse lige</option></select></div></div><div id="snapshotResults" class="list" aria-live="polite"></div><p class="fine">Veljajo le tekme iz API. Skupinsko shranjevanje zajame vse razpoložljive tekme izbranega obdobja, če ima model dovolj podatkov; ročno izbrane napovedi lahko spremenijo vzorec. Brierjeva napaka ne meri donosnosti pri kvotah. Zapisi ostanejo v tem brskalniku.</p></section>
     <section class="card span" aria-labelledby="forwardTitle"><p class="eyebrow">Sprotno preverjanje</p><h2 id="forwardTitle">Vnaprej shranjene papirne napovedi</h2><p class="hint">Pri vsaki zaključeni napovedi primerjajva verjetnost, shranjeno pred začetkom tekme, z dejanskim izidom.</p><div id="forwardResults" class="list" aria-live="polite"></div><p class="fine">Prikazane so samo zaključene papirne napovedi s časom shranitve pred začetkom tekme. Ker izbereš, katere napovedi shraniš, ta vzorec ne zajame vseh tekem modela. Podatki so samo v tem brskalniku.</p></section>
   </div>
@@ -281,6 +282,35 @@
       renderBenchmark(await response.json());
     }catch(e){$('modelBenchmark').textContent=e.message||'Primerjave modelov ni mogoče prenesti.'}
   }
+  function renderLiveOdds(data,status){
+    const area=$('liveOddsResults');area.innerHTML='';
+    if(status?.configured===false){$('liveOddsStatus').textContent='Samodejni vir kvot še ni povezan: v GitHub Actions dodaj skrivnost THE_ODDS_API_KEY.'}
+    else if(status?.warnings?.length){$('liveOddsStatus').textContent='Nekatere lige trenutno niso dosegljive: '+status.warnings.join(' · ')}
+    else if(status?.fetched){$('liveOddsStatus').textContent='Vir je povezan; osvežitev '+new Date(status.generatedAt).toLocaleString('sl-SI')+'.'}
+    else $('liveOddsStatus').textContent='Kvote bodo preverjene pri naslednjem načrtovanem ali ročnem zagonu.';
+    const picks=['H','D','A'],valid=data.records.filter(r=>r.oddsSnapshot&&Date.parse(r.predictedAt)<Date.parse(r.oddsSnapshot.quotedAt)&&Date.parse(r.oddsSnapshot.quotedAt)<Date.parse(r.kickoffUtc)&&r.oddsSnapshot.bookmaker==='betsson'&&Array.isArray(r.oddsSnapshot.odds)&&r.oddsSnapshot.odds.length===3);
+    const selected=valid.filter(r=>picks.includes(r.oddsSnapshot.pick)),done=selected.filter(r=>picks.includes(r.result));
+    const profit=done.reduce((sum,r)=>sum+(r.result===r.oddsSnapshot.pick?r.oddsSnapshot.odds[picks.indexOf(r.result)]-1:-1),0);
+    const m=document.createElement('div');m.className='metrics';
+    for(const [label,value] of [['Zajete kvote',String(valid.length)],['Papirne izbire',String(selected.length)],['Zaključene',String(done.length)],['Rezultat',done.length?(profit>=0?'+':'')+profit.toFixed(2).replace('.',',')+' enot':'—'],['ROI',done.length?pct(profit/done.length):'—']]){
+      const item=document.createElement('div');item.className='metric';const strong=document.createElement('strong');strong.textContent=value;const small=document.createElement('small');small.textContent=label;item.append(strong,small);m.append(item)
+    }
+    area.append(m);
+    if(!valid.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Pred tekmami še ni shranjenih kvot iz izbrane stavnice.';area.append(empty);return}
+    const recent=[...valid].sort((a,b)=>Date.parse(b.oddsSnapshot.quotedAt)-Date.parse(a.oddsSnapshot.quotedAt)).slice(0,12);
+    for(const r of recent){
+      const card=document.createElement('article');card.className='bet',main=document.createElement('div'),title=document.createElement('strong'),info=document.createElement('small'),detail=document.createElement('small');
+      title.textContent=r.home+' – '+r.away;
+      info.textContent=r.league.replace(' · API','')+' · začetek '+new Date(r.kickoffUtc).toLocaleString('sl-SI');
+      detail.textContent='Betsson · zajeto '+new Date(r.oddsSnapshot.quotedAt).toLocaleString('sl-SI')+' · 1 / X / 2: '+r.oddsSnapshot.odds.map(o=>o.toFixed(2).replace('.',',')).join(' / ');
+      main.append(title,info,detail);const right=document.createElement('div'),selection=document.createElement('strong'),outcome=document.createElement('small');
+      const pick=r.oddsSnapshot.pick,idx=picks.indexOf(pick);
+      selection.textContent=idx<0?'Brez izbire':picks[idx].replace('H','1').replace('D','X').replace('A','2')+' @ '+r.oddsSnapshot.odds[idx].toFixed(2).replace('.',',');
+      outcome.textContent=idx<0?'Pravilo ne izbere izida':r.result===null?'Čaka na rezultat':r.result===pick?'Zadetek: +'+(r.oddsSnapshot.odds[idx]-1).toFixed(2).replace('.',',')+' enot':'Zgrešeno: −1 enota';
+      right.append(selection,outcome);card.append(main,right);area.append(card)
+    }
+    if(valid.length>recent.length){const more=document.createElement('p');more.className='fine';more.textContent='Prikazanih '+recent.length+' od '+valid.length+' zajetih tekem; vse ostajajo v javnem dnevniku.';area.append(more)}
+  }
   function renderPublicLedger(data){
     const area=$('publicLedgerResults');area.innerHTML='';
     if(data?.version!==1||!Array.isArray(data.records))throw Error('Javni dnevnik ima neveljavno obliko.');
@@ -340,7 +370,7 @@
     try{
       const response=await fetch('data/forecast-ledger.json',{cache:'no-store'});
       if(!response.ok)throw Error('Javni dnevnik še ni objavljen.');
-      const data=await response.json();renderPublicLedger(data);
+      const data=await response.json();renderPublicLedger(data);const statusResponse=await fetch('data/live-odds-status.json',{cache:'no-store'});renderLiveOdds(data,statusResponse.ok?await statusResponse.json():null);
       $('publicLedgerStatus').innerHTML='';
     }catch(e){show('publicLedgerStatus',e.message||'Javnega dnevnika ni mogoče prenesti. Poskusi pozneje.','bad')}
   }
