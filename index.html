@@ -46,8 +46,9 @@
         <div><label for="candidateMarket">Trg</label><select id="candidateMarket"><option value="all">Vsi trgi</option><option value="h2h">1 / X / 2</option><option value="goals">Več/manj 2,5</option></select></div>
         <div><label for="candidateFresh">Kvote</label><select id="candidateFresh"><option value="fresh">Zajete v zadnjih 24 h</option><option value="all">Vse shranjene</option></select></div>
       </div>
+      <div class="row"><div><label for="candidateLeague">Liga</label><select id="candidateLeague"><option value="all">Vse lige</option><option value="Premier League · API">Premier League</option><option value="La Liga · API">La Liga</option><option value="Serie A · API">Serie A</option></select></div><div><label for="candidateSort">Vrstni red</label><select id="candidateSort"><option value="time">Najprej bližnje tekme</option><option value="value">Največja modelna razlika</option></select></div></div>
       <div id="candidateBoardStatus" class="hint" role="status"></div><div id="candidateBoard" class="list" style="margin-top:16px" aria-live="polite"></div>
-      <p class="fine">Modelna vrednost = verjetnost × kvota − 1; to ni pričakovani zaslužek. Kvote so posnetek in morda niso več na voljo. Izbiri na isti tekmi sta lahko povezani. Nobena stava se ne odda samodejno.</p>
+      <p class="fine">Modelna vrednost = verjetnost × kvota − 1; to ni pričakovani zaslužek. Kvote so posnetek in morda niso več na voljo. Na posamezno tekmo prikaževa največ enega kandidata, tudi kadar več trgov izpolnjuje pravilo. Nobena stava se ne odda samodejno.</p>
     </section>
   </div>
   <div class="grid tab-panel" id="panel-matches" role="tabpanel" aria-labelledby="tab-matches">
@@ -516,40 +517,61 @@
     }
   }
   let candidateLedger=null,candidateFeedStatus=null;
-  function renderCandidateBoard(){
-    const area=$('candidateBoard');area.innerHTML='';
-    if(!candidateLedger){$('candidateBoardStatus').textContent='Čakam na javne napovedi in kvote.';return}
-    const now=Date.now(),horizon=now+Number($('candidateDays').value)*86400000,market=$('candidateMarket').value,fresh=$('candidateFresh').value==='fresh';
-    const matches=candidateLedger.records.filter(r=>r&&r.result==null&&Number.isFinite(Date.parse(r.kickoffUtc))&&Date.parse(r.kickoffUtc)>now&&Date.parse(r.kickoffUtc)<=horizon);
-    const possibilities=[];
+  const candidateDay=utc=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Ljubljana',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(utc));
+  function candidateRows(records,{now,days,market,league,fresh}){
+    const horizon=now+days*86400000,raw=[];
+    const matches=records.filter(r=>r&&r.result==null&&Number.isFinite(Date.parse(r.kickoffUtc))&&Date.parse(r.kickoffUtc)>now&&Date.parse(r.kickoffUtc)<=horizon&&(league==='all'||r.league===league));
     for(const r of matches){
       for(const kind of ['h2h','goals']){
         if(market!=='all'&&market!==kind)continue;
         const q=kind==='h2h'?(r.latestOddsSnapshot||r.oddsSnapshot):(r.latestTotals25Snapshot||r.totals25Snapshot);
         const prediction=kind==='h2h'?r.predictedAt:r.goalsForecast?.predictedAt;
         const pickIndex=kind==='h2h'?['H','D','A'].indexOf(q?.pick):['Over','Under'].indexOf(q?.pick);
-        const odds=q?.odds?.[pickIndex];
-        const probability=kind==='h2h'?r.probs?.[pickIndex]:(pickIndex===0?r.goalsForecast?.probs?.over25:1-r.goalsForecast?.probs?.over25);
+        const odds=q?.odds?.[pickIndex],probability=kind==='h2h'?r.probs?.[pickIndex]:(pickIndex===0?r.goalsForecast?.probs?.over25:1-r.goalsForecast?.probs?.over25);
         const quoted=Date.parse(q?.quotedAt),predicted=Date.parse(prediction),kickoff=Date.parse(r.kickoffUtc);
         if(q?.bookmaker!=='betsson'||pickIndex<0||!Number.isFinite(odds)||odds<1.4||odds>5||!Number.isFinite(probability)||probability<0||probability>1||!Number.isFinite(predicted)||!Number.isFinite(quoted)||predicted>=quoted||quoted>=kickoff||quoted>now+60000)continue;
         const ev=probability*odds-1;
         if(ev<0.05-1e-9||(fresh&&now-quoted>86400000))continue;
-        possibilities.push({r,kind,pickIndex,odds,probability,ev,quoted,kickoff});
+        const margin=Array.isArray(q.odds)&&q.odds.every(o=>Number.isFinite(o)&&o>1)?q.odds.reduce((sum,o)=>sum+1/o,0):null;
+        const marketProbability=margin?1/odds/margin:null;
+        raw.push({r,kind,pickIndex,odds,probability,ev,quoted,kickoff,marketProbability,margin});
       }
     }
-    possibilities.sort((a,b)=>a.kickoff-b.kickoff||b.ev-a.ev);
-    const captured=candidateFeedStatus?.generatedAt,stamp=Number.isFinite(Date.parse(captured))?new Date(captured).toLocaleString('sl-SI'):'ni podatka';
-    $('candidateBoardStatus').textContent=possibilities.length+' papirnih kandidatov · '+matches.length+' prihodnjih tekem v obdobju · zadnje preverjanje vira: '+stamp+'.';
-    if(!possibilities.length){const empty=document.createElement('div');empty.className='empty';empty.textContent=fresh?'Ni svežih papirnih kandidatov. Po naslednji osvežitvi poglej ponovno ali izberi »Vse shranjene« za pregled starejših kvot.':'V izbranem obdobju ni shranjenih papirnih kandidatov.';area.append(empty);return}
-    for(const {r,kind,pickIndex,odds,probability,ev,quoted,kickoff} of possibilities.slice(0,30)){
-      const card=document.createElement('article');card.className='bet',main=document.createElement('div'),title=document.createElement('strong'),meta=document.createElement('small'),detail=document.createElement('small');
-      title.textContent=r.home+' – '+r.away;meta.textContent=r.league.replace(' · API','')+' · '+new Date(kickoff).toLocaleString('sl-SI')+' · '+(kind==='h2h'?'1 / X / 2':'Več/manj 2,5');
-      detail.textContent='Betsson · zajeto '+new Date(quoted).toLocaleString('sl-SI')+(Date.now()-quoted>86400000?' · kvota starejša od 24 h':'');main.append(title,meta,detail);
-      const right=document.createElement('div');right.className='right';const selection=document.createElement('strong'),numbers=document.createElement('small');
-      selection.textContent=(kind==='h2h'?['1','X','2'][pickIndex]:['Več 2,5','Manj 2,5'][pickIndex])+' @ '+odds.toFixed(2).replace('.',',');
-      numbers.textContent='Model '+pct(probability)+' · modelna vrednost +'+pct(ev);right.append(selection,numbers);card.append(main,right);area.append(card);
+    const byMatch=new Map();
+    for(const item of raw){
+      const key=item.r.league+'|'+item.r.id+'|'+item.r.kickoffUtc;
+      const prior=byMatch.get(key);
+      if(!prior||item.ev>prior.ev)byMatch.set(key,item);
     }
-    if(possibilities.length>30){const note=document.createElement('p');note.className='fine';note.textContent='Prikazanih 30 od '+possibilities.length+' kandidatov.';area.append(note)}
+    const byDay=new Map();
+    for(const item of byMatch.values()){const day=candidateDay(item.kickoff);if(!byDay.has(day))byDay.set(day,[]);byDay.get(day).push(item)}
+    const shortlist=[...byDay.values()].flatMap(rows=>rows.sort((a,b)=>b.ev-a.ev).slice(0,5));
+    return {matches:matches.length,eligible:byMatch.size,shortlist};
+  }
+  function renderCandidateBoard(){
+    const area=$('candidateBoard');area.innerHTML='';
+    if(!candidateLedger){$('candidateBoardStatus').textContent='Čakam na javne napovedi in kvote.';return}
+    const fresh=$('candidateFresh').value==='fresh',sort=$('candidateSort').value;
+    const result=candidateRows(candidateLedger.records,{now:Date.now(),days:Number($('candidateDays').value),market:$('candidateMarket').value,league:$('candidateLeague').value,fresh});
+    const rows=result.shortlist.sort(sort==='value'?(a,b)=>b.ev-a.ev||a.kickoff-b.kickoff:(a,b)=>a.kickoff-b.kickoff||b.ev-a.ev);
+    const captured=candidateFeedStatus?.generatedAt,stamp=Number.isFinite(Date.parse(captured))?new Date(captured).toLocaleString('sl-SI'):'ni podatka';
+    $('candidateBoardStatus').textContent=rows.length+' v pregledu · '+result.eligible+' tekem z izpolnjenim pravilom · '+result.matches+' prihodnjih tekem · vir preverjen '+stamp+'. Največ pet različnih tekem na dan.';
+    if(candidateFeedStatus?.warnings?.length){const warning=document.createElement('p');warning.className='alert';warning.textContent='Vir kvot za nekatere lige ni bil dosegljiv: '+candidateFeedStatus.warnings.join(' · ');area.append(warning)}
+    if(!rows.length){const empty=document.createElement('div');empty.className='empty';empty.textContent=fresh?'Ni svežih kandidatov v izbranem obdobju. Po naslednji osvežitvi poglej ponovno ali izberi »Vse shranjene« za pregled starejših kvot.':'V izbranem obdobju ni shranjenih kandidatov.';area.append(empty);return}
+    let lastDay=null;
+    for(const {r,kind,pickIndex,odds,probability,ev,quoted,kickoff,marketProbability,margin} of rows){
+      const day=candidateDay(kickoff);
+      if(sort==='time'&&day!==lastDay){const heading=document.createElement('h3');heading.textContent=new Date(kickoff).toLocaleDateString('sl-SI',{timeZone:'Europe/Ljubljana',weekday:'long',day:'numeric',month:'long'});area.append(heading);lastDay=day}
+      const card=document.createElement('article');card.className='bet',main=document.createElement('div'),title=document.createElement('strong'),meta=document.createElement('small'),detail=document.createElement('small');
+      title.textContent=r.home+' – '+r.away;
+      meta.textContent=r.league.replace(' · API','')+' · '+new Date(kickoff).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+' · '+(kind==='h2h'?'1 / X / 2':'Več/manj 2,5');
+      detail.textContent='Betsson · zajeto '+new Date(quoted).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+(Date.now()-quoted>86400000?' · starejša kvota':'');main.append(title,meta,detail);
+      const right=document.createElement('div');right.className='right';const selection=document.createElement('strong'),numbers=document.createElement('small'),comparison=document.createElement('small');
+      selection.textContent=(kind==='h2h'?['1','X','2'][pickIndex]:['Več 2,5','Manj 2,5'][pickIndex])+' @ '+odds.toFixed(2).replace('.',',');
+      numbers.textContent='Model '+pct(probability)+' · izračun +'+pct(ev);
+      comparison.textContent=marketProbability===null?'Tržne verjetnosti ni mogoče izračunati':'Trg brez marže '+pct(marketProbability)+' · marža '+pct(margin-1)+(probability-marketProbability>=0.10?' · velik razkorak s trgom':'');
+      right.append(selection,numbers,comparison);card.append(main,right);area.append(card);
+    }
   }
   async function loadPublicLedger(){
     try{
@@ -969,7 +991,7 @@
       if(next){event.preventDefault();switchTab(next.dataset.tab,{scroll:false});next.focus()}
     });
   }
-  for(const id of ['candidateDays','candidateMarket','candidateFresh'])$(id).addEventListener('change',renderCandidateBoard);
+  for(const id of ['candidateDays','candidateMarket','candidateFresh','candidateLeague','candidateSort'])$(id).addEventListener('change',renderCandidateBoard);
   $('goalView').addEventListener('change',()=>{if(lastGoalData&&lastGoalReport)renderGoalMarkets(lastGoalData,lastGoalReport)});$('syncApi').addEventListener('click',syncApi);$('saveAllForecasts').addEventListener('click',saveAllForecasts);$('autoCapture').addEventListener('change',toggleAutoCapture);
   for(const id of ['snapshotStatus','snapshotLeague'])$(id).addEventListener('change',()=>{snapshotLimit=8;renderSnapshots()});$('runBacktest').addEventListener('click',renderBacktest);$('fixture').addEventListener('change',selectFixture);$('fixtureRange').addEventListener('change',refreshFixtures);$('matchLeague').addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();refreshTeams()});for(const id of ['matchDate','home','away'])$(id).addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();invalidate()});$('calculate').addEventListener('click',calculate);$('compareOdds').addEventListener('click',compareOdds);$('compareGoalOdds').addEventListener('click',compareGoalOdds);for(const id of ['oddsH','oddsD','oddsA'])$(id).addEventListener('input',()=>{$('oddsComparison').innerHTML=''});for(const id of ['pick','odds'])$(id).addEventListener('input',refreshValue);$('saveBet').addEventListener('click',saveBet);$('scoreMode').addEventListener('change',renderBets);
   const tomorrow=new Date(Date.now()+86400000);tomorrow.setHours(18,0,0,0);$('matchDate').value=`${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,'0')}-${String(tomorrow.getDate()).padStart(2,'0')}T18:00`;$('autoCapture').checked=!!state.autoCapture;refreshLists();renderBets();syncApi();loadPublicLedger();loadBenchmark();loadProfitBacktest();loadHistoricalGoals();
