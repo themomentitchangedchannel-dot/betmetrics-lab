@@ -25,6 +25,58 @@ export function predict(games, league, home, away, date) {
   return { probs: probs.map(p => p / total), baseline: counts.map(n => n / hist.length), n: hist.length };
 }
 
+// A fixed challenger: the same Poisson score grid, with recent league and
+// venue-specific team results weighted more heavily. No parameters are fitted
+// on the evaluation fixtures.
+export function predictChallenger(games, league, home, away, date) {
+  const incumbent = predict(games, league, home, away, date);
+  if (!incumbent) return null;
+  const hist = games.filter(g => g.league === league && g.date < date);
+  const target = Date.parse(date);
+  const weighted = hist.map(g => ({ ...g, weight: 2 ** (-(target - Date.parse(g.date)) / (180 * 86400000)) }));
+  const mean = (rows, key) => rows.reduce((s, g) => s + g[key] * g.weight, 0) / rows.reduce((s, g) => s + g.weight, 0);
+  const homeAvg = mean(weighted, 'hg'), awayAvg = mean(weighted, 'ag');
+  if (homeAvg < .2 || awayAvg < .2) return null;
+  const teamAvg = (rows, key, prior) => {
+    const sum = rows.reduce((s, g) => s + g.weight, 0);
+    return (rows.reduce((s, g) => s + g[key] * g.weight, 0) + 8 * prior) / (sum + 8);
+  };
+  const hh = weighted.filter(g => g.home === home), aa = weighted.filter(g => g.away === away);
+  const lh = Math.max(.15, Math.min(5, homeAvg * teamAvg(hh, 'hg', homeAvg) / homeAvg * teamAvg(aa, 'hg', homeAvg) / homeAvg));
+  const la = Math.max(.15, Math.min(5, awayAvg * teamAvg(aa, 'ag', awayAvg) / awayAvg * teamAvg(hh, 'ag', awayAvg) / awayAvg));
+  const ph = poisson(lh), pa = poisson(la), probs = [0, 0, 0];
+  for (let i = 0; i < ph.length; i++) for (let j = 0; j < pa.length; j++) probs[i > j ? 0 : i === j ? 1 : 2] += ph[i] * pa[j];
+  const total = probs.reduce((x, y) => x + y, 0);
+  return { probs: probs.map(p => p / total), n: hist.length };
+}
+
+function finishedGames(matches, league) {
+  return matches.filter(m => m.status === 'FINISHED' && Number.isInteger(m.score?.fullTime?.home) && Number.isInteger(m.score?.fullTime?.away) && m.homeTeam?.name && m.awayTeam?.name && Number.isFinite(Date.parse(m.utcDate)))
+    .map(m => ({ league, date: dateOf(m.utcDate), home: m.homeTeam.name, away: m.awayTeam.name, hg: m.score.fullTime.home, ag: m.score.fullTime.away }));
+}
+
+export function benchmarkModels(payloads) {
+  const seasons = new Map();
+  for (const [code, matches] of Object.entries(payloads)) {
+    const league = codes[code];
+    if (!league || !Array.isArray(matches)) throw new Error(`Invalid matches: ${code}`);
+    const games = finishedGames(matches, league).sort((a, b) => a.date.localeCompare(b.date));
+    for (const game of games) {
+      const a = predict(games, league, game.home, game.away, game.date);
+      const b = predictChallenger(games, league, game.home, game.away, game.date);
+      if (!a || !b) continue;
+      const actual = game.hg > game.ag ? 0 : game.hg === game.ag ? 1 : 2;
+      const score = p => p.reduce((s, value, i) => s + (value - Number(i === actual)) ** 2, 0);
+      const season = Number(game.date.slice(0, 4)) - Number(Number(game.date.slice(5, 7)) < 7);
+      const key = `${code}:${season}`;
+      const row = seasons.get(key) || { league, season, n: 0, incumbentSum: 0, challengerSum: 0, baselineSum: 0 };
+      row.n++; row.incumbentSum += score(a.probs); row.challengerSum += score(b.probs); row.baselineSum += score(a.baseline);
+      seasons.set(key, row);
+    }
+  }
+  return { version: 1, method: 'walk-forward; matches on the same calendar day excluded', seasons: [...seasons.values()].sort((a, b) => b.season - a.season || a.league.localeCompare(b.league)) };
+}
+
 export function evolveLedger(previous, payloads, nowIso) {
   if (previous.version !== 1 || !Array.isArray(previous.records)) throw new Error('Invalid forecast ledger');
   const now = Date.parse(nowIso), limit = now + 14 * 86400000;
@@ -34,7 +86,7 @@ export function evolveLedger(previous, payloads, nowIso) {
     const league = codes[code];
     if (!league || !Array.isArray(matches)) throw new Error(`Invalid matches: ${code}`);
     const finished = matches.filter(m => m.status === 'FINISHED' && Number.isInteger(m.score?.fullTime?.home) && Number.isInteger(m.score?.fullTime?.away));
-    const games = finished.filter(m => m.homeTeam?.name && m.awayTeam?.name && Number.isFinite(Date.parse(m.utcDate))).map(m => ({ league, date: dateOf(m.utcDate), home: m.homeTeam.name, away: m.awayTeam.name, hg: m.score.fullTime.home, ag: m.score.fullTime.away }));
+    const games = finishedGames(matches, league);
     for (const m of finished) {
       const record = byId.get(String(m.id));
       if (!record) continue;
@@ -44,12 +96,21 @@ export function evolveLedger(previous, payloads, nowIso) {
     for (const m of matches) {
       const kickoff = Date.parse(m.utcDate);
       if (!['SCHEDULED', 'TIMED'].includes(m.status) || !Number.isFinite(kickoff) || kickoff <= now || kickoff > limit) continue;
-      if (byId.has(String(m.id))) continue;
       const home = m.homeTeam?.name, away = m.awayTeam?.name;
       if (!m.id || !home || !away || home === away) { skipped++; continue; }
+      const existing = byId.get(String(m.id));
+      if (existing) {
+        if (!existing.challenger && existing.league === league) {
+          const challenge = predictChallenger(games, league, home, away, dateOf(m.utcDate));
+          if (challenge) existing.challenger = { model: 'recency-v2', predictedAt: nowIso, probs: challenge.probs };
+        }
+        continue;
+      }
       const forecast = predict(games, league, home, away, dateOf(m.utcDate));
       if (!forecast) { skipped++; continue; }
       const record = { id: m.id, league, kickoffUtc: m.utcDate, home, away, predictedAt: nowIso, probs: forecast.probs, baseline: forecast.baseline, trainingMatches: forecast.n, result: null };
+      const challenge = predictChallenger(games, league, home, away, dateOf(m.utcDate));
+      if (challenge) record.challenger = { model: 'recency-v2', predictedAt: nowIso, probs: challenge.probs };
       records.push(record); byId.set(String(m.id), record); added++;
     }
   }
@@ -69,6 +130,7 @@ async function main() {
   await mkdir(new URL('site/data/', root), { recursive: true });
   await writeFile(ledgerPath, output);
   await writeFile(new URL('site/data/forecast-ledger.json', root), output);
+  await writeFile(new URL('site/data/model-benchmark.json', root), JSON.stringify(benchmarkModels(payloads), null, 2) + '\n');
   process.stdout.write(`Forecast ledger: ${added} new, ${settled} settled, ${skipped} without sufficient history; ${ledger.records.length} total\n`);
 }
 
