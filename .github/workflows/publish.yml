@@ -12,6 +12,8 @@ on:
       - scripts/backtest-odds.test.mjs
       - scripts/sync-live-odds.mjs
       - scripts/sync-live-odds.test.mjs
+      - scripts/prospective-report.mjs
+      - scripts/prospective-report.test.mjs
       - .github/workflows/publish.yml
   workflow_dispatch:
   schedule:
@@ -54,6 +56,10 @@ jobs:
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
           FETCH_LIVE_ODDS: ${{ github.event_name != 'push' }}
         run: node scripts/sync-live-odds.mjs
+      - name: Test forward market audit
+        run: node --test scripts/prospective-report.test.mjs
+      - name: Build forward market audit
+        run: node scripts/prospective-report.mjs
       - name: Backtest fixed betting rule
         run: node scripts/backtest-odds.mjs
       - name: Persist forecast ledger
