@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "generatedAt": "2026-09-30T13:12:47.168Z",
+  "version": 2,
+  "generatedAt": "2026-09-30T14:27:56.618Z",
   "source": "football-data.co.uk",
   "book": "Bet365",
   "oddsType": "closing",
@@ -28,7 +28,14 @@
           "matched": 300,
           "priced": 300,
           "selected": 182,
-          "scoreMismatch": 0
+          "scoreMismatch": 0,
+          "n": 300,
+          "pairedModelOver": 0.5220380203596791,
+          "pairedMarketOver": 0.4913494514294327,
+          "brierBtts": 0.5013845304607785,
+          "baselineBtts": 0.49385741098049163,
+          "profitUnits": -17.45,
+          "roi": -0.09587912087912087
         },
         {
           "league": "La Liga · API",
@@ -37,7 +44,14 @@
           "matched": 300,
           "priced": 300,
           "selected": 176,
-          "scoreMismatch": 0
+          "scoreMismatch": 0,
+          "n": 300,
+          "pairedModelOver": 0.4893264897026273,
+          "pairedMarketOver": 0.48134425266770725,
+          "brierBtts": 0.5053035296075503,
+          "baselineBtts": 0.4968190754634781,
+          "profitUnits": -3.000000000000006,
+          "roi": -0.017045454545454582
         },
         {
           "league": "Serie A · API",
@@ -46,7 +60,14 @@
           "matched": 242,
           "priced": 242,
           "selected": 156,
-          "scoreMismatch": 0
+          "scoreMismatch": 0,
+          "n": 300,
+          "pairedModelOver": 0.5026628058587927,
+          "pairedMarketOver": 0.4977527143193998,
+          "brierBtts": 0.5051420595317645,
+          "baselineBtts": 0.4965435884584818,
+          "profitUnits": 15.73,
+          "roi": 0.10083333333333333
         }
       ]
     },
@@ -72,7 +93,14 @@
           "matched": 36,
           "priced": 36,
           "selected": 21,
-          "scoreMismatch": 0
+          "scoreMismatch": 0,
+          "n": 36,
+          "pairedModelOver": 0.46086551289990724,
+          "pairedMarketOver": 0.4785526992910284,
+          "brierBtts": 0.47945304730904476,
+          "baselineBtts": 0.4949135549550575,
+          "profitUnits": 3.130000000000001,
+          "roi": 0.1490476190476191
         },
         {
           "league": "La Liga · API",
@@ -81,7 +109,14 @@
           "matched": 49,
           "priced": 49,
           "selected": 27,
-          "scoreMismatch": 0
+          "scoreMismatch": 0,
+          "n": 49,
+          "pairedModelOver": 0.46946374678222375,
+          "pairedMarketOver": 0.4284536911040325,
+          "brierBtts": 0.5056270118237776,
+          "baselineBtts": 0.4953695371642311,
+          "profitUnits": -11.77,
+          "roi": -0.4359259259259259
         },
         {
           "league": "Serie A · API",
@@ -90,7 +125,14 @@
           "matched": 32,
           "priced": 32,
           "selected": 20,
-          "scoreMismatch": 0
+          "scoreMismatch": 0,
+          "n": 36,
+          "pairedModelOver": 0.5325938306910337,
+          "pairedMarketOver": 0.4623445415890719,
+          "brierBtts": 0.52643898978994,
+          "baselineBtts": 0.5177022769866229,
+          "profitUnits": -4.58,
+          "roi": -0.229
         }
       ]
     }
