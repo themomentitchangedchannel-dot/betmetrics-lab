@@ -287,7 +287,10 @@
     if(status?.configured===false){$('liveOddsStatus').textContent='Samodejni vir kvot še ni povezan: v GitHub Actions dodaj skrivnost THE_ODDS_API_KEY.'}
     else if(status?.warnings?.length){$('liveOddsStatus').textContent='Nekatere lige trenutno niso dosegljive: '+status.warnings.join(' · ')}
     else if(status?.fetched){$('liveOddsStatus').textContent='Vir je povezan; osvežitev '+new Date(status.generatedAt).toLocaleString('sl-SI')+'.'}
-    else $('liveOddsStatus').textContent='Kvote bodo preverjene pri naslednjem načrtovanem ali ročnem zagonu.';
+    else {
+      const latest=Math.max(...data.records.map(r=>Date.parse(r.oddsSnapshot?.quotedAt)).filter(Number.isFinite));
+      $('liveOddsStatus').textContent=Number.isFinite(latest)?'Zadnji zajem kvot: '+new Date(latest).toLocaleString('sl-SI')+'. Naslednje preverjanje je v urniku.':'Kvote bodo preverjene pri naslednjem načrtovanem ali ročnem zagonu.';
+    }
     const picks=['H','D','A'],valid=data.records.filter(r=>r.oddsSnapshot&&Date.parse(r.predictedAt)<Date.parse(r.oddsSnapshot.quotedAt)&&Date.parse(r.oddsSnapshot.quotedAt)<Date.parse(r.kickoffUtc)&&r.oddsSnapshot.bookmaker==='betsson'&&Array.isArray(r.oddsSnapshot.odds)&&r.oddsSnapshot.odds.length===3);
     const selected=valid.filter(r=>picks.includes(r.oddsSnapshot.pick)),done=selected.filter(r=>picks.includes(r.result));
     const profit=done.reduce((sum,r)=>sum+(r.result===r.oddsSnapshot.pick?r.oddsSnapshot.odds[picks.indexOf(r.result)]-1:-1),0);
@@ -297,7 +300,7 @@
     }
     area.append(m);
     if(!valid.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Pred tekmami še ni shranjenih kvot iz izbrane stavnice.';area.append(empty);return}
-    const recent=[...valid].sort((a,b)=>Date.parse(b.oddsSnapshot.quotedAt)-Date.parse(a.oddsSnapshot.quotedAt)).slice(0,12);
+    const recent=[...valid].sort((a,b)=>Date.parse(b.oddsSnapshot.quotedAt)-Date.parse(a.oddsSnapshot.quotedAt)).slice(0,30);
     for(const r of recent){
       const card=document.createElement('article');card.className='bet';const main=document.createElement('div'),title=document.createElement('strong'),info=document.createElement('small'),detail=document.createElement('small');
       title.textContent=r.home+' – '+r.away;
