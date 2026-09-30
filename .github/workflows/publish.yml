@@ -58,7 +58,7 @@ jobs:
       - name: Capture prospective bookmaker quotes
         env:
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
-          FETCH_LIVE_ODDS: ${{ github.event_name != 'push' }}
+          FETCH_LIVE_ODDS: ${{ github.event_name != 'push' || contains(github.event.head_commit.message, '[refresh-odds]') }}
         run: node scripts/sync-live-odds.mjs
       - name: Test forward market audit
         run: node --test scripts/prospective-report.test.mjs
