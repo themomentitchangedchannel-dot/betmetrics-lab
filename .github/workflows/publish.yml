@@ -6,13 +6,15 @@ on:
     paths:
       - index.html
       - scripts/sync-football-data.mjs
+      - scripts/build-forecast-ledger.mjs
+      - scripts/forecast-ledger.test.mjs
       - .github/workflows/publish.yml
   workflow_dispatch:
   schedule:
     - cron: '17 5,17 * * *'
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -35,6 +37,19 @@ jobs:
         env:
           FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
         run: node scripts/sync-football-data.mjs
+      - name: Test forecast ledger
+        run: node --test scripts/forecast-ledger.test.mjs
+      - name: Build public forecast ledger
+        run: node scripts/build-forecast-ledger.mjs
+      - name: Persist forecast ledger
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/forecast-ledger.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update public forecast ledger"
+            git push origin HEAD:main
+          fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
