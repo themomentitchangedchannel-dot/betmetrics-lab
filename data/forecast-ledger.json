@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-30T08:30:18.778Z",
+  "generatedAt": "2026-09-30T08:33:12.088Z",
   "records": [
     {
       "id": 560593,
@@ -280,6 +280,146 @@
         0.2717149220489978
       ],
       "trainingMatches": 449,
+      "result": null
+    },
+    {
+      "id": 558588,
+      "league": "Serie A · API",
+      "kickoffUtc": "2026-10-10T13:00:00Z",
+      "home": "Genoa CFC",
+      "away": "ACF Fiorentina",
+      "predictedAt": "2026-09-30T08:33:12.088Z",
+      "probs": [
+        0.37243863999943766,
+        0.2547822811851826,
+        0.37277907881537964
+      ],
+      "baseline": [
+        0.3953488372093023,
+        0.25116279069767444,
+        0.35348837209302325
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 558582,
+      "league": "Serie A · API",
+      "kickoffUtc": "2026-10-10T16:00:00Z",
+      "home": "FC Internazionale Milano",
+      "away": "Parma Calcio 1913",
+      "predictedAt": "2026-09-30T08:33:12.088Z",
+      "probs": [
+        0.7319937209266792,
+        0.17105977780487314,
+        0.09694650126844763
+      ],
+      "baseline": [
+        0.3953488372093023,
+        0.25116279069767444,
+        0.35348837209302325
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 558585,
+      "league": "Serie A · API",
+      "kickoffUtc": "2026-10-11T10:30:00Z",
+      "home": "Como 1907",
+      "away": "AS Roma",
+      "predictedAt": "2026-09-30T08:33:12.088Z",
+      "probs": [
+        0.4407507274374462,
+        0.26549414111296904,
+        0.2937551314495848
+      ],
+      "baseline": [
+        0.3953488372093023,
+        0.25116279069767444,
+        0.35348837209302325
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 558581,
+      "league": "Serie A · API",
+      "kickoffUtc": "2026-10-11T13:00:00Z",
+      "home": "US Lecce",
+      "away": "Bologna FC 1909",
+      "predictedAt": "2026-09-30T08:33:12.088Z",
+      "probs": [
+        0.20485473864228324,
+        0.25397645513269757,
+        0.5411688062250192
+      ],
+      "baseline": [
+        0.3953488372093023,
+        0.25116279069767444,
+        0.35348837209302325
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 558580,
+      "league": "Serie A · API",
+      "kickoffUtc": "2026-10-11T16:00:00Z",
+      "home": "US Sassuolo Calcio",
+      "away": "AC Milan",
+      "predictedAt": "2026-09-30T08:33:12.088Z",
+      "probs": [
+        0.24200540740148738,
+        0.25103639073624784,
+        0.5069582018622647
+      ],
+      "baseline": [
+        0.3953488372093023,
+        0.25116279069767444,
+        0.35348837209302325
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 558584,
+      "league": "Serie A · API",
+      "kickoffUtc": "2026-10-11T18:45:00Z",
+      "home": "Cagliari Calcio",
+      "away": "Juventus FC",
+      "predictedAt": "2026-09-30T08:33:12.088Z",
+      "probs": [
+        0.27593709608357575,
+        0.2819035522282302,
+        0.4421593516881941
+      ],
+      "baseline": [
+        0.3953488372093023,
+        0.25116279069767444,
+        0.35348837209302325
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 558587,
+      "league": "Serie A · API",
+      "kickoffUtc": "2026-10-12T18:45:00Z",
+      "home": "Torino FC",
+      "away": "Udinese Calcio",
+      "predictedAt": "2026-09-30T08:33:12.088Z",
+      "probs": [
+        0.33426580132237216,
+        0.2256193149317891,
+        0.44011488374583885
+      ],
+      "baseline": [
+        0.3953488372093023,
+        0.25116279069767444,
+        0.35348837209302325
+      ],
+      "trainingMatches": 430,
       "result": null
     }
   ]
