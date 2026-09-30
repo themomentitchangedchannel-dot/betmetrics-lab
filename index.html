@@ -341,7 +341,7 @@
     }
   }
   function renderHistoricalGoals(report){
-    if(report?.version!==1||!Array.isArray(report.seasons))throw Error('Zgodovinski preizkus golov ima neveljavno obliko.');
+    if(![1,2].includes(report?.version)||!Array.isArray(report.seasons))throw Error('Zgodovinski preizkus golov ima neveljavno obliko.');
     const area=$('goalsBacktest');area.innerHTML='';
     const h=document.createElement('h3');h.textContent='Zgodovinski preizkus novih trgov';area.append(h);
     const intro=document.createElement('p');intro.className='hint';
@@ -356,10 +356,22 @@
       info.textContent='Več/manj 2,5: '+row.selected+' izbir · '+(row.profitUnits>=0?'+':'')+num(row.profitUnits,2)+' enot · ROI '+(row.roi===null?'—':(row.roi>=0?'+':'')+pct(row.roi));
       detail.textContent='Iste '+row.priced+' tekme s kvotami: Brier modela '+num(row.pairedModelOver)+' · trga '+num(row.pairedMarketOver)+' (manj je bolje)';
       btts.textContent='Oba data gol: Brier modela '+num(row.brierBtts)+' · osnovni delež lige '+num(row.baselineBtts)+' (brez zgodovinskih kvot za ta trg)';
-      main.append(title,info,detail,btts);card.append(main);area.append(card)
+      main.append(title,info,detail,btts);card.append(main);
+      if(Array.isArray(row.byLeague)&&row.byLeague.some(l=>Number.isFinite(l.profitUnits))){
+        const details=document.createElement('details'),summary=document.createElement('summary');
+        summary.textContent='Poglej po ligah';details.append(summary);
+        for(const l of row.byLeague){
+          if(!Number.isFinite(l.profitUnits))continue;
+          const line=document.createElement('p');line.className='fine';
+          line.textContent=l.league.replace(' · API','')+': '+l.selected+' izbir · '+(l.profitUnits>=0?'+':'')+num(l.profitUnits,2)+' enot · ROI '+(l.roi===null?'—':(l.roi>=0?'+':'')+pct(l.roi))+' · Brier model/trg '+num(l.pairedModelOver)+' / '+num(l.pairedMarketOver);
+          details.append(line)
+        }
+        card.append(details)
+      }
+      area.append(card)
     }
     const verdict=document.createElement('p');verdict.className='hint';
-    verdict.textContent='Preverjeno pravilo za gole ni pokazalo potrjene prednosti. Novi papirni zapisi bodo pokazali, ali se rezultat ponovi.';
+    verdict.textContent='Preverjeno pravilo za gole ni pokazalo potrjene prednosti. Posamezna pozitivna liga po naknadni izbiri ni dokaz zaslužka; za odločitev so pomembni novi, vnaprej shranjeni podatki.';
     area.append(verdict)
   }
   async function loadHistoricalGoals(){
