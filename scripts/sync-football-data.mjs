@@ -12,11 +12,20 @@ await copyFile(new URL('../index.html', import.meta.url), new URL('index.html', 
 
 async function matches(code, year) {
   const url = `https://api.football-data.org/v4/competitions/${code}/matches?season=${year}`;
-  const response = await fetch(url, { headers: { 'X-Auth-Token': token } });
-  if (!response.ok) throw new Error(`${code} ${year}: HTTP ${response.status}`);
-  const body = await response.json();
-  if (!Array.isArray(body.matches)) throw new Error(`${code} ${year}: missing matches`);
-  return body.matches;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const response = await fetch(url, { headers: { 'X-Auth-Token': token } });
+    if (response.status === 429 && attempt < 2) {
+      const retryAfter = Number(response.headers.get('Retry-After'));
+      const delay = Number.isFinite(retryAfter) && retryAfter > 0 ? Math.min(retryAfter * 1000, 120000) : 65000;
+      process.stdout.write(`${code} ${year}: rate limited; retrying in ${Math.ceil(delay / 1000)}s\n`);
+      await new Promise(resolve => setTimeout(resolve, delay));
+      continue;
+    }
+    if (!response.ok) throw new Error(`${code} ${year}: HTTP ${response.status}`);
+    const body = await response.json();
+    if (!Array.isArray(body.matches)) throw new Error(`${code} ${year}: missing matches`);
+    return body.matches;
+  }
 }
 
 function minimal(m) {
