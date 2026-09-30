@@ -341,7 +341,7 @@
     }
   }
   function renderHistoricalGoals(report){
-    if(![1,2].includes(report?.version)||!Array.isArray(report.seasons))throw Error('Zgodovinski preizkus golov ima neveljavno obliko.');
+    if(![1,2,3].includes(report?.version)||!Array.isArray(report.seasons))throw Error('Zgodovinski preizkus golov ima neveljavno obliko.');
     const area=$('goalsBacktest');area.innerHTML='';
     const h=document.createElement('h3');h.textContent='Zgodovinski preizkus novih trgov';area.append(h);
     const intro=document.createElement('p');intro.className='hint';
@@ -369,6 +369,18 @@
         card.append(details)
       }
       area.append(card)
+    }
+    const calibration=report.calibration;
+    if(calibration){
+      const card=document.createElement('article');card.className='bet';
+      const main=document.createElement('div'),title=document.createElement('strong'),train=document.createElement('small'),test=document.createElement('small'),result=document.createElement('small'),note=document.createElement('small');
+      const fmt=(v,n=3)=>Number.isFinite(v)?v.toFixed(n).replace('.',','):'—';
+      title.textContent='Ločen preizkus umerjanja · več/manj 2,5';
+      train.textContent='Utež '+pct(calibration.weight)+' za pretekli delež lige je določena samo iz '+calibration.trainingMatches+' tekem sezone '+calibration.trainingSeason+'/'+(calibration.trainingSeason+1)+'.';
+      test.textContent='Poznejša sezona '+calibration.holdoutSeason+'/'+(calibration.holdoutSeason+1)+' · '+calibration.holdoutMatches+' tekem: Brier obstoječi '+fmt(calibration.incumbentBrier)+' · umerjeni '+fmt(calibration.challengerBrier)+' (manj je bolje).';
+      result.textContent='Na istih '+calibration.priced+' tekmah s kvotami: Brier obstoječi '+fmt(calibration.incumbentPairedBrier)+' · umerjeni '+fmt(calibration.challengerPairedBrier)+' · trg '+fmt(calibration.marketPairedBrier)+'.';
+      note.textContent='Umerjeni model: '+calibration.selected+' papirnih izbir · '+(calibration.profitUnits>=0?'+':'')+fmt(calibration.profitUnits,2)+' enot · ROI '+(calibration.roi===null?'—':(calibration.roi>=0?'+':'')+pct(calibration.roi))+'. Preverjanje na preteklih tekmah; v glavnem modelu ni spremembe.';
+      main.append(title,train,test,result,note);card.append(main);area.append(card)
     }
     const verdict=document.createElement('p');verdict.className='hint';
     verdict.textContent='Preverjeno pravilo za gole ni pokazalo potrjene prednosti. Posamezna pozitivna liga po naknadni izbiri ni dokaz zaslužka; za odločitev so pomembni novi, vnaprej shranjeni podatki.';
