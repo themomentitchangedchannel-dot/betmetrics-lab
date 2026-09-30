@@ -299,7 +299,7 @@
     if(!valid.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Pred tekmami še ni shranjenih kvot iz izbrane stavnice.';area.append(empty);return}
     const recent=[...valid].sort((a,b)=>Date.parse(b.oddsSnapshot.quotedAt)-Date.parse(a.oddsSnapshot.quotedAt)).slice(0,12);
     for(const r of recent){
-      const card=document.createElement('article');card.className='bet',main=document.createElement('div'),title=document.createElement('strong'),info=document.createElement('small'),detail=document.createElement('small');
+      const card=document.createElement('article');card.className='bet';const main=document.createElement('div'),title=document.createElement('strong'),info=document.createElement('small'),detail=document.createElement('small');
       title.textContent=r.home+' – '+r.away;
       info.textContent=r.league.replace(' · API','')+' · začetek '+new Date(r.kickoffUtc).toLocaleString('sl-SI');
       detail.textContent='Betsson · zajeto '+new Date(r.oddsSnapshot.quotedAt).toLocaleString('sl-SI')+' · 1 / X / 2: '+r.oddsSnapshot.odds.map(o=>o.toFixed(2).replace('.',',')).join(' / ');
