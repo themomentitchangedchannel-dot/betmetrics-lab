@@ -23,6 +23,7 @@
     .calibration{border:1px solid #304157;border-radius:13px;margin-top:4px;padding:14px}.calibration[open] summary{margin-bottom:6px}.calibration-wrap{overflow-x:auto;margin-top:12px}.calibration-table{width:100%;min-width:470px;border-collapse:collapse;font-size:13px;text-align:left}.calibration-table th,.calibration-table td{padding:9px 7px;border-bottom:1px solid #304157}.calibration-table th{color:#a8c1d0;font-weight:750}.calibration-table td{color:#e3edf5}.calibration-table td:first-child{font-weight:800}
     @media(max-width:750px){.grid{grid-template-columns:1fr}.shell{padding:18px 14px 50px}.card{padding:18px}.top{margin-bottom:24px}.metrics{gap:6px}.metric{padding:10px}.metric strong{font-size:19px}.tag{font-size:10px}.row.triple{grid-template-columns:1fr 1fr}.row.triple>div:last-child{grid-column:1/-1}}
     .season-panel{border:1px solid #38566a;background:#112638;border-radius:16px;padding:18px 20px}.season-panel h3{margin:0 0 10px}.season-panel p{margin:8px 0}.season-panel .fine{line-height:1.5}
+    .auto-capture{display:flex;align-items:center;gap:10px;margin:16px 0 0;cursor:pointer}.auto-capture input{width:20px;height:20px;min-height:20px;padding:0;accent-color:#64e5bf;flex:none}.auto-capture span{font-size:14px}
   </style>
 </head>
 <body>
@@ -65,7 +66,7 @@
   </div>
   <div class="grid tab-panel" id="panel-model" role="tabpanel" aria-labelledby="tab-model" hidden>
     <section class="card span" aria-labelledby="backtestTitle"><p class="eyebrow">Preverjanje</p><h2 id="backtestTitle">Kako se je model odrezal za nazaj?</h2><p class="hint">Za vsako že odigrano tekmo uporabi samo rezultate pred njenim datumom. Oceno primerja s preprostim izhodiščem: deleži 1 / X / 2 na prejšnjih tekmah iste lige.</p><div class="actions"><button class="button secondary" id="runBacktest">Preveri model na preteklih tekmah</button></div><div id="backtestResults" class="list" style="margin-top:16px" aria-live="polite"></div><p class="fine">Ni primerjave z dejanskimi kvotami, zato ta pregled ne meri donosnosti. Iste podatke uporabljava tudi pri razvoju modela; za zanesljiv sklep bodo potrebne nove, vnaprej shranjene napovedi.</p></section>
-    <section class="card span" aria-labelledby="snapshotTitle"><p class="eyebrow">Nove tekme</p><h2 id="snapshotTitle">Shranjene napovedi 1 / X / 2</h2><p class="hint">Verjetnosti se ob shranitvi zaklenejo. Po uradnem rezultatu primerjava ne preračunava napovedi za nazaj.</p><div class="row"><div><label for="snapshotRange">Obdobje za shranitev</label><select id="snapshotRange"><option value="3">Naslednji 3 dnevi</option><option value="7">Naslednjih 7 dni</option><option value="14" selected>Naslednjih 14 dni</option></select></div><div class="actions" style="align-items:end"><button class="button secondary" id="saveAllForecasts">Shrani vse tekme v obdobju</button></div></div><div id="snapshotMessage" role="status"></div><div class="row"><div><label for="snapshotStatus">Stanje napovedi</label><select id="snapshotStatus"><option value="all">Vse</option><option value="open">Odprte</option><option value="done">Zaključene</option></select></div><div><label for="snapshotLeague">Liga</label><select id="snapshotLeague"><option value="">Vse lige</option></select></div></div><div id="snapshotResults" class="list" aria-live="polite"></div><p class="fine">Veljajo le tekme iz API. Skupinsko shranjevanje zajame vse razpoložljive tekme izbranega obdobja, če ima model dovolj podatkov; ročno izbrane napovedi lahko spremenijo vzorec. Brierjeva napaka ne meri donosnosti pri kvotah. Zapisi ostanejo v tem brskalniku.</p></section>
+    <section class="card span" aria-labelledby="snapshotTitle"><p class="eyebrow">Nove tekme</p><h2 id="snapshotTitle">Shranjene napovedi 1 / X / 2</h2><p class="hint">Verjetnosti se ob shranitvi zaklenejo. Po uradnem rezultatu primerjava ne preračunava napovedi za nazaj.</p><div class="row"><div><label for="snapshotRange">Obdobje za shranitev</label><select id="snapshotRange"><option value="3">Naslednji 3 dnevi</option><option value="7">Naslednjih 7 dni</option><option value="14" selected>Naslednjih 14 dni</option></select></div><div class="actions" style="align-items:end"><button class="button secondary" id="saveAllForecasts">Shrani vse tekme v obdobju</button></div></div><label class="auto-capture"><input type="checkbox" id="autoCapture"><span>Ob odprtju samodejno shrani nove tekme za naslednjih 14 dni</span></label><p class="fine">Deluje, ko odpreš aplikacijo v tem brskalniku. Za nazaj ne shrani napovedi in ne sklepa stav.</p><div id="snapshotMessage" role="status"></div><div class="row"><div><label for="snapshotStatus">Stanje napovedi</label><select id="snapshotStatus"><option value="all">Vse</option><option value="open">Odprte</option><option value="done">Zaključene</option></select></div><div><label for="snapshotLeague">Liga</label><select id="snapshotLeague"><option value="">Vse lige</option></select></div></div><div id="snapshotResults" class="list" aria-live="polite"></div><p class="fine">Veljajo le tekme iz API. Skupinsko shranjevanje zajame vse razpoložljive tekme izbranega obdobja, če ima model dovolj podatkov; ročno izbrane napovedi lahko spremenijo vzorec. Brierjeva napaka ne meri donosnosti pri kvotah. Zapisi ostanejo v tem brskalniku.</p></section>
     <section class="card span" aria-labelledby="forwardTitle"><p class="eyebrow">Sprotno preverjanje</p><h2 id="forwardTitle">Vnaprej shranjene papirne napovedi</h2><p class="hint">Pri vsaki zaključeni napovedi primerjajva verjetnost, shranjeno pred začetkom tekme, z dejanskim izidom.</p><div id="forwardResults" class="list" aria-live="polite"></div><p class="fine">Prikazane so samo zaključene papirne napovedi s časom shranitve pred začetkom tekme. Ker izbereš, katere napovedi shraniš, ta vzorec ne zajame vseh tekem modela. Podatki so samo v tem brskalniku.</p></section>
   </div>
   <div class="grid tab-panel" id="panel-diary" role="tabpanel" aria-labelledby="tab-diary" hidden>
@@ -345,9 +346,10 @@
         refreshTeams();
       }
       renderBets();
+      const autoResult=state.autoCapture?captureForecasts(14,{silent:true}):null;
       const details=ready.map(item=>`${item.league.replace(' · API','')}: ${item.games.length} rezultatov, ${item.fixtures.length} prihodnjih tekem`).join('; ');
       const history=ready.filter(item=>!item.payload.historyAvailable).map(item=>item.league.replace(' · API',''));
-      const message=`Posodobljeno: ${details}. Samodejno zaključenih papirnih/dejanskih napovedi: ${settled}; modelnih zapisov: ${settledForecasts}.${history.length?` Prejšnja sezona ni bila dostopna: ${history.join(', ')}.`:''}${failed.length?` Prenos ni uspel: ${failed.join(', ')}; poskusi znova.`:''}`;
+      const message=`Posodobljeno: ${details}. Samodejno zaključenih papirnih/dejanskih napovedi: ${settled}; modelnih zapisov: ${settledForecasts}.${autoResult?.added?` Samodejno shranjenih novih napovedi: ${autoResult.added}.`:''}${history.length?` Prejšnja sezona ni bila dostopna: ${history.join(', ')}.`:''}${failed.length?` Prenos ni uspel: ${failed.join(', ')}; poskusi znova.`:''}`;
       show('apiMessage',message,failed.length?'alert':'good');
     }catch(e){show('apiMessage',e.message||'Napaka pri osvežitvi.','bad')}
     finally{btn.disabled=false}
@@ -382,10 +384,10 @@
     button.disabled=true;button.textContent='Modelna napoved je shranjena';
     renderSnapshots();
   }
-  function saveAllForecasts(){
-    const days=Number($('snapshotRange').value),now=Date.now(),end=now+days*86400000;
+  function captureForecasts(days,{silent=false}={}){
+    const now=Date.now(),end=now+days*86400000;
     const fixtures=state.fixtures.filter(f=>Date.parse(f.utc)>now&&Date.parse(f.utc)<=end).sort((a,b)=>a.utc.localeCompare(b.utc));
-    if(!fixtures.length){show('snapshotMessage','Ni prihodnjih tekem v tem obdobju. Na zavihku Tekme osveži podatke ali izberi daljše obdobje.');return}
+    if(!fixtures.length){if(!silent)show('snapshotMessage','Ni prihodnjih tekem v tem obdobju. Na zavihku Tekme osveži podatke ali izberi daljše obdobje.');return {added:0,already:0,withoutModel:0}}
     const existing=new Set(state.forecasts.map(f=>f.apiId)),created=new Date().toISOString();
     const additions=[];let withoutModel=0,already=0;
     for(const f of fixtures){
@@ -398,10 +400,20 @@
     }
     if(additions.length){
       state.forecasts.unshift(...additions);
-      if(!persist()){state.forecasts.splice(0,additions.length);return}
+      if(!persist('snapshotMessage')){state.forecasts.splice(0,additions.length);return null}
       renderSnapshots();
     }
-    show('snapshotMessage',`Shranjenih novih modelnih napovedi: ${additions.length}. Že shranjenih: ${already}. Brez dovolj podatkov: ${withoutModel}. Napovedi se po shranitvi ne spremenijo.`,additions.length?'good':'alert');
+    if(!silent)show('snapshotMessage',`Shranjenih novih modelnih napovedi: ${additions.length}. Že shranjenih: ${already}. Brez dovolj podatkov: ${withoutModel}. Napovedi se po shranitvi ne spremenijo.`,additions.length?'good':'alert');
+    return {added:additions.length,already,withoutModel};
+  }
+  function saveAllForecasts(){captureForecasts(Number($('snapshotRange').value))}
+  function toggleAutoCapture(){
+    const previous=!!state.autoCapture;
+    state.autoCapture=$('autoCapture').checked;
+    if(!persist('snapshotMessage')){state.autoCapture=previous;$('autoCapture').checked=previous;return}
+    if(state.autoCapture){
+      captureForecasts(14);
+    }else show('snapshotMessage','Samodejno shranjevanje ob odprtju je izključeno.','good');
   }
   function renderSnapshots(){
     const area=$('snapshotResults');area.innerHTML='';
@@ -585,9 +597,9 @@
       if(next){event.preventDefault();switchTab(next.dataset.tab,{scroll:false});next.focus()}
     });
   }
-  $('syncApi').addEventListener('click',syncApi);$('saveAllForecasts').addEventListener('click',saveAllForecasts);
+  $('syncApi').addEventListener('click',syncApi);$('saveAllForecasts').addEventListener('click',saveAllForecasts);$('autoCapture').addEventListener('change',toggleAutoCapture);
   for(const id of ['snapshotStatus','snapshotLeague'])$(id).addEventListener('change',()=>{snapshotLimit=8;renderSnapshots()});$('runBacktest').addEventListener('click',renderBacktest);$('fixture').addEventListener('change',selectFixture);$('fixtureRange').addEventListener('change',refreshFixtures);$('matchLeague').addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();refreshTeams()});for(const id of ['matchDate','home','away'])$(id).addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();invalidate()});$('calculate').addEventListener('click',calculate);$('compareOdds').addEventListener('click',compareOdds);for(const id of ['oddsH','oddsD','oddsA'])$(id).addEventListener('input',()=>{$('oddsComparison').innerHTML=''});for(const id of ['pick','odds'])$(id).addEventListener('input',refreshValue);$('saveBet').addEventListener('click',saveBet);$('scoreMode').addEventListener('change',renderBets);
-  const tomorrow=new Date(Date.now()+86400000);tomorrow.setHours(18,0,0,0);$('matchDate').value=`${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,'0')}-${String(tomorrow.getDate()).padStart(2,'0')}T18:00`;refreshLists();renderBets();syncApi();
+  const tomorrow=new Date(Date.now()+86400000);tomorrow.setHours(18,0,0,0);$('matchDate').value=`${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,'0')}-${String(tomorrow.getDate()).padStart(2,'0')}T18:00`;$('autoCapture').checked=!!state.autoCapture;refreshLists();renderBets();syncApi();
   window.BetMetricsMath={csvRows,parseGames,predict,isoDate};
 })();
 </script>
