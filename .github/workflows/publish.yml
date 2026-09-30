@@ -42,17 +42,30 @@ jobs:
       - name: Build public forecast ledger
         run: node scripts/build-forecast-ledger.mjs
       - name: Persist forecast ledger
+        id: persist
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/forecast-ledger.json
           if ! git diff --cached --quiet; then
             git commit -m "Update public forecast ledger"
-            git push origin HEAD:main
+            if ! git push origin HEAD:main; then
+              remote_sha="$(git ls-remote origin refs/heads/main | cut -f1)"
+              if [ "$remote_sha" != "$GITHUB_SHA" ] && [ -n "$remote_sha" ]; then
+                echo "A newer commit superseded this run; its workflow will publish the current version."
+                echo "superseded=true" >> "$GITHUB_OUTPUT"
+              else
+                echo "Could not persist the forecast ledger."
+                exit 1
+              fi
+            fi
           fi
       - uses: actions/configure-pages@v5
+        if: steps.persist.outputs.superseded != 'true'
       - uses: actions/upload-pages-artifact@v3
+        if: steps.persist.outputs.superseded != 'true'
         with:
           path: site
       - id: deployment
+        if: steps.persist.outputs.superseded != 'true'
         uses: actions/deploy-pages@v4
