@@ -369,7 +369,7 @@
   function renderGoalCoverage(status){
     const area=$('goalsCoverage');area.textContent='';
     const c=status?.coverage?.total;
-    if(status?.version!==2||!c||!Number.isInteger(c.forecasts))return;
+    if(status?.version!==2||!c||!Number.isInteger(c.forecasts)){area.textContent='Pregled razpoložljivosti kvot 2,5 se bo prikazal po naslednjem načrtovanem zajemu vira.';return}
     const stamp=Number.isFinite(Date.parse(status.generatedAt))?new Date(status.generatedAt).toLocaleString('sl-SI'):'neznan';
     const count=document.createElement('p');
     count.textContent='Vir kvot preverjen '+stamp+': '+c.forecasts+' napovedi · '+c.matched+' ujemajočih tekem · '+c.h2h+' s kvotami 1 / X / 2 · '+c.totals+' s trgom golov · '+c.line25+' z mejo 2,5 · '+c.valid25+' veljavnih parov kvot.';
