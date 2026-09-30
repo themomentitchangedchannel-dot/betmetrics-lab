@@ -1,1 +1,286 @@
-{"version":1,"generatedAt":null,"records":[]}
+{
+  "version": 1,
+  "generatedAt": "2026-09-30T08:30:18.778Z",
+  "records": [
+    {
+      "id": 560593,
+      "league": "Premier League · API",
+      "kickoffUtc": "2026-10-10T11:30:00Z",
+      "home": "Arsenal FC",
+      "away": "Leeds United FC",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.7217864100991038,
+        0.17808986689650305,
+        0.10012372300439311
+      ],
+      "baseline": [
+        0.4186046511627907,
+        0.27906976744186046,
+        0.3023255813953488
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 560592,
+      "league": "Premier League · API",
+      "kickoffUtc": "2026-10-10T14:00:00Z",
+      "home": "Sunderland AFC",
+      "away": "Brighton & Hove Albion FC",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.3719698076290051,
+        0.27116118428376396,
+        0.356869008087231
+      ],
+      "baseline": [
+        0.4186046511627907,
+        0.27906976744186046,
+        0.3023255813953488
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 560595,
+      "league": "Premier League · API",
+      "kickoffUtc": "2026-10-10T14:00:00Z",
+      "home": "Chelsea FC",
+      "away": "AFC Bournemouth",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.41098625466121685,
+        0.22830916936975962,
+        0.36070457596902356
+      ],
+      "baseline": [
+        0.4186046511627907,
+        0.27906976744186046,
+        0.3023255813953488
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 560601,
+      "league": "Premier League · API",
+      "kickoffUtc": "2026-10-10T14:00:00Z",
+      "home": "Aston Villa FC",
+      "away": "Brentford FC",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.4797247238582451,
+        0.2454259589239249,
+        0.27484931721782996
+      ],
+      "baseline": [
+        0.4186046511627907,
+        0.27906976744186046,
+        0.3023255813953488
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 560600,
+      "league": "Premier League · API",
+      "kickoffUtc": "2026-10-10T16:30:00Z",
+      "home": "Manchester United FC",
+      "away": "Tottenham Hotspur FC",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.4986230758699966,
+        0.23059701485781162,
+        0.27077990927219175
+      ],
+      "baseline": [
+        0.4186046511627907,
+        0.27906976744186046,
+        0.3023255813953488
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 560596,
+      "league": "Premier League · API",
+      "kickoffUtc": "2026-10-11T13:00:00Z",
+      "home": "Crystal Palace FC",
+      "away": "Nottingham Forest FC",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.2727924160434849,
+        0.24726348567029266,
+        0.47994409828622253
+      ],
+      "baseline": [
+        0.4186046511627907,
+        0.27906976744186046,
+        0.3023255813953488
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 560598,
+      "league": "Premier League · API",
+      "kickoffUtc": "2026-10-11T15:30:00Z",
+      "home": "Liverpool FC",
+      "away": "Manchester City FC",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.33647632286429685,
+        0.25588867419883576,
+        0.4076350029368672
+      ],
+      "baseline": [
+        0.4186046511627907,
+        0.27906976744186046,
+        0.3023255813953488
+      ],
+      "trainingMatches": 430,
+      "result": null
+    },
+    {
+      "id": 564698,
+      "league": "La Liga · API",
+      "kickoffUtc": "2026-10-10T12:00:00Z",
+      "home": "Rayo Vallecano de Madrid",
+      "away": "Athletic Club",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.5353139622858919,
+        0.2508316091807037,
+        0.21385442853340444
+      ],
+      "baseline": [
+        0.48329621380846327,
+        0.24498886414253898,
+        0.2717149220489978
+      ],
+      "trainingMatches": 449,
+      "result": null
+    },
+    {
+      "id": 564699,
+      "league": "La Liga · API",
+      "kickoffUtc": "2026-10-10T14:15:00Z",
+      "home": "Deportivo Alavés",
+      "away": "Club Atlético de Madrid",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.3833448050083992,
+        0.25773605194889154,
+        0.3589191430427093
+      ],
+      "baseline": [
+        0.48329621380846327,
+        0.24498886414253898,
+        0.2717149220489978
+      ],
+      "trainingMatches": 449,
+      "result": null
+    },
+    {
+      "id": 564700,
+      "league": "La Liga · API",
+      "kickoffUtc": "2026-10-10T16:30:00Z",
+      "home": "FC Barcelona",
+      "away": "Getafe CF",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.7803947247444875,
+        0.15319670953063233,
+        0.06640856572488023
+      ],
+      "baseline": [
+        0.48329621380846327,
+        0.24498886414253898,
+        0.2717149220489978
+      ],
+      "trainingMatches": 449,
+      "result": null
+    },
+    {
+      "id": 564702,
+      "league": "La Liga · API",
+      "kickoffUtc": "2026-10-10T19:00:00Z",
+      "home": "Real Madrid CF",
+      "away": "Villarreal CF",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.6319905419741284,
+        0.19860043900969943,
+        0.16940901901617217
+      ],
+      "baseline": [
+        0.48329621380846327,
+        0.24498886414253898,
+        0.2717149220489978
+      ],
+      "trainingMatches": 449,
+      "result": null
+    },
+    {
+      "id": 564703,
+      "league": "La Liga · API",
+      "kickoffUtc": "2026-10-11T12:00:00Z",
+      "home": "Elche CF",
+      "away": "RC Celta de Vigo",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.31535733090346646,
+        0.27546938265371157,
+        0.409173286442822
+      ],
+      "baseline": [
+        0.48329621380846327,
+        0.24498886414253898,
+        0.2717149220489978
+      ],
+      "trainingMatches": 449,
+      "result": null
+    },
+    {
+      "id": 564701,
+      "league": "La Liga · API",
+      "kickoffUtc": "2026-10-11T16:30:00Z",
+      "home": "Real Betis Balompié",
+      "away": "CA Osasuna",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.6085979972216051,
+        0.23696028682952408,
+        0.1544417159488708
+      ],
+      "baseline": [
+        0.48329621380846327,
+        0.24498886414253898,
+        0.2717149220489978
+      ],
+      "trainingMatches": 449,
+      "result": null
+    },
+    {
+      "id": 564704,
+      "league": "La Liga · API",
+      "kickoffUtc": "2026-10-12T19:00:00Z",
+      "home": "Levante UD",
+      "away": "Sevilla FC",
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "probs": [
+        0.4002206665473482,
+        0.23401136965020625,
+        0.3657679638024456
+      ],
+      "baseline": [
+        0.48329621380846327,
+        0.24498886414253898,
+        0.2717149220489978
+      ],
+      "trainingMatches": 449,
+      "result": null
+    }
+  ]
+}
