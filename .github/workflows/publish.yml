@@ -8,6 +8,8 @@ on:
       - scripts/sync-football-data.mjs
       - scripts/build-forecast-ledger.mjs
       - scripts/forecast-ledger.test.mjs
+      - scripts/backtest-odds.mjs
+      - scripts/backtest-odds.test.mjs
       - .github/workflows/publish.yml
   workflow_dispatch:
   schedule:
@@ -41,6 +43,10 @@ jobs:
         run: node --test scripts/forecast-ledger.test.mjs
       - name: Build public forecast ledger
         run: node scripts/build-forecast-ledger.mjs
+      - name: Test odds matching and scoring
+        run: node --test scripts/backtest-odds.test.mjs
+      - name: Backtest fixed betting rule
+        run: node scripts/backtest-odds.mjs
       - name: Persist forecast ledger
         id: persist
         run: |
