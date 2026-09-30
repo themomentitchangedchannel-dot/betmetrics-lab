@@ -89,11 +89,37 @@ export function summarize(ledger) {
   return { quoted: quoted.length, selected: selected.length, settled: settled.length, profitUnits, roi: settled.length ? profitUnits / settled.length : null };
 }
 
+export function diagnoseCoverage(ledger, byLeague, nowIso) {
+  const byLeagueCounts = {};
+  const total = { forecasts: 0, matched: 0, h2h: 0, totals: 0, line25: 0, valid25: 0 };
+  for (const [league, events] of Object.entries(byLeague)) {
+    const counts = { forecasts: 0, matched: 0, h2h: 0, totals: 0, line25: 0, valid25: 0 };
+    for (const record of ledger.records) {
+      if (record.league !== league || !record.goalsForecast ||
+          Date.parse(record.kickoffUtc) <= Date.parse(nowIso)) continue;
+      counts.forecasts++;
+      const event = eventFor(record, events);
+      if (!event) continue;
+      counts.matched++;
+      const book = event.bookmakers?.find(b => b.key === bookmaker);
+      if (book?.markets?.some(m => m.key === 'h2h')) counts.h2h++;
+      const market = book?.markets?.find(m => m.key === 'totals');
+      if (!market) continue;
+      counts.totals++;
+      if (market.outcomes?.some(o => Number(o.point) === 2.5)) counts.line25++;
+      if (quoteTotals25(record, event, nowIso)) counts.valid25++;
+    }
+    byLeagueCounts[league] = counts;
+    for (const key of Object.keys(total)) total[key] += counts[key];
+  }
+  return { total, byLeague: byLeagueCounts };
+}
+
 async function main() {
   const root = new URL('../', import.meta.url), file = new URL('data/forecast-ledger.json', root);
   const ledger = JSON.parse(await readFile(file, 'utf8'));
   const key = process.env.THE_ODDS_API_KEY?.trim(), now = new Date().toISOString();
-  const status = { version: 1, generatedAt: now, source: 'The Odds API', bookmaker: 'Betsson', configured: !!key, fetched: false, warnings: [] };
+  let status = { version: 2, generatedAt: now, source: 'The Odds API', bookmaker: 'Betsson', configured: !!key, fetched: false, warnings: [], coverage: null };
   if (key && process.env.FETCH_LIVE_ODDS !== 'false') {
     const byLeague = {};
     for (const [code, sport] of Object.entries(sports)) {
@@ -108,6 +134,7 @@ async function main() {
         status.fetched = true;
       } catch (error) { status.warnings.push(`${code}: ${error.message}`); }
     }
+    status.coverage = diagnoseCoverage(ledger, byLeague, now);
     const result = attachSnapshots(ledger, byLeague, now);
     if (result.attached || result.totalsAttached) {
       const output = JSON.stringify(result.ledger, null, 2) + '\n';
@@ -115,7 +142,14 @@ async function main() {
       await writeFile(new URL('site/data/forecast-ledger.json', root), output);
     }
     process.stdout.write(`Prospective odds: ${result.attached} h2h quotes, ${result.totalsAttached} over/under 2.5 quotes, ${summarize(result.ledger).selected} h2h selections; ${status.warnings.length} feed errors.\n`);
-  } else process.stdout.write(key ? 'Odds fetch skipped on code push.\n' : 'Odds feed awaits THE_ODDS_API_KEY.\n');
+  } else {
+    try {
+      const previous = JSON.parse(await readFile(new URL('data/live-odds-status.json', root), 'utf8'));
+      if (previous?.version === 2) status = previous;
+    } catch { /* The first run has no persisted feed status. */ }
+    process.stdout.write(key ? 'Odds fetch skipped on code push.\n' : 'Odds feed awaits THE_ODDS_API_KEY.\n');
+  }
+  await writeFile(new URL('data/live-odds-status.json', root), JSON.stringify(status, null, 2) + '\n');
   await writeFile(new URL('site/data/live-odds-status.json', root), JSON.stringify(status, null, 2) + '\n');
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
