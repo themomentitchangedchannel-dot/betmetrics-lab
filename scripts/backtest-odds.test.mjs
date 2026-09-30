@@ -8,6 +8,9 @@ test('CSV parser handles quoted team names and bookmaker columns', () => {
   assert.equal(rows[0].B365CH,'2.2');
   assert.equal(teamKey('Manchester City FC'),teamKey('Man City'));
   assert.equal(teamKey('Club Atlético de Madrid'),teamKey('Ath Madrid'));
+  assert.equal(teamKey('Rayo Vallecano de Madrid'),teamKey('Vallecano'));
+  assert.equal(teamKey('Levante UD'),teamKey('Levante'));
+  assert.equal(teamKey('RC Deportivo La Coruña'),teamKey('La Coruna'));
 });
 
 test('historical quote is used only for a uniquely matched result and prior-match forecast', () => {
