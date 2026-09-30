@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import { strict as assert } from 'node:assert';
-import { eventFor, quote, quoteTotals25, attachSnapshots, summarize } from './sync-live-odds.mjs';
+import { eventFor, quote, quoteTotals25, attachSnapshots, summarize, diagnoseCoverage } from './sync-live-odds.mjs';
 
 const now = '2026-10-01T10:00:00Z';
 const record = { id: 1, league: 'Premier League · API', kickoffUtc: '2026-10-02T14:00:00Z', home: 'Arsenal FC', away: 'Brighton & Hove Albion FC', predictedAt: '2026-09-30T09:00:00Z', probs: [.55,.25,.20], result: null };
@@ -64,4 +64,17 @@ test('locks only the 2.5 goal line and never changes an existing 1/X/2 quote',()
   assert.deepEqual(result.ledger.records[0].oddsSnapshot,original.oddsSnapshot);
   assert.equal(result.ledger.records[0].totals25Snapshot.pick,'Over');
   assert.equal(quoteTotals25(fixture,withTotals,fixture.kickoffUtc),null);
+});
+
+test('coverage distinguishes fixture, bookmaker totals and valid 2.5 quote',()=>{
+  const fixture={...record,goalsForecast:{predictedAt:'2026-09-30T09:30:00Z',probs:{over25:.58,btts:.53}}};
+  const withTotals=structuredClone(event);
+  withTotals.bookmakers[0].markets.push({key:'totals',last_update:'2026-10-01T09:55:00Z',outcomes:[
+    {name:'Over',point:2.5,price:2.0},{name:'Under',point:2.5,price:1.85}]});
+  const ledger={records:[fixture,{...fixture,id:2,home:'Chelsea FC'}]};
+  const c=diagnoseCoverage(ledger,{[record.league]:[withTotals]},now).total;
+  assert.deepEqual(c,{forecasts:2,matched:1,h2h:1,totals:1,line25:1,valid25:1});
+  const missing=structuredClone(withTotals);missing.bookmakers[0].markets.pop();
+  assert.deepEqual(diagnoseCoverage(ledger,{[record.league]:[missing]},now).total,
+    {forecasts:2,matched:1,h2h:1,totals:0,line25:0,valid25:0});
 });
