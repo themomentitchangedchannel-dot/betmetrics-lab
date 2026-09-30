@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-30T08:33:12.088Z",
+  "generatedAt": "2026-09-30T09:13:10.976Z",
   "records": [
     {
       "id": 560593,
@@ -20,7 +20,16 @@
         0.3023255813953488
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.6073997286815771,
+          0.2254461576947946,
+          0.16715411362362834
+        ]
+      }
     },
     {
       "id": 560592,
@@ -40,7 +49,16 @@
         0.3023255813953488
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.32844697271695605,
+          0.259251015836419,
+          0.4123020114466248
+        ]
+      }
     },
     {
       "id": 560595,
@@ -60,7 +78,16 @@
         0.3023255813953488
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.39411228664954007,
+          0.23317776484033978,
+          0.37270994851012024
+        ]
+      }
     },
     {
       "id": 560601,
@@ -80,7 +107,16 @@
         0.3023255813953488
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.43711055224419854,
+          0.24874695314015188,
+          0.3141424946156495
+        ]
+      }
     },
     {
       "id": 560600,
@@ -100,7 +136,16 @@
         0.3023255813953488
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.5203894176596372,
+          0.23256766719394178,
+          0.24704291514642104
+        ]
+      }
     },
     {
       "id": 560596,
@@ -120,7 +165,16 @@
         0.3023255813953488
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.2702310013139258,
+          0.2299562054532638,
+          0.49981279323281036
+        ]
+      }
     },
     {
       "id": 560598,
@@ -140,7 +194,16 @@
         0.3023255813953488
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.34295930279673026,
+          0.258131278729312,
+          0.3989094184739577
+        ]
+      }
     },
     {
       "id": 564698,
@@ -160,7 +223,16 @@
         0.2717149220489978
       ],
       "trainingMatches": 449,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.53180843460107,
+          0.23885157616891964,
+          0.2293399892300104
+        ]
+      }
     },
     {
       "id": 564699,
@@ -180,7 +252,16 @@
         0.2717149220489978
       ],
       "trainingMatches": 449,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.4257448236327976,
+          0.24510623722905217,
+          0.32914893913815013
+        ]
+      }
     },
     {
       "id": 564700,
@@ -200,7 +281,16 @@
         0.2717149220489978
       ],
       "trainingMatches": 449,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.7313547498000139,
+          0.17406490051578077,
+          0.09458034968420526
+        ]
+      }
     },
     {
       "id": 564702,
@@ -220,7 +310,16 @@
         0.2717149220489978
       ],
       "trainingMatches": 449,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.6144190553631709,
+          0.20136002463657926,
+          0.1842209200002499
+        ]
+      }
     },
     {
       "id": 564703,
@@ -240,7 +339,16 @@
         0.2717149220489978
       ],
       "trainingMatches": 449,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.3208384113877946,
+          0.2663464724927543,
+          0.4128151161194512
+        ]
+      }
     },
     {
       "id": 564701,
@@ -260,7 +368,16 @@
         0.2717149220489978
       ],
       "trainingMatches": 449,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.6030158492558853,
+          0.22973817917177286,
+          0.1672459715723418
+        ]
+      }
     },
     {
       "id": 564704,
@@ -280,7 +397,16 @@
         0.2717149220489978
       ],
       "trainingMatches": 449,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.43940559948325775,
+          0.23388226120805825,
+          0.32671213930868404
+        ]
+      }
     },
     {
       "id": 558588,
@@ -300,7 +426,16 @@
         0.35348837209302325
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.3565753090742174,
+          0.24438919640976145,
+          0.399035494516021
+        ]
+      }
     },
     {
       "id": 558582,
@@ -320,7 +455,16 @@
         0.35348837209302325
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.6712111891142645,
+          0.1897299149391453,
+          0.13905889594659027
+        ]
+      }
     },
     {
       "id": 558585,
@@ -340,7 +484,16 @@
         0.35348837209302325
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.39248282763187536,
+          0.2589540765332656,
+          0.34856309583485917
+        ]
+      }
     },
     {
       "id": 558581,
@@ -360,7 +513,16 @@
         0.35348837209302325
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.26656315025944777,
+          0.26575142380065564,
+          0.4676854259398966
+        ]
+      }
     },
     {
       "id": 558580,
@@ -380,7 +542,16 @@
         0.35348837209302325
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.3224935157932493,
+          0.25643335662431793,
+          0.4210731275824327
+        ]
+      }
     },
     {
       "id": 558584,
@@ -400,7 +571,16 @@
         0.35348837209302325
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.3139133999151484,
+          0.28251095196912696,
+          0.4035756481157246
+        ]
+      }
     },
     {
       "id": 558587,
@@ -420,7 +600,16 @@
         0.35348837209302325
       ],
       "trainingMatches": 430,
-      "result": null
+      "result": null,
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-09-30T09:13:10.976Z",
+        "probs": [
+          0.34786971407370454,
+          0.2275725325728836,
+          0.4245577533534119
+        ]
+      }
     }
   ]
 }
