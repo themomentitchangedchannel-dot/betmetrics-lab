@@ -10,6 +10,8 @@ on:
       - scripts/forecast-ledger.test.mjs
       - scripts/backtest-odds.mjs
       - scripts/backtest-odds.test.mjs
+      - scripts/sync-live-odds.mjs
+      - scripts/sync-live-odds.test.mjs
       - .github/workflows/publish.yml
   workflow_dispatch:
   schedule:
@@ -45,6 +47,13 @@ jobs:
         run: node scripts/build-forecast-ledger.mjs
       - name: Test odds matching and scoring
         run: node --test scripts/backtest-odds.test.mjs
+      - name: Test prospective odds ledger
+        run: node --test scripts/sync-live-odds.test.mjs
+      - name: Capture prospective bookmaker quotes
+        env:
+          THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
+          FETCH_LIVE_ODDS: ${{ github.event_name != 'push' }}
+        run: node scripts/sync-live-odds.mjs
       - name: Backtest fixed betting rule
         run: node scripts/backtest-odds.mjs
       - name: Persist forecast ledger
