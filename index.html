@@ -408,9 +408,12 @@
     const valid=state.forecasts.filter(f=>Array.isArray(f.probs)&&f.probs.length===3&&f.probs.every(p=>Number.isFinite(p)&&p>=0&&p<=1)&&Array.isArray(f.baseline)&&f.baseline.length===3&&f.baseline.every(p=>Number.isFinite(p)&&p>=0&&p<=1)&&Number.isFinite(Date.parse(f.created))&&Number.isFinite(Date.parse(f.kickoff))&&Date.parse(f.created)<Date.parse(f.kickoff));
     const leagueSelect=$('snapshotLeague'),previousLeague=leagueSelect.value;
     const leagues=[...new Set(valid.map(f=>f.league))].sort();
-    leagueSelect.innerHTML='<option value="">Vse lige</option>';
-    for(const league of leagues){const option=document.createElement('option');option.value=league;option.textContent=league.replace(' · API','');leagueSelect.append(option)}
-    leagueSelect.value=leagues.includes(previousLeague)?previousLeague:'';
+    const listed=[...leagueSelect.options].slice(1).map(option=>option.value);
+    if(listed.length!==leagues.length||listed.some((value,i)=>value!==leagues[i])){
+      leagueSelect.innerHTML='<option value="">Vse lige</option>';
+      for(const league of leagues){const option=document.createElement('option');option.value=league;option.textContent=league.replace(' · API','');leagueSelect.append(option)}
+      leagueSelect.value=leagues.includes(previousLeague)?previousLeague:'';
+    }
     if(!valid.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Izberi prihajajočo tekmo iz API, izračunaj 1 / X / 2 in shrani modelno napoved.';area.append(empty);return}
     const done=valid.filter(f=>['H','D','A'].includes(f.result));
     const intro=document.createElement('p');intro.className='hint';intro.textContent=`Shranjeno: ${valid.length} · zaključenih: ${done.length} · odprtih: ${valid.length-done.length}.`;area.append(intro);
