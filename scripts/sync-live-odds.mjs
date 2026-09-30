@@ -81,6 +81,24 @@ export function attachSnapshots(ledger, byLeague, nowIso) {
   return { ledger: { ...ledger, records }, attached, totalsAttached };
 }
 
+export function updateLatestQuotes(ledger, byLeague, nowIso) {
+  let updated = 0;
+  const records = ledger.records.map(record => {
+    if (!Object.values(leagues).includes(record.league) || Date.parse(record.kickoffUtc) <= Date.parse(nowIso)) return record;
+    const event = eventFor(record, byLeague[record.league] || []);
+    const h2h = quote(record, event, nowIso);
+    const totals = quoteTotals25(record, event, nowIso);
+    if (!h2h && !totals) return record;
+    const changes = {};
+    if (h2h && Date.parse(h2h.quotedAt) > Date.parse(record.latestOddsSnapshot?.quotedAt || 0)) changes.latestOddsSnapshot = h2h;
+    if (totals && Date.parse(totals.quotedAt) > Date.parse(record.latestTotals25Snapshot?.quotedAt || 0)) changes.latestTotals25Snapshot = totals;
+    if (!Object.keys(changes).length) return record;
+    updated++;
+    return {...record, ...changes};
+  });
+  return {ledger:{...ledger,records},updated};
+}
+
 export function summarize(ledger) {
   const quoted = ledger.records.filter(r => r.oddsSnapshot);
   const selected = quoted.filter(r => r.oddsSnapshot.pick);
@@ -136,12 +154,13 @@ async function main() {
     }
     status.coverage = diagnoseCoverage(ledger, byLeague, now);
     const result = attachSnapshots(ledger, byLeague, now);
-    if (result.attached || result.totalsAttached) {
-      const output = JSON.stringify(result.ledger, null, 2) + '\n';
+    const latest = updateLatestQuotes(result.ledger, byLeague, now);
+    if (result.attached || result.totalsAttached || latest.updated) {
+      const output = JSON.stringify(latest.ledger, null, 2) + '\n';
       await writeFile(file, output);
       await writeFile(new URL('site/data/forecast-ledger.json', root), output);
     }
-    process.stdout.write(`Prospective odds: ${result.attached} h2h quotes, ${result.totalsAttached} over/under 2.5 quotes, ${summarize(result.ledger).selected} h2h selections; ${status.warnings.length} feed errors.\n`);
+    process.stdout.write(`Prospective odds: ${result.attached} h2h quotes, ${result.totalsAttached} over/under 2.5 quotes, ${summarize(latest.ledger).selected} h2h selections, ${latest.updated} latest quotes updated; ${status.warnings.length} feed errors.\n`);
   } else {
     try {
       const previous = JSON.parse(await readFile(new URL('data/live-odds-status.json', root), 'utf8'));

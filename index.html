@@ -40,7 +40,7 @@
   <div class="grid tab-panel" id="panel-candidates" role="tabpanel" aria-labelledby="tab-candidates" hidden>
     <section class="card span" aria-labelledby="candidateBoardTitle">
       <p class="eyebrow">Samodejni pregled · papirno</p><h2 id="candidateBoardTitle">Kandidati iz shranjenih kvot</h2>
-      <p class="hint">Samodejni izbor iz vnaprej shranjenih napovedi in prvih zajetih kvot Betsson. Pravilo: modelna vrednost vsaj 5 %, kvota 1,40–5,00. Zgodovinski preizkusi so negativni, zato to ni potrjena prednost ali priporočilo za stavo.</p>
+      <p class="hint">Samodejni izbor iz vnaprej shranjenih napovedi in zadnjih zajetih kvot Betsson. Pravilo: modelna vrednost vsaj 5 %, kvota 1,40–5,00. Zgodovinski preizkusi so negativni, zato to ni potrjena prednost ali priporočilo za stavo.</p>
       <div class="row triple">
         <div><label for="candidateDays">Začetek v</label><select id="candidateDays"><option value="3">3 dneh</option><option value="7">7 dneh</option><option value="14" selected>14 dneh</option></select></div>
         <div><label for="candidateMarket">Trg</label><select id="candidateMarket"><option value="all">Vsi trgi</option><option value="h2h">1 / X / 2</option><option value="goals">Več/manj 2,5</option></select></div>
@@ -525,7 +525,7 @@
     for(const r of matches){
       for(const kind of ['h2h','goals']){
         if(market!=='all'&&market!==kind)continue;
-        const q=kind==='h2h'?r.oddsSnapshot:r.totals25Snapshot;
+        const q=kind==='h2h'?(r.latestOddsSnapshot||r.oddsSnapshot):(r.latestTotals25Snapshot||r.totals25Snapshot);
         const prediction=kind==='h2h'?r.predictedAt:r.goalsForecast?.predictedAt;
         const pickIndex=kind==='h2h'?['H','D','A'].indexOf(q?.pick):['Over','Under'].indexOf(q?.pick);
         const odds=q?.odds?.[pickIndex];

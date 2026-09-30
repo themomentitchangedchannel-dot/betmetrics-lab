@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import { strict as assert } from 'node:assert';
-import { eventFor, quote, quoteTotals25, attachSnapshots, summarize, diagnoseCoverage } from './sync-live-odds.mjs';
+import { eventFor, quote, quoteTotals25, attachSnapshots, updateLatestQuotes, summarize, diagnoseCoverage } from './sync-live-odds.mjs';
 
 const now = '2026-10-01T10:00:00Z';
 const record = { id: 1, league: 'Premier League · API', kickoffUtc: '2026-10-02T14:00:00Z', home: 'Arsenal FC', away: 'Brighton & Hove Albion FC', predictedAt: '2026-09-30T09:00:00Z', probs: [.55,.25,.20], result: null };
@@ -77,4 +77,27 @@ test('coverage distinguishes fixture, bookmaker totals and valid 2.5 quote',()=>
   const missing=structuredClone(withTotals);missing.bookmakers[0].markets.pop();
   assert.deepEqual(diagnoseCoverage(ledger,{[record.league]:[missing]},now).total,
     {forecasts:2,matched:1,h2h:1,totals:0,line25:0,valid25:0});
+});
+
+test('latest quotes change while the first paper quote remains locked',()=>{
+  const fixture={...record,goalsForecast:{predictedAt:'2026-09-30T09:30:00Z',probs:{over25:.58,btts:.53}}};
+  const firstEvent=structuredClone(event);
+  firstEvent.bookmakers[0].markets.push({key:'totals',last_update:'2026-10-01T09:55:00Z',outcomes:[
+    {name:'Over',point:2.5,price:2.0},{name:'Under',point:2.5,price:1.85}]});
+  const initial=attachSnapshots({records:[fixture]},{[record.league]:[firstEvent]},now).ledger;
+  const latest1=updateLatestQuotes(initial,{[record.league]:[firstEvent]},now);
+  assert.equal(latest1.updated,1);
+  assert.equal(latest1.ledger.records[0].latestTotals25Snapshot.pick,'Over');
+  const nextEvent=structuredClone(firstEvent);
+  nextEvent.bookmakers[0].markets[0].last_update='2026-10-01T11:55:00Z';
+  nextEvent.bookmakers[0].markets[0].outcomes[1].price=3.0;
+  nextEvent.bookmakers[0].markets[1].last_update='2026-10-01T11:55:00Z';
+  nextEvent.bookmakers[0].markets[1].outcomes[0].price=1.5;
+  const later=updateLatestQuotes(latest1.ledger,{[record.league]:[nextEvent]},'2026-10-01T12:00:00Z');
+  assert.equal(later.updated,1);
+  assert.equal(later.ledger.records[0].latestOddsSnapshot.odds[1],3);
+  assert.equal(later.ledger.records[0].latestTotals25Snapshot.pick,null);
+  assert.deepEqual(later.ledger.records[0].oddsSnapshot,initial.records[0].oddsSnapshot);
+  assert.deepEqual(later.ledger.records[0].totals25Snapshot,initial.records[0].totals25Snapshot);
+  assert.equal(updateLatestQuotes(later.ledger,{[record.league]:[]},'2026-10-01T13:00:00Z').updated,0);
 });
