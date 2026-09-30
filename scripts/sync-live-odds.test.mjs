@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import { strict as assert } from 'node:assert';
-import { eventFor, quote, attachSnapshots, summarize } from './sync-live-odds.mjs';
+import { eventFor, quote, quoteTotals25, attachSnapshots, summarize } from './sync-live-odds.mjs';
 
 const now = '2026-10-01T10:00:00Z';
 const record = { id: 1, league: 'Premier League · API', kickoffUtc: '2026-10-02T14:00:00Z', home: 'Arsenal FC', away: 'Brighton & Hove Albion FC', predictedAt: '2026-09-30T09:00:00Z', probs: [.55,.25,.20], result: null };
@@ -48,4 +48,20 @@ test('no retroactive, ambiguous, stale or incomplete bookmaker quotes', () => {
   assert.equal(quote(record,stale,now),null);
   const missing=structuredClone(event);missing.bookmakers[0].markets[0].outcomes.pop();
   assert.equal(quote(record,missing,now),null);
+});
+
+test('locks only the 2.5 goal line and never changes an existing 1/X/2 quote',()=>{
+  const fixture={...record,goalsForecast:{predictedAt:'2026-09-30T09:30:00Z',probs:{over25:.58,btts:.53}}};
+  const withTotals=structuredClone(event);
+  withTotals.bookmakers[0].markets.push({key:'totals',last_update:'2026-10-01T09:55:00Z',outcomes:[
+    {name:'Over',point:1.5,price:1.30},{name:'Under',point:1.5,price:3.7},
+    {name:'Over',point:2.5,price:2.0},{name:'Under',point:2.5,price:1.85}]});
+  const total=quoteTotals25(fixture,withTotals,now);
+  assert.deepEqual(total.odds,[2,1.85]);assert.equal(total.pick,'Over');
+  const original=attachSnapshots({version:1,records:[record]},{[record.league]:[event]},now).ledger.records[0];
+  const result=attachSnapshots({version:1,records:[{...original,goalsForecast:fixture.goalsForecast}]},{[record.league]:[withTotals]},'2026-10-01T10:01:00Z');
+  assert.equal(result.attached,0);assert.equal(result.totalsAttached,1);
+  assert.deepEqual(result.ledger.records[0].oddsSnapshot,original.oddsSnapshot);
+  assert.equal(result.ledger.records[0].totals25Snapshot.pick,'Over');
+  assert.equal(quoteTotals25(fixture,withTotals,fixture.kickoffUtc),null);
 });
