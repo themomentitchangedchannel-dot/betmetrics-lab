@@ -5,12 +5,12 @@ import { predict } from './build-forecast-ledger.mjs';
 const leagues = { PL: ['E0', 'Premier League · API'], PD: ['SP1', 'La Liga · API'], SA: ['I1', 'Serie A · API'] };
 const localDay = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Ljubljana', year: 'numeric', month: '2-digit', day: '2-digit' });
 const aliases = {
-  'manchester united': 'man united', 'manchester city': 'man city', 'tottenham hotspur': 'tottenham', 'nottingham forest': 'nottm forest', 'wolverhampton wanderers': 'wolves',
-  'brighton hove albion': 'brighton', 'newcastle united': 'newcastle', 'west ham united': 'west ham', 'leeds united': 'leeds', 'sheffield united': 'sheffield united',
+  'manchester united': 'man united', 'manchester city': 'man city', 'tottenham hotspur': 'tottenham', 'nottingham forest': 'nottm forest', 'nott m forest': 'nottm forest', 'wolverhampton wanderers': 'wolves',
+  'brighton hove albion': 'brighton', 'newcastle united': 'newcastle', 'west ham united': 'west ham', 'leeds united': 'leeds', 'leicester city': 'leicester', 'hull city': 'hull', 'coventry city': 'coventry', 'ipswich town': 'ipswich', 'sheffield united': 'sheffield united',
   'club atletico de madrid': 'ath madrid', 'atletico de madrid': 'ath madrid', 'athletic club': 'ath bilbao', 'real betis balompie': 'betis', 'real sociedad de futbol': 'sociedad',
-  'rc celta de vigo': 'celta', 'rayo vallecano de madrid': 'rayo vallecano', 'rcd espanyol de barcelona': 'espanol', 'rcd mallorca': 'mallorca',
+  'rc celta de vigo': 'celta', 'rayo vallecano de madrid': 'vallecano', 'rayo vallecano': 'vallecano', 'rcd espanyol de barcelona': 'espanol', 'rcd mallorca': 'mallorca',
   'deportivo alaves': 'alaves', 'real valladolid': 'valladolid', 'ca osasuna': 'osasuna', 'real oviedo': 'oviedo', 'real madrid': 'real madrid',
-  'fc barcelona': 'barcelona', 'rc deportivo la coruna': 'deportivo', 'real racing club de santander': 'racing santander',
+  'fc barcelona': 'barcelona', 'rc deportivo la coruna': 'la coruna', 'real racing club de santander': 'santander',
   'internazionale milano': 'inter', 'milan': 'milan', 'as roma': 'roma', 'ssc napoli': 'napoli', 'lazio': 'lazio',
   'acf fiorentina': 'fiorentina', 'parma': 'parma', 'bologna': 'bologna', 'lecce': 'lecce',
   'us sassuolo calcio': 'sassuolo', 'cagliari calcio': 'cagliari', 'genoa': 'genoa', 'udinese calcio': 'udinese',
@@ -19,7 +19,7 @@ const aliases = {
 
 export function teamKey(name) {
   let key = String(name || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/&/g, ' ').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
-  key = key.replace(/^(fc|afc|ac|cf|ud|us|ss) /, '').replace(/ (fc|afc|cf|calcio|1909|1913)\b/g, '').trim();
+  key = key.replace(/^(fc|afc|ac|cf|ud|us|ss) /, '').replace(/ (fc|afc|cf|ud|bc|calcio|1907|1909|1913)\b/g, '').trim();
   return aliases[key] || key;
 }
 
@@ -102,6 +102,16 @@ export function summarizeOdds(parts, generatedAt) {
 
 async function main() {
   const root = new URL('../', import.meta.url), parts = [], warnings = [];
+  const cachePath = new URL('data/profit-backtest.json',root);
+  let previous = null;
+  try { previous = JSON.parse(await readFile(cachePath,'utf8')); } catch { /* first run */ }
+  await mkdir(new URL('site/data/',root),{recursive:true});
+  const age = Date.now() - Date.parse(previous?.generatedAt);
+  if (previous?.version === 1 && Array.isArray(previous.seasons) && Number.isFinite(age) && age >= 0 && age < 7*86400000 && process.env.ODDS_BACKTEST_REFRESH !== '1') {
+    await writeFile(new URL('site/data/profit-backtest.json',root),JSON.stringify(previous,null,2)+'\n');
+    process.stdout.write(`Using historical odds report from ${previous.generatedAt}; weekly refresh due later.\n`);
+    return;
+  }
   for (const [code,[division,league]] of Object.entries(leagues)) {
     const data = JSON.parse(await readFile(new URL(`site/data/${code}.json`,root),'utf8'));
     for (const season of [2025,2026]) {
@@ -122,8 +132,14 @@ async function main() {
     }
   }
   const report = { ...summarizeOdds(parts,new Date().toISOString()), warnings };
-  await mkdir(new URL('site/data/',root),{recursive:true});
-  await writeFile(new URL('site/data/profit-backtest.json',root),JSON.stringify(report,null,2)+'\n');
+  if (warnings.length && previous?.version === 1 && previous.seasons?.length) {
+    await writeFile(new URL('site/data/profit-backtest.json',root),JSON.stringify(previous,null,2)+'\n');
+    process.stdout.write(`Odds source incomplete; keeping previous report from ${previous.generatedAt}.\n`);
+    return;
+  }
+  const output = JSON.stringify(report,null,2)+'\n';
+  await writeFile(cachePath,output);
+  await writeFile(new URL('site/data/profit-backtest.json',root),output);
   process.stdout.write(`Closing-odds backtest: ${report.seasons.map(s=>`${s.season}: ${s.selected} picks, ${s.profitUnits.toFixed(2)} units`).join('; ')}\n`);
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href) await main();
