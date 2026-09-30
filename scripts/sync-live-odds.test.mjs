@@ -10,6 +10,16 @@ test('match exactly one fixture with club aliases and kickoff tolerance', () => 
   assert.equal(eventFor(record,[event]),event);
   assert.equal(eventFor(record,[event,event]),null);
   assert.equal(eventFor(record,[{...event,commence_time:'2026-10-03T14:00:00Z'}]),null);
+  const pairs=[
+    ['Club Atlético de Madrid','Atletico Madrid'],['Athletic Club','Athletic Bilbao'],
+    ['RC Celta de Vigo','Celta Vigo'],['Real Betis Balompié','Real Betis'],
+    ['FC Internazionale Milano','Inter Milan'],['Genoa CFC','Genoa']
+  ];
+  for(const [api,odds] of pairs){
+    const fixture={...record,home:api,away:'Arsenal FC'};
+    const candidate={...event,home_team:odds,away_team:'Arsenal'};
+    assert.equal(eventFor(fixture,[candidate]),candidate,api);
+  }
 });
 
 test('fixed rule locks one quote and settles a flat stake', () => {
