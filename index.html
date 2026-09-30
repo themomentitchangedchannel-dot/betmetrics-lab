@@ -13,7 +13,8 @@
     .advanced-data{border-top:1px solid #304157;margin-top:22px;padding-top:14px}.advanced-data summary{cursor:pointer;color:#abc0d1;font-size:14px;font-weight:700;list-style:revert}.advanced-data summary:hover,.advanced-data summary:focus-visible{color:#67e8c5}.advanced-data[open] summary{margin-bottom:12px}
     .market-summary{padding:11px 13px;border:1px solid #3b5364;background:#102736;border-radius:11px;color:#b9d9e3;font-size:13px;line-height:1.45}
     .comparison-card{border:1px solid #2c4159;background:#101b2c;padding:15px;border-radius:13px}
-    .comparison-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.comparison-head strong,.comparison-return strong{display:block;font-size:16px}.comparison-head small,.comparison-return small{display:block;color:#96adbf;font-size:12px;margin-top:3px}.comparison-return{text-align:right;flex-shrink:0}.comparison-return .positive{color:#aaf0d7}.comparison-return .negative{color:#f3d98e}
+    .comparison-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.comparison-head strong,.comparison-return strong{display:block;font-size:16px}.comparison-head small,.comparison-return small{display:block;color:#96adbf;font-size:12px;margin-top:3px}.comparison-return{text-align:right;flex-shrink:0}.comparison-return .positive{color:#f3d98e}.comparison-return .negative{color:#f3d98e}
+    .comparison-history{font-size:12px;line-height:1.45;color:#b4cada;background:#18283a;border-radius:8px;padding:9px 11px;margin:0 0 12px}.comparison-history.caution{color:#f3d98e;background:#2b2a22}
     .comparison-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:14px 0}.comparison-metrics>div{min-width:0;padding:10px;background:#18283a;border-radius:9px}.comparison-metrics small{display:block;color:#a5bac9;font-size:11px;line-height:1.3;min-height:28px}.comparison-metrics strong{display:block;font-size:15px;margin-top:4px}.comparison-action{display:block;margin-left:auto;border:1px solid #47627b;background:#1b2c41;color:#e6f3fc;border-radius:8px;padding:8px 12px;font-size:12px}.comparison-action:hover{border-color:#69e9c7}
     .tabs{display:flex;gap:8px;position:sticky;top:0;z-index:5;background:#0b1220f2;padding:10px 0 14px;margin:0 0 10px;border-bottom:1px solid #304157;backdrop-filter:blur(8px)}
     .tab-button{border:1px solid #3b4e65;background:#17263a;color:#a9becd;border-radius:10px;padding:10px 18px;font-weight:750;min-height:44px}
@@ -82,7 +83,7 @@
   const KEY='betmetrics_lab_v1';
   const $=id=>document.getElementById(id);
   const state=readState();
-  let current=null,selectedFixture=null;
+  let current=null,selectedFixture=null,calibrationSource=null,calibrationResult=null;
   const API_LEAGUES={PL:'Premier League · API',PD:'La Liga · API',SA:'Serie A · API'};
   const money=n=>new Intl.NumberFormat('sl-SI',{style:'currency',currency:'EUR'}).format(n);
   const pct=n=>(100*n).toFixed(1).replace('.',',')+' %';
@@ -137,10 +138,17 @@
     }
     return {summaries,calibration,bands}
   }
+  function calibrationSnapshot(){
+    if(calibrationSource!==state.games){
+      calibrationSource=state.games;
+      calibrationResult=backtestGames(state.games);
+    }
+    return calibrationResult
+  }
   function renderBacktest(){
     const area=$('backtestResults');area.innerHTML='';
     if(!state.games.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Najprej osveži rezultate vsaj ene lige.';area.append(empty);return}
-    const {summaries,calibration,bands}=backtestGames(state.games);
+    const {summaries,calibration,bands}=calibrationSnapshot();
     if(!summaries.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Premalo primernih preteklih tekem za preverjanje.';area.append(empty);return}
     for(const r of summaries){
       const card=document.createElement('article');card.className='bet';
@@ -182,7 +190,7 @@
     details.append(summary,intro,wrap,note);area.append(details)
   }
   function selectedProbability(){return current?.probs[{H:0,D:1,A:2}[$('pick').value]]}
-  function refreshValue(){if(!current){$('value').innerHTML='';return}const odds=Number($('odds').value),p=selectedProbability();if(!Number.isFinite(odds)||odds<=1||odds>1000){$('value').innerHTML='';return}const ev=p*odds-1,breakeven=1/odds;show('value',`Ocena: ${pct(p)} · zahtevana verjetnost pri tej kvoti: ${pct(breakeven)} · teoretični donos: ${ev>=0?'+':''}${pct(ev)}. ${ev>0?'Matematično pozitivno po nepreverjenem modelu.':'Po tem modelu ni pozitivne vrednosti.'}`,ev>0?'good':'alert')}
+  function refreshValue(){if(!current){$('value').innerHTML='';return}const odds=Number($('odds').value),p=selectedProbability();if(!Number.isFinite(odds)||odds<=1||odds>1000){$('value').innerHTML='';return}const ev=p*odds-1,breakeven=1/odds;show('value',`Ocena: ${pct(p)} · zahtevana verjetnost pri tej kvoti: ${pct(breakeven)} · teoretični donos: ${ev>=0?'+':''}${pct(ev)}. ${ev>0?'Teoretično pozitivno po nepreverjenem modelu.':'Po tem modelu ni pozitivne vrednosti.'}`,'alert')}
   function options(select,values,placeholder){const el=$(select);el.innerHTML='';const start=document.createElement('option');start.value='';start.textContent=placeholder;el.append(start);for(const v of values){const o=document.createElement('option');o.value=v;o.textContent=v;el.append(o)}}
   function refreshLists(){const leagues=[...new Set(state.games.map(g=>g.league))].sort();const previous=$('matchLeague').value;options('matchLeague',leagues,'Izberi ligo');$('matchLeague').value=leagues.includes(previous)?previous:(leagues[0]||'');refreshTeams();refreshFixtures();renderCandidates();$('dataSummary').textContent=`Uvoženih tekem: ${state.games.length} · lige: ${leagues.length}.`}
   function refreshFixtures(){
@@ -283,6 +291,7 @@
       show('oddsComparison','Vnesi vse tri veljavne decimalne kvote nad 1.');return
     }
     const implied=odds.map(value=>1/value),total=implied.reduce((sum,value)=>sum+value,0);
+    const {calibration,bands}=calibrationSnapshot();
     const market=document.createElement('div');market.className='market-summary';
     market.textContent=`${total>=1?'Pribitek v kvotah':'Primanjkljaj v kvotah'}: ${pct(Math.abs(total-1))} · vsota verjetnosti iz kvot: ${pct(total)}`;
     area.append(market);
@@ -309,13 +318,24 @@
         const item=document.createElement('div'),title=document.createElement('small'),amount=document.createElement('strong');
         title.textContent=name;amount.textContent=number;item.append(title,amount);metrics.append(item)
       }
+      const history=document.createElement('p');history.className='comparison-history';
+      const band=bands.findIndex(([low,high])=>p>=low&&p<high);
+      const bucket=band>=0?calibration[i][band]:null;
+      if(bucket&&bucket.n>=30){
+        const predicted=bucket.predicted/bucket.n,observed=bucket.hits/bucket.n;
+        history.textContent=`Podobne ocene (${bands[band][2]}, ${bucket.n} tekem): model povprečno ${pct(predicted)}, dejansko ${pct(observed)}.`;
+        if(predicted-observed>.03)history.classList.add('caution');
+      }else{
+        history.textContent='Za takšno oceno še ni dovolj primerljivih preteklih tekem (vsaj 30).';
+        history.classList.add('caution');
+      }
       const btn=document.createElement('button');btn.type='button';btn.className='comparison-action';
       btn.textContent='Zabeleži na papirju';
       btn.addEventListener('click',()=>{
         $('pick').value=['H','D','A'][i];$('odds').value=odds[i].toFixed(2);$('mode').value='paper';
         refreshValue();switchTab('diary',{scroll:false});$('betTitle').scrollIntoView({behavior:'smooth',block:'start'})
       });
-      card.append(header,metrics,btn);area.append(card)
+      card.append(header,metrics,history,btn);area.append(card)
     }
     const note=document.createElement('p');note.className='fine';
     note.textContent='Tržna ocena je približek iz kvot, sorazmerno preračunan na 100 %. Model še ni umerjen na novih tekmah. Pozitiven teoretični donos ne dokazuje donosnosti stave.';
