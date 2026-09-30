@@ -50,6 +50,12 @@
       <div id="candidateBoardStatus" class="hint" role="status"></div><div id="candidateBoard" class="list" style="margin-top:16px" aria-live="polite"></div>
       <p class="fine">Modelna vrednost = verjetnost × kvota − 1; to ni pričakovani zaslužek. Kvote so posnetek in morda niso več na voljo. Na posamezno tekmo prikaževa največ enega kandidata, tudi kadar več trgov izpolnjuje pravilo. Nobena stava se ne odda samodejno.</p>
     </section>
+    <section class="card span" aria-labelledby="dailyTitle">
+      <p class="eyebrow">Vnaprej zaklenjen preizkus</p><h2 id="dailyTitle">Dnevni papirni izbor in rezultat</h2>
+      <p class="hint">Največ pet različnih tekem na dan se zaklene ob prvem ustreznem zajemu v 72 urah pred tekmo. Izid, kvota in čas izbire ostanejo v javnem dnevniku, tudi če se poznejše kvote spremenijo. Preteklih izbir ne dodajava za nazaj.</p>
+      <div id="dailyStatus" role="status"></div><div id="dailyResults" class="list" aria-live="polite"></div>
+      <p class="fine">Enota je namišljen enak vložek. Ta dnevni izbor je ločen od sprotnega seznama zgoraj in še nima potrjene donosnosti.</p>
+    </section>
   </div>
   <div class="grid tab-panel" id="panel-matches" role="tabpanel" aria-labelledby="tab-matches">
     <section class="card span" aria-labelledby="dataTitle">
@@ -573,6 +579,37 @@
       right.append(selection,numbers,comparison);card.append(main,right);area.append(card);
     }
   }
+  function renderDailyCandidates(data){
+    if(data?.version!==1||!Array.isArray(data.records))throw Error('Dnevni dnevnik ima neveljavno obliko.');
+    const area=$('dailyResults');area.innerHTML='';
+    const rows=data.records.filter(r=>r&&Number.isFinite(Date.parse(r.selectedAt))&&Number.isFinite(Date.parse(r.quotedAt))&&Number.isFinite(Date.parse(r.predictedAt))&&Date.parse(r.predictedAt)<Date.parse(r.quotedAt)&&Date.parse(r.quotedAt)<=Date.parse(r.selectedAt)&&Date.parse(r.selectedAt)<Date.parse(r.kickoffUtc)&&Number.isFinite(r.odds)&&r.odds>1&&['h2h','goals'].includes(r.market));
+    const settled=rows.filter(r=>r.result!==null),profit=settled.reduce((sum,r)=>sum+(r.result===r.pick?r.odds-1:-1),0);
+    const metrics=document.createElement('div');metrics.className='metrics';
+    for(const [label,value] of [['Zaklenjene',String(rows.length)],['Zaključene',String(settled.length)],['Papirni rezultat',settled.length?(profit>=0?'+':'')+profit.toFixed(2).replace('.',',')+' enot':'—'],['ROI',settled.length?pct(profit/settled.length):'—']]){
+      const item=document.createElement('div');item.className='metric',strong=document.createElement('strong'),small=document.createElement('small');
+      strong.textContent=value;small.textContent=label;item.append(strong,small);metrics.append(item)
+    }
+    area.append(metrics);
+    if(!rows.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Prvi dnevni izbor se bo samodejno zaklenil, ko bodo tekme največ 72 ur pred začetkom in bodo na voljo sveže kvote.';area.append(empty);return}
+    const visible=[...rows].sort((a,b)=>Date.parse(b.selectedAt)-Date.parse(a.selectedAt)).slice(0,15);
+    for(const r of visible){
+      const card=document.createElement('article'),main=document.createElement('div'),title=document.createElement('strong'),info=document.createElement('small'),right=document.createElement('div'),pick=document.createElement('strong'),state=document.createElement('small');
+      card.className='bet';right.className='right';
+      title.textContent=r.home+' – '+r.away;
+      info.textContent=r.league.replace(' · API','')+' · '+new Date(r.kickoffUtc).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+' · zaklenjeno '+new Date(r.selectedAt).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'});
+      pick.textContent=r.label+' @ '+r.odds.toFixed(2).replace('.',',');
+      state.textContent=r.result===null?'Čaka na izid':r.result===r.pick?'Zadetek · +'+(r.odds-1).toFixed(2).replace('.',',')+' enot':'Zgrešeno · −1 enota';
+      main.append(title,info);right.append(pick,state);card.append(main,right);area.append(card)
+    }
+    if(rows.length>visible.length){const note=document.createElement('p');note.className='fine';note.textContent='Prikazanih '+visible.length+' od '+rows.length+' zaklenjenih izborov.';area.append(note)}
+  }
+  async function loadDailyCandidates(){
+    try{
+      const response=await fetch('data/daily-candidates.json',{cache:'no-store'});
+      if(!response.ok)throw Error('Javni dnevni izbor še ni objavljen.');
+      renderDailyCandidates(await response.json());$('dailyStatus').textContent='';
+    }catch(error){$('dailyStatus').textContent=error.message||'Dnevnega izbora ni mogoče prenesti.'}
+  }
   async function loadPublicLedger(){
     try{
       const response=await fetch('data/forecast-ledger.json',{cache:'no-store'});
@@ -994,7 +1031,7 @@
   for(const id of ['candidateDays','candidateMarket','candidateFresh','candidateLeague','candidateSort'])$(id).addEventListener('change',renderCandidateBoard);
   $('goalView').addEventListener('change',()=>{if(lastGoalData&&lastGoalReport)renderGoalMarkets(lastGoalData,lastGoalReport)});$('syncApi').addEventListener('click',syncApi);$('saveAllForecasts').addEventListener('click',saveAllForecasts);$('autoCapture').addEventListener('change',toggleAutoCapture);
   for(const id of ['snapshotStatus','snapshotLeague'])$(id).addEventListener('change',()=>{snapshotLimit=8;renderSnapshots()});$('runBacktest').addEventListener('click',renderBacktest);$('fixture').addEventListener('change',selectFixture);$('fixtureRange').addEventListener('change',refreshFixtures);$('matchLeague').addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();refreshTeams()});for(const id of ['matchDate','home','away'])$(id).addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();invalidate()});$('calculate').addEventListener('click',calculate);$('compareOdds').addEventListener('click',compareOdds);$('compareGoalOdds').addEventListener('click',compareGoalOdds);for(const id of ['oddsH','oddsD','oddsA'])$(id).addEventListener('input',()=>{$('oddsComparison').innerHTML=''});for(const id of ['pick','odds'])$(id).addEventListener('input',refreshValue);$('saveBet').addEventListener('click',saveBet);$('scoreMode').addEventListener('change',renderBets);
-  const tomorrow=new Date(Date.now()+86400000);tomorrow.setHours(18,0,0,0);$('matchDate').value=`${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,'0')}-${String(tomorrow.getDate()).padStart(2,'0')}T18:00`;$('autoCapture').checked=!!state.autoCapture;refreshLists();renderBets();syncApi();loadPublicLedger();loadBenchmark();loadProfitBacktest();loadHistoricalGoals();
+  const tomorrow=new Date(Date.now()+86400000);tomorrow.setHours(18,0,0,0);$('matchDate').value=`${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,'0')}-${String(tomorrow.getDate()).padStart(2,'0')}T18:00`;$('autoCapture').checked=!!state.autoCapture;refreshLists();renderBets();syncApi();loadPublicLedger();loadDailyCandidates();loadBenchmark();loadProfitBacktest();loadHistoricalGoals();
   window.BetMetricsMath={csvRows,parseGames,predict,isoDate};
 })();
 </script>
