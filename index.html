@@ -106,7 +106,7 @@
   function poisson(lambda){const p=[Math.exp(-lambda)];for(let i=1;i<=12;i++)p.push(p[i-1]*lambda/i);return p}
   function predict(games,league,home,away,date){if(!validDate(date)||!home||!away||home===away)return {error:'Izberi datum in dve različni ekipi.'};const hist=games.filter(g=>g.league===league&&g.date<date);const hh=hist.filter(g=>g.home===home),ha=hist.filter(g=>g.away===home),ah=hist.filter(g=>g.home===away),aa=hist.filter(g=>g.away===away);if(hist.length<30||hh.length+ha.length<8||ah.length+aa.length<8||hh.length<3||aa.length<3)return {error:'Premalo preteklih tekem pred tem datumom: potrebujeva vsaj 30 tekem lige, 8 tekem na ekipo ter 3 domače/gostujoče.'};const homeAvg=hist.reduce((s,g)=>s+g.hg,0)/hist.length,awayAvg=hist.reduce((s,g)=>s+g.ag,0)/hist.length;if(homeAvg<.2||awayAvg<.2)return {error:'Podatki o golih so videti nepopolni.'};const avg=(arr,k,prior)=>(arr.reduce((s,g)=>s+g[k],0)+8*prior)/(arr.length+8);const lh=Math.max(.15,Math.min(5,homeAvg*(avg(hh,'hg',homeAvg)/homeAvg)*(avg(aa,'hg',homeAvg)/homeAvg)));const la=Math.max(.15,Math.min(5,awayAvg*(avg(aa,'ag',awayAvg)/awayAvg)*(avg(hh,'ag',awayAvg)/awayAvg)));const ph=poisson(lh),pa=poisson(la),probs=[0,0,0];for(let i=0;i<ph.length;i++)for(let j=0;j<pa.length;j++)probs[i>j?0:i===j?1:2]+=ph[i]*pa[j];const total=probs.reduce((x,y)=>x+y,0);return {probs:probs.map(p=>p/total),lh,la,n:hist.length,homeN:hh.length+ha.length,awayN:ah.length+aa.length}}
   function backtestGames(games){
-    const summaries=[],bands=[[0,.1,'0–10 %'],[.1,.2,'10–20 %'],[.2,.35,'20–35 %'],[.35,.5,'35–50 %'],[.5,1.001,'50–100 %']];
+    const summaries=[],bands=[[0,.1,'0–10 %'],[.1,.2,'10–20 %'],[.2,.35,'20–35 %'],[.35,.5,'35–50 %'],[.5,.65,'50–65 %'],[.65,.8,'65–80 %'],[.8,1.001,'80–100 %']];
     const calibration=Array.from({length:3},()=>bands.map(()=>({n:0,predicted:0,hits:0})));
     for(const league of [...new Set(games.map(g=>g.league))].sort()){
       const matches=games.filter(g=>g.league===league).sort((a,b)=>a.date.localeCompare(b.date));
@@ -323,7 +323,7 @@
       const bucket=band>=0?calibration[i][band]:null;
       if(bucket&&bucket.n>=30){
         const predicted=bucket.predicted/bucket.n,observed=bucket.hits/bucket.n;
-        history.textContent=`Podobne ocene (${bands[band][2]}, ${bucket.n} tekem): model povprečno ${pct(predicted)}, dejansko ${pct(observed)}.`;
+        history.textContent=`Pretekli razred (${bands[band][2]}, ${bucket.n} tekem): model povprečno ${pct(predicted)}, dejansko ${pct(observed)}.`;
         if(predicted-observed>.03)history.classList.add('caution');
       }else{
         history.textContent='Za takšno oceno še ni dovolj primerljivih preteklih tekem (vsaj 30).';
