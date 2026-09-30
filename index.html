@@ -22,6 +22,7 @@
     .tab-button[aria-selected="true"]{background:#64e5bf;border-color:#64e5bf;color:#09221e}.tab-button:focus-visible{outline:3px solid #8af2d4;outline-offset:2px}.tab-panel[hidden]{display:none}
     .calibration{border:1px solid #304157;border-radius:13px;margin-top:4px;padding:14px}.calibration[open] summary{margin-bottom:6px}.calibration-wrap{overflow-x:auto;margin-top:12px}.calibration-table{width:100%;min-width:470px;border-collapse:collapse;font-size:13px;text-align:left}.calibration-table th,.calibration-table td{padding:9px 7px;border-bottom:1px solid #304157}.calibration-table th{color:#a8c1d0;font-weight:750}.calibration-table td{color:#e3edf5}.calibration-table td:first-child{font-weight:800}
     @media(max-width:750px){.grid{grid-template-columns:1fr}.shell{padding:18px 14px 50px}.card{padding:18px}.top{margin-bottom:24px}.metrics{gap:6px}.metric{padding:10px}.metric strong{font-size:19px}.tag{font-size:10px}.row.triple{grid-template-columns:1fr 1fr}.row.triple>div:last-child{grid-column:1/-1}}
+    .season-panel{border:1px solid #38566a;background:#112638;border-radius:16px;padding:18px 20px}.season-panel h3{margin:0 0 10px}.season-panel p{margin:8px 0}.season-panel .fine{line-height:1.5}
   </style>
 </head>
 <body>
@@ -106,7 +107,7 @@
   function poisson(lambda){const p=[Math.exp(-lambda)];for(let i=1;i<=12;i++)p.push(p[i-1]*lambda/i);return p}
   function predict(games,league,home,away,date){if(!validDate(date)||!home||!away||home===away)return {error:'Izberi datum in dve različni ekipi.'};const hist=games.filter(g=>g.league===league&&g.date<date);const hh=hist.filter(g=>g.home===home),ha=hist.filter(g=>g.away===home),ah=hist.filter(g=>g.home===away),aa=hist.filter(g=>g.away===away);if(hist.length<30||hh.length+ha.length<8||ah.length+aa.length<8||hh.length<3||aa.length<3)return {error:'Premalo preteklih tekem pred tem datumom: potrebujeva vsaj 30 tekem lige, 8 tekem na ekipo ter 3 domače/gostujoče.'};const homeAvg=hist.reduce((s,g)=>s+g.hg,0)/hist.length,awayAvg=hist.reduce((s,g)=>s+g.ag,0)/hist.length;if(homeAvg<.2||awayAvg<.2)return {error:'Podatki o golih so videti nepopolni.'};const avg=(arr,k,prior)=>(arr.reduce((s,g)=>s+g[k],0)+8*prior)/(arr.length+8);const lh=Math.max(.15,Math.min(5,homeAvg*(avg(hh,'hg',homeAvg)/homeAvg)*(avg(aa,'hg',homeAvg)/homeAvg)));const la=Math.max(.15,Math.min(5,awayAvg*(avg(aa,'ag',awayAvg)/awayAvg)*(avg(hh,'ag',awayAvg)/awayAvg)));const ph=poisson(lh),pa=poisson(la),probs=[0,0,0];for(let i=0;i<ph.length;i++)for(let j=0;j<pa.length;j++)probs[i>j?0:i===j?1:2]+=ph[i]*pa[j];const total=probs.reduce((x,y)=>x+y,0);return {probs:probs.map(p=>p/total),lh,la,n:hist.length,homeN:hh.length+ha.length,awayN:ah.length+aa.length}}
   function backtestGames(games){
-    const summaries=[],bands=[[0,.1,'0–10 %'],[.1,.2,'10–20 %'],[.2,.35,'20–35 %'],[.35,.5,'35–50 %'],[.5,.65,'50–65 %'],[.65,.8,'65–80 %'],[.8,1.001,'80–100 %']];
+    const summaries=[],seasons=new Map(),bands=[[0,.1,'0–10 %'],[.1,.2,'10–20 %'],[.2,.35,'20–35 %'],[.35,.5,'35–50 %'],[.5,.65,'50–65 %'],[.65,.8,'65–80 %'],[.8,1.001,'80–100 %']];
     const calibration=Array.from({length:3},()=>bands.map(()=>({n:0,predicted:0,hits:0})));
     for(const league of [...new Set(games.map(g=>g.league))].sort()){
       const matches=games.filter(g=>g.league===league).sort((a,b)=>a.date.localeCompare(b.date));
@@ -121,6 +122,12 @@
         const score=p=>p.reduce((sum,value,i)=>sum+(value-(i===actual?1:0))**2,0);
         modelScore+=score(result.probs);baseScore+=score(base);
         const pick=result.probs.indexOf(Math.max(...result.probs));
+        const season=Number(match.date.slice(0,4))-(Number(match.date.slice(5,7))<7?1:0);
+        const key=`${season}:${league}`;
+        const recent=seasons.get(key)||{season,league,n:0,modelScore:0,baseScore:0,correct:0,baseCorrect:0};
+        recent.n++;recent.modelScore+=score(result.probs);recent.baseScore+=score(base);
+        recent.correct+=Number(pick===actual);recent.baseCorrect+=Number(base.indexOf(Math.max(...base))===actual);
+        seasons.set(key,recent);
         correct+=Number(pick===actual);
         baseCorrect+=Number(base.indexOf(Math.max(...base))===actual);
         if(result.probs[pick]>=.55){
@@ -136,7 +143,7 @@
       }
       if(n)summaries.push({league,n,modelBrier:modelScore/n,baseBrier:baseScore/n,accuracy:correct/n,baseAccuracy:baseCorrect/n,favN,favHits:favN?favHits/favN:0,favProbability:favN?favProbability/favN:0});
     }
-    return {summaries,calibration,bands}
+    return {summaries,calibration,bands,seasons:[...seasons.values()]}
   }
   function calibrationSnapshot(){
     if(calibrationSource!==state.games){
@@ -148,8 +155,27 @@
   function renderBacktest(){
     const area=$('backtestResults');area.innerHTML='';
     if(!state.games.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Najprej osveži rezultate vsaj ene lige.';area.append(empty);return}
-    const {summaries,calibration,bands}=calibrationSnapshot();
+    const {summaries,calibration,bands,seasons}=calibrationSnapshot();
     if(!summaries.length){const empty=document.createElement('div');empty.className='empty';empty.textContent='Premalo primernih preteklih tekem za preverjanje.';area.append(empty);return}
+    if(seasons.length){
+      const latest=Math.max(...seasons.map(r=>r.season));
+      const recent=seasons.filter(r=>r.season===latest);
+      const total=recent.reduce((a,r)=>({n:a.n+r.n,modelScore:a.modelScore+r.modelScore,baseScore:a.baseScore+r.baseScore,correct:a.correct+r.correct,baseCorrect:a.baseCorrect+r.baseCorrect}),{n:0,modelScore:0,baseScore:0,correct:0,baseCorrect:0});
+      const panel=document.createElement('section');panel.className='season-panel';
+      const heading=document.createElement('h3');heading.textContent=`Zadnja sezona: ${latest}/${String((latest+1)%100).padStart(2,'0')}`;
+      const overview=document.createElement('p');overview.className='hint';
+      overview.textContent=`${total.n} preverjenih tekem · Brierjeva napaka: model ${(total.modelScore/total.n).toFixed(3).replace('.',',')}, osnovni deleži ${(total.baseScore/total.n).toFixed(3).replace('.',',')} (manj je bolje) · zadetki ${pct(total.correct/total.n)} proti ${pct(total.baseCorrect/total.n)}.`;
+      panel.append(heading,overview);
+      for(const r of recent){
+        const line=document.createElement('p');line.className='fine';
+        line.textContent=`${r.league}: ${r.n} tekem · Brier ${(r.modelScore/r.n).toFixed(3).replace('.',',')} proti ${(r.baseScore/r.n).toFixed(3).replace('.',',')} · zadetki ${pct(r.correct/r.n)} proti ${pct(r.baseCorrect/r.n)}.`;
+        panel.append(line);
+      }
+      const caution=document.createElement('p');caution.className='fine';
+      caution.textContent='Manjši vzorec v tekoči sezoni lahko močno niha. Osnovni deleži so iz tekem pred vsakim datumom; brez zgodovinskih kvot to ni meritev donosnosti.';
+      panel.append(caution);area.append(panel);
+      const historical=document.createElement('h3');historical.textContent='Vse razpoložljive tekme';area.append(historical);
+    }
     for(const r of summaries){
       const card=document.createElement('article');card.className='bet';
       const main=document.createElement('div'),title=document.createElement('strong'),info=document.createElement('small');
