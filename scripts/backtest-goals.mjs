@@ -60,12 +60,20 @@ export function summarizeGoalHistory(parts,generatedAt){
     const group=parts.filter(p=>p.season===season),rows=group.flatMap(p=>p.rows),priced=rows.filter(r=>r.marketOver!==null),selected=rows.filter(r=>r.pick);
     const avg=(list,key)=>list.length?list.reduce((sum,row)=>sum+row[key],0)/list.length:null;
     const profit=selected.reduce((sum,row)=>sum+row.profit,0);
+    const byLeague=group.map(p=>{
+      const priced=p.rows.filter(r=>r.marketOver!==null),selected=p.rows.filter(r=>r.pick);
+      const profitUnits=selected.reduce((sum,r)=>sum+r.profit,0);
+      return {league:p.league,...p.counts,n:p.rows.length,
+        pairedModelOver:avg(priced,'modelOver'),pairedMarketOver:avg(priced,'marketOver'),
+        brierBtts:avg(p.rows,'modelBtts'),baselineBtts:avg(p.rows,'baselineBtts'),
+        profitUnits,roi:selected.length?profitUnits/selected.length:null};
+    });
     seasons.push({season,n:rows.length,matched:group.reduce((sum,p)=>sum+p.counts.matched,0),priced:priced.length,selected:selected.length,
       brierOver:avg(rows,'modelOver'),baselineOver:avg(rows,'baselineOver'),brierBtts:avg(rows,'modelBtts'),baselineBtts:avg(rows,'baselineBtts'),
       pairedModelOver:avg(priced,'modelOver'),pairedMarketOver:avg(priced,'marketOver'),profitUnits:profit,roi:selected.length?profit/selected.length:null,
-      byLeague:group.map(p=>({league:p.league,...p.counts}))});
+      byLeague});
   }
-  return {version:1,generatedAt,source:'football-data.co.uk',book:'Bet365',oddsType:'closing',strategy:'Poisson goals v1; max EV >= 5%; odds 1.4–5; one over/under 2.5 per match; 1 unit',seasons};
+  return {version:2,generatedAt,source:'football-data.co.uk',book:'Bet365',oddsType:'closing',strategy:'Poisson goals v1; max EV >= 5%; odds 1.4–5; one over/under 2.5 per match; 1 unit',seasons};
 }
 
 async function main(){
@@ -73,7 +81,7 @@ async function main(){
   let previous=null;try{previous=JSON.parse(await readFile(cachePath,'utf8'))}catch{/* first run */}
   await mkdir(new URL('site/data/',root),{recursive:true});
   const age=Date.now()-Date.parse(previous?.generatedAt);
-  if(previous?.version===1&&Array.isArray(previous.seasons)&&Number.isFinite(age)&&age>=0&&age<7*86400000&&process.env.GOALS_BACKTEST_REFRESH!=='1'){
+  if(previous?.version===2&&Array.isArray(previous.seasons)&&Number.isFinite(age)&&age>=0&&age<7*86400000&&process.env.GOALS_BACKTEST_REFRESH!=='1'){
     await writeFile(sitePath,JSON.stringify(previous,null,2)+'\n');process.stdout.write(`Using cached goal odds report from ${previous.generatedAt}.\n`);return;
   }
   const parts=[],warnings=[];
@@ -90,7 +98,7 @@ async function main(){
       }catch(error){warnings.push(`${division} ${span}: ${error.message}`)}
     }
   }
-  if(warnings.length&&previous?.version===1&&previous.seasons?.length){
+  if(warnings.length&&[1,2].includes(previous?.version)&&previous.seasons?.length){
     await writeFile(sitePath,JSON.stringify(previous,null,2)+'\n');process.stdout.write('Goal odds source incomplete; retaining prior report.\n');return;
   }
   const report={...summarizeGoalHistory(parts,new Date().toISOString()),warnings};
