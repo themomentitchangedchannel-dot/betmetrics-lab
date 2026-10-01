@@ -570,7 +570,7 @@
     const headline=document.createElement('strong'),sub=document.createElement('small');
     headline.textContent=rows.length?rows.length+' papirnih kandidatov v izbranem obdobju':'Trenutno ni svežih papirnih kandidatov';
     const next=candidateLedger.records.filter(r=>r.result==null&&Date.parse(r.kickoffUtc)>Date.now()).sort((a,b)=>Date.parse(a.kickoffUtc)-Date.parse(b.kickoffUtc))[0];
-    sub.textContent=(next?'Naslednja shranjena tekma: '+new Date(next.kickoffUtc).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+' · ':'')+'Zadnje preverjanje kvot: '+stamp+'.';
+    sub.textContent=(next?'Naslednja shranjena tekma: '+new Date(next.kickoffUtc).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana',day:'numeric',month:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'})+' · ':'')+'Zadnje preverjanje kvot: '+stamp+'.';
     overview.append(headline,sub);
     $('candidateBoardStatus').textContent='Prikaz: '+rows.length+' od '+result.eligible+' tekem, ki izpolnjujejo modelno pravilo. Največ pet različnih tekem na dan.';
     if(candidateFeedStatus?.warnings?.length){const warning=document.createElement('p');warning.className='alert';warning.textContent='Vir kvot za nekatere lige ni bil dosegljiv: '+candidateFeedStatus.warnings.join(' · ');area.append(warning)}
@@ -582,8 +582,8 @@
       const card=document.createElement('article'),main=document.createElement('div'),title=document.createElement('strong'),meta=document.createElement('small'),detail=document.createElement('small');
       card.className='bet candidate-card';
       title.textContent=r.home+' – '+r.away;
-      meta.textContent=new Date(kickoff).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+' · '+r.league.replace(' · API','');
-      detail.textContent='Betsson · kvota zajeta '+new Date(quoted).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+(Date.now()-quoted>86400000?' · starejša kvota':'');
+      meta.textContent=new Date(kickoff).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana',day:'numeric',month:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'})+' · '+r.league.replace(' · API','');
+      detail.textContent='· Betsson · kvota zajeta '+new Date(quoted).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana',day:'numeric',month:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'})+(Date.now()-quoted>86400000?' · starejša kvota':'');
       main.append(title,meta,detail);
       const right=document.createElement('div'),selection=document.createElement('strong'),tag=document.createElement('small');right.className='right';
       const outcome=kind==='h2h'?['1 · domači','X · neodločeno','2 · gostje'][pickIndex]:['Več kot 2,5 gola','Manj kot 2,5 gola'][pickIndex];
