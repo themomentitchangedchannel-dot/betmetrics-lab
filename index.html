@@ -23,32 +23,37 @@
     .calibration{border:1px solid #304157;border-radius:13px;margin-top:4px;padding:14px}.calibration[open] summary{margin-bottom:6px}.calibration-wrap{overflow-x:auto;margin-top:12px}.calibration-table{width:100%;min-width:470px;border-collapse:collapse;font-size:13px;text-align:left}.calibration-table th,.calibration-table td{padding:9px 7px;border-bottom:1px solid #304157}.calibration-table th{color:#a8c1d0;font-weight:750}.calibration-table td{color:#e3edf5}.calibration-table td:first-child{font-weight:800}
     @media(max-width:750px){.grid{grid-template-columns:1fr}.shell{padding:18px 14px 50px}.card{padding:18px}.top{margin-bottom:24px}.metrics{gap:6px}.metric{padding:10px}.metric strong{font-size:19px}.tag{font-size:10px}.row.triple{grid-template-columns:1fr 1fr}.row.triple>div:last-child{grid-column:1/-1}}
     .season-panel{border:1px solid #38566a;background:#112638;border-radius:16px;padding:18px 20px}.season-panel h3{margin:0 0 10px}.season-panel p{margin:8px 0}.season-panel .fine{line-height:1.5}
+    .overview{background:#102736;border:1px solid #3b5364;border-radius:14px;padding:16px;margin:18px 0;color:#d3e8ed;line-height:1.5}.overview strong{display:block;font-size:19px;color:#eaf1fa;margin-bottom:4px}.overview small{color:#9db6c6}.candidate-card{grid-template-columns:1fr auto}.candidate-card .details-line{grid-column:1/-1}.candidate-card details{border-top:1px solid #304157;padding-top:8px;margin-top:3px}.candidate-card summary{cursor:pointer;color:#9cd8d0;font-size:13px;font-weight:700}.candidate-card .right strong{color:#eaf1fa}.candidate-card .right small{font-size:12px}.candidate-card .fine{margin:8px 0 0}
+    @media(max-width:750px){.tabs{overflow-x:auto;scrollbar-width:thin}.tab-button{white-space:nowrap;padding:9px 12px;font-size:13px;flex:none}.candidate-card{grid-template-columns:1fr}.candidate-card .right{text-align:left}.candidate-card .right strong{font-size:17px}}
     .auto-capture{display:flex;align-items:center;gap:10px;margin:16px 0 0;cursor:pointer}.auto-capture input{width:20px;height:20px;min-height:20px;padding:0;accent-color:#64e5bf;flex:none}.auto-capture span{font-size:14px}
   </style>
 </head>
 <body>
 <main class="shell">
-  <header class="top"><div class="logo">BetMetrics<span> Lab</span></div><div class="tag">LOKALNI PREIZKUS · V2</div></header>
-  <h1>Najprej verjetnost.<br>Potem kvota.</h1>
-  <p class="lead">Osveži rezultate in prihajajoče tekme prek API, preveri napoved in jo zabeleži pred začetkom. Aplikacija meri, ali ima model sploh prednost.</p>
+  <header class="top"><div class="logo">BetMetrics<span> Lab</span></div><div class="tag">PAPIRNI PREIZKUS</div></header>
+  <h1>Tekme in kvote na enem mestu.</h1>
+  <p class="lead">Oglej si prihajajoče tekme, shranjene kvote in papirni izbor. Rezultate samodejno spremljava, da preveriva, ali ima model prednost.</p>
   <nav class="tabs" id="tabBar" role="tablist" aria-label="Deli aplikacije">
-    <button type="button" class="tab-button" role="tab" id="tab-matches" aria-selected="true" aria-controls="panel-matches" data-tab="matches">Tekme</button>
-    <button type="button" class="tab-button" role="tab" id="tab-candidates" aria-selected="false" aria-controls="panel-candidates" tabindex="-1" data-tab="candidates">Kandidati</button>
-    <button type="button" class="tab-button" role="tab" id="tab-model" aria-selected="false" aria-controls="panel-model" tabindex="-1" data-tab="model">Model</button>
-    <button type="button" class="tab-button" role="tab" id="tab-diary" aria-selected="false" aria-controls="panel-diary" tabindex="-1" data-tab="diary">Dnevnik</button>
+    <button type="button" class="tab-button" role="tab" id="tab-candidates" aria-selected="true" aria-controls="panel-candidates" data-tab="candidates">Pregled</button>
+    <button type="button" class="tab-button" role="tab" id="tab-matches" aria-selected="false" aria-controls="panel-matches" tabindex="-1" data-tab="matches">Preveri tekmo</button>
+    <button type="button" class="tab-button" role="tab" id="tab-model" aria-selected="false" aria-controls="panel-model" tabindex="-1" data-tab="model">Analiza</button>
+    <button type="button" class="tab-button" role="tab" id="tab-diary" aria-selected="false" aria-controls="panel-diary" tabindex="-1" data-tab="diary">Moj dnevnik</button>
   </nav>
-  <div class="grid tab-panel" id="panel-candidates" role="tabpanel" aria-labelledby="tab-candidates" hidden>
+  <div class="grid tab-panel" id="panel-candidates" role="tabpanel" aria-labelledby="tab-candidates">
     <section class="card span" aria-labelledby="candidateBoardTitle">
-      <p class="eyebrow">Samodejni pregled · papirno</p><h2 id="candidateBoardTitle">Kandidati iz shranjenih kvot</h2>
-      <p class="hint">Samodejni izbor iz vnaprej shranjenih napovedi in zadnjih zajetih kvot Betsson. Pravilo: modelna vrednost vsaj 5 %, kvota 1,40–5,00. Zgodovinski preizkusi so negativni, zato to ni potrjena prednost ali priporočilo za stavo.</p>
+      <p class="eyebrow">Prihajajoče tekme</p><h2 id="candidateBoardTitle">Papirni kandidati</h2>
+      <p class="hint">Aplikacija primerja vnaprej shranjeno oceno modela z zadnjo zajeto kvoto Betsson. Kvote niso v živo in se lahko spremenijo. Dosedanji zgodovinski rezultati so negativni, zato so izbire samo za preizkus.</p>
+      <div id="candidateOverview" class="overview" role="status"><strong>Nalaganje pregleda …</strong></div>
+      <details class="advanced-data"><summary>Filtri in razvrstitev</summary>
       <div class="row triple">
         <div><label for="candidateDays">Začetek v</label><select id="candidateDays"><option value="3">3 dneh</option><option value="7">7 dneh</option><option value="14" selected>14 dneh</option></select></div>
         <div><label for="candidateMarket">Trg</label><select id="candidateMarket"><option value="all">Vsi trgi</option><option value="h2h">1 / X / 2</option><option value="goals">Več/manj 2,5</option></select></div>
         <div><label for="candidateFresh">Kvote</label><select id="candidateFresh"><option value="fresh">Zajete v zadnjih 24 h</option><option value="all">Vse shranjene</option></select></div>
       </div>
       <div class="row"><div><label for="candidateLeague">Liga</label><select id="candidateLeague"><option value="all">Vse lige</option><option value="Premier League · API">Premier League</option><option value="La Liga · API">La Liga</option><option value="Serie A · API">Serie A</option></select></div><div><label for="candidateSort">Vrstni red</label><select id="candidateSort"><option value="time">Najprej bližnje tekme</option><option value="value">Največja modelna razlika</option></select></div></div>
+      </details>
       <div id="candidateBoardStatus" class="hint" role="status"></div><div id="candidateBoard" class="list" style="margin-top:16px" aria-live="polite"></div>
-      <p class="fine">Modelna vrednost = verjetnost × kvota − 1; to ni pričakovani zaslužek. Kvote so posnetek in morda niso več na voljo. Na posamezno tekmo prikaževa največ enega kandidata, tudi kadar več trgov izpolnjuje pravilo. Nobena stava se ne odda samodejno.</p>
+      <p class="fine">Prikazana je največ ena papirna izbira na tekmo in pet tekem na dan. Nobena stava se ne odda samodejno.</p>
     </section>
     <section class="card span" aria-labelledby="dailyTitle">
       <p class="eyebrow">Vnaprej zaklenjen preizkus</p><h2 id="dailyTitle">Dnevni papirni izbor in rezultat</h2>
@@ -57,7 +62,7 @@
       <p class="fine">Enota je namišljen enak vložek. Ta dnevni izbor je ločen od sprotnega seznama zgoraj in še nima potrjene donosnosti.</p>
     </section>
   </div>
-  <div class="grid tab-panel" id="panel-matches" role="tabpanel" aria-labelledby="tab-matches">
+  <div class="grid tab-panel" id="panel-matches" role="tabpanel" aria-labelledby="tab-matches" hidden>
     <section class="card span" aria-labelledby="dataTitle">
       <p class="eyebrow">01 · Podatki</p><h2 id="dataTitle">Tekme prek API</h2>
       <p class="hint">Podatki iz football-data.org se pripravijo dvakrat na dan. API ključ je shranjen kot skrivnost v GitHub Actions, zato ga tukaj ni treba vnašati.</p>
@@ -556,27 +561,39 @@
   }
   function renderCandidateBoard(){
     const area=$('candidateBoard');area.innerHTML='';
-    if(!candidateLedger){$('candidateBoardStatus').textContent='Čakam na javne napovedi in kvote.';return}
+    if(!candidateLedger){$('candidateOverview').innerHTML='<strong>Pripravljam pregled …</strong>';$('candidateBoardStatus').textContent='';return}
     const fresh=$('candidateFresh').value==='fresh',sort=$('candidateSort').value;
     const result=candidateRows(candidateLedger.records,{now:Date.now(),days:Number($('candidateDays').value),market:$('candidateMarket').value,league:$('candidateLeague').value,fresh});
     const rows=result.shortlist.sort(sort==='value'?(a,b)=>b.ev-a.ev||a.kickoff-b.kickoff:(a,b)=>a.kickoff-b.kickoff||b.ev-a.ev);
     const captured=candidateFeedStatus?.generatedAt,stamp=Number.isFinite(Date.parse(captured))?new Date(captured).toLocaleString('sl-SI'):'ni podatka';
-    $('candidateBoardStatus').textContent=rows.length+' v pregledu · '+result.eligible+' tekem z izpolnjenim pravilom · '+result.matches+' prihodnjih tekem · vir preverjen '+stamp+'. Največ pet različnih tekem na dan.';
+    const overview=$('candidateOverview');overview.innerHTML='';
+    const headline=document.createElement('strong'),sub=document.createElement('small');
+    headline.textContent=rows.length?rows.length+' papirnih kandidatov v izbranem obdobju':'Trenutno ni svežih papirnih kandidatov';
+    const next=candidateLedger.records.filter(r=>r.result==null&&Date.parse(r.kickoffUtc)>Date.now()).sort((a,b)=>Date.parse(a.kickoffUtc)-Date.parse(b.kickoffUtc))[0];
+    sub.textContent=(next?'Naslednja shranjena tekma: '+new Date(next.kickoffUtc).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+' · ':'')+'Zadnje preverjanje kvot: '+stamp+'.';
+    overview.append(headline,sub);
+    $('candidateBoardStatus').textContent='Prikaz: '+rows.length+' od '+result.eligible+' tekem, ki izpolnjujejo modelno pravilo. Največ pet različnih tekem na dan.';
     if(candidateFeedStatus?.warnings?.length){const warning=document.createElement('p');warning.className='alert';warning.textContent='Vir kvot za nekatere lige ni bil dosegljiv: '+candidateFeedStatus.warnings.join(' · ');area.append(warning)}
     if(!rows.length){const empty=document.createElement('div');empty.className='empty';empty.textContent=fresh?'Ni svežih kandidatov v izbranem obdobju. Po naslednji osvežitvi poglej ponovno ali izberi »Vse shranjene« za pregled starejših kvot.':'V izbranem obdobju ni shranjenih kandidatov.';area.append(empty);return}
     let lastDay=null;
     for(const {r,kind,pickIndex,odds,probability,ev,quoted,kickoff,marketProbability,margin} of rows){
       const day=candidateDay(kickoff);
       if(sort==='time'&&day!==lastDay){const heading=document.createElement('h3');heading.textContent=new Date(kickoff).toLocaleDateString('sl-SI',{timeZone:'Europe/Ljubljana',weekday:'long',day:'numeric',month:'long'});area.append(heading);lastDay=day}
-      const card=document.createElement('article'),main=document.createElement('div'),title=document.createElement('strong'),meta=document.createElement('small'),detail=document.createElement('small');card.className='bet';
+      const card=document.createElement('article'),main=document.createElement('div'),title=document.createElement('strong'),meta=document.createElement('small'),detail=document.createElement('small');
+      card.className='bet candidate-card';
       title.textContent=r.home+' – '+r.away;
-      meta.textContent=r.league.replace(' · API','')+' · '+new Date(kickoff).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+' · '+(kind==='h2h'?'1 / X / 2':'Več/manj 2,5');
-      detail.textContent='Betsson · zajeto '+new Date(quoted).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+(Date.now()-quoted>86400000?' · starejša kvota':'');main.append(title,meta,detail);
-      const right=document.createElement('div');right.className='right';const selection=document.createElement('strong'),numbers=document.createElement('small'),comparison=document.createElement('small');
-      selection.textContent=(kind==='h2h'?['1','X','2'][pickIndex]:['Več 2,5','Manj 2,5'][pickIndex])+' @ '+odds.toFixed(2).replace('.',',');
-      numbers.textContent='Model '+pct(probability)+' · izračun +'+pct(ev);
-      comparison.textContent=marketProbability===null?'Tržne verjetnosti ni mogoče izračunati':'Trg brez marže '+pct(marketProbability)+' · marža '+pct(margin-1)+(probability-marketProbability>=0.10?' · velik razkorak s trgom':'');
-      right.append(selection,numbers,comparison);card.append(main,right);area.append(card);
+      meta.textContent=new Date(kickoff).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+' · '+r.league.replace(' · API','');
+      detail.textContent='Betsson · kvota zajeta '+new Date(quoted).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+(Date.now()-quoted>86400000?' · starejša kvota':'');
+      main.append(title,meta,detail);
+      const right=document.createElement('div'),selection=document.createElement('strong'),tag=document.createElement('small');right.className='right';
+      const outcome=kind==='h2h'?['1 · domači','X · neodločeno','2 · gostje'][pickIndex]:['Več kot 2,5 gola','Manj kot 2,5 gola'][pickIndex];
+      selection.textContent=outcome+' · '+odds.toFixed(2).replace('.',',');
+      tag.textContent='Papirna izbira';right.append(selection,tag);
+      const wrap=document.createElement('div'),explain=document.createElement('details'),summary=document.createElement('summary'),numbers=document.createElement('p'),caution=document.createElement('p');
+      wrap.className='details-line';summary.textContent='Kako je izbira nastala?';
+      numbers.className='fine';numbers.textContent='Ocena modela '+pct(probability)+' · trg brez marže '+(marketProbability===null?'—':pct(marketProbability))+' · izračun modela '+(ev>=0?'+':'')+pct(ev)+'.';
+      caution.className='fine';caution.textContent=marketProbability!==null&&probability-marketProbability>=0.10?'Model se močno razlikuje od trga. Zgodovinski preizkus ni potrdil prednosti.':'Pravilo zahteva vsaj 5 % modelnega izračuna in kvoto 1,40–5,00; donosnost še ni potrjena.';
+      explain.append(summary,numbers,caution);wrap.append(explain);card.append(main,right,wrap);area.append(card);
     }
   }
   function renderDailyCandidates(data){
