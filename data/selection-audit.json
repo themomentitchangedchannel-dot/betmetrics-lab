@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-01T12:03:18.611Z",
+  "generatedAt": "2026-10-01T12:16:19.308Z",
   "minimumSettled": 100,
   "overall": {
     "locked": 0,
@@ -9,6 +9,12 @@
     "profitUnits": 0,
     "roi": null,
     "interval95": null,
+    "marketMovement": {
+      "started": 0,
+      "compared": 0,
+      "favorable": 0,
+      "average": null
+    },
     "status": "collecting"
   },
   "byMarket": {
@@ -19,6 +25,12 @@
       "profitUnits": 0,
       "roi": null,
       "interval95": null,
+      "marketMovement": {
+        "started": 0,
+        "compared": 0,
+        "favorable": 0,
+        "average": null
+      },
       "status": "collecting"
     },
     "goals": {
@@ -28,6 +40,12 @@
       "profitUnits": 0,
       "roi": null,
       "interval95": null,
+      "marketMovement": {
+        "started": 0,
+        "compared": 0,
+        "favorable": 0,
+        "average": null
+      },
       "status": "collecting"
     }
   }
