@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import { strict as assert } from 'node:assert';
-import { opportunity, evolveDailyCandidates, dailySummary } from './daily-candidates.mjs';
+import { opportunity, evolveDailyCandidates, dailySummary, auditDailyCandidates } from './daily-candidates.mjs';
 
 const now = '2026-10-08T12:00:00Z';
 const fixture = (id, kickoffUtc = '2026-10-10T12:00:00Z') => ({
@@ -44,4 +44,23 @@ test('settles the original paper selection after the result arrives', () => {
   assert.equal(second.ledger.records[0].result,'Over');
   assert.equal(second.ledger.records[0].selectedAt,now);
   assert.deepEqual(dailySummary(second.ledger),{selected:1,settled:1,wins:1,profitUnits:1,roi:1});
+});
+
+test('public audit keeps the two markets separate and waits for enough settled picks', () => {
+  const row = (id, market, result) => ({id,market,pick:market==='h2h'?'H':'Over',result,odds:2,
+    predictedAt:'2026-10-07T10:00:00Z',quotedAt:'2026-10-08T11:00:00Z',
+    selectedAt:now,kickoffUtc:'2026-10-10T12:00:00Z'});
+  const records=[...Array.from({length:100},(_,i)=>row(i,'h2h','H')),
+    ...Array.from({length:100},(_,i)=>row(100+i,'goals','Under')),
+    row(201,'goals',null),{...row(202,'h2h','H'),selectedAt:'2026-10-11T12:00:00Z'}];
+  const report=auditDailyCandidates({version:1,records},'2026-10-12T12:00:00Z');
+  assert.equal(report.overall.settled,200);
+  assert.equal(report.overall.open,1);
+  assert.equal(report.byMarket.h2h.status,'review');
+  assert.deepEqual(report.byMarket.h2h.interval95,[1,1]);
+  assert.equal(report.byMarket.goals.status,'negative');
+  assert.equal(report.byMarket.goals.profitUnits,-100);
+  const early=auditDailyCandidates({version:1,records:records.slice(0,29)},now);
+  assert.equal(early.overall.status,'collecting');
+  assert.equal(early.overall.interval95,null);
 });

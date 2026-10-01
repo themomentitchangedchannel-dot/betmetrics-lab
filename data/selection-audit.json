@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-01T12:02:12.100Z",
+  "minimumSettled": 100,
+  "overall": {
+    "locked": 0,
+    "settled": 0,
+    "open": 0,
+    "profitUnits": 0,
+    "roi": null,
+    "interval95": null,
+    "status": "collecting"
+  },
+  "byMarket": {
+    "h2h": {
+      "locked": 0,
+      "settled": 0,
+      "open": 0,
+      "profitUnits": 0,
+      "roi": null,
+      "interval95": null,
+      "status": "collecting"
+    },
+    "goals": {
+      "locked": 0,
+      "settled": 0,
+      "open": 0,
+      "profitUnits": 0,
+      "roi": null,
+      "interval95": null,
+      "status": "collecting"
+    }
+  }
+}

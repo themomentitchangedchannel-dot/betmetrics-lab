@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 
 const dayFormat = new Intl.DateTimeFormat('sv-SE', {
@@ -82,8 +82,50 @@ export function dailySummary(ledger) {
   };
 }
 
+function bootstrapInterval(returns, repetitions = 4000) {
+  if (returns.length < 30) return null;
+  let seed = 0x6d2b79f5;
+  const random = () => {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    return seed / 4294967296;
+  };
+  const means = [];
+  for (let trial = 0; trial < repetitions; trial++) {
+    let total = 0;
+    for (let i = 0; i < returns.length; i++) total += returns[Math.floor(random() * returns.length)];
+    means.push(total / returns.length);
+  }
+  means.sort((a, b) => a - b);
+  return [means[Math.floor(.025 * repetitions)], means[Math.floor(.975 * repetitions)]];
+}
+
+export function auditDailyCandidates(ledger, nowIso) {
+  if (ledger?.version !== 1 || !Array.isArray(ledger.records)) throw Error('Invalid daily candidate ledger');
+  const valid = ledger.records.filter(row => {
+    const selected = Date.parse(row.selectedAt), quoted = Date.parse(row.quotedAt), predicted = Date.parse(row.predictedAt), kickoff = Date.parse(row.kickoffUtc);
+    return ['h2h', 'goals'].includes(row.market) && Number.isFinite(selected) && Number.isFinite(quoted) &&
+      Number.isFinite(predicted) && Number.isFinite(kickoff) && predicted < quoted && quoted <= selected &&
+      selected < kickoff && Number.isFinite(row.odds) && row.odds >= 1.4 && row.odds <= 5 &&
+      (row.market === 'h2h' ? ['H', 'D', 'A'] : ['Over', 'Under']).includes(row.pick) &&
+      (row.result === null || (row.market === 'h2h' ? ['H', 'D', 'A'] : ['Over', 'Under']).includes(row.result));
+  });
+  const summarize = rows => {
+    const settled = rows.filter(row => row.result !== null);
+    const returns = settled.map(row => row.result === row.pick ? row.odds - 1 : -1);
+    const profitUnits = returns.reduce((sum, value) => sum + value, 0);
+    const interval95 = bootstrapInterval(returns);
+    return { locked: rows.length, settled: settled.length, open: rows.length - settled.length,
+      profitUnits, roi: settled.length ? profitUnits / settled.length : null, interval95,
+      status: settled.length < 100 ? 'collecting' : interval95[0] > 0 ? 'review' : profitUnits <= 0 ? 'negative' : 'uncertain' };
+  };
+  return { version: 1, generatedAt: nowIso, minimumSettled: 100,
+    overall: summarize(valid), byMarket: { h2h: summarize(valid.filter(row => row.market === 'h2h')),
+      goals: summarize(valid.filter(row => row.market === 'goals')) } };
+}
+
 async function main() {
   const root = new URL('../', import.meta.url);
+  await mkdir(new URL('site/data/', root), { recursive: true });
   const path = new URL('data/daily-candidates.json', root);
   let previous;
   try { previous = JSON.parse(await readFile(path, 'utf8')); }
@@ -96,6 +138,9 @@ async function main() {
   const output = JSON.stringify(ledger, null, 2) + '\n';
   await writeFile(path, output);
   await writeFile(new URL('site/data/daily-candidates.json', root), output);
+  const auditOutput = JSON.stringify(auditDailyCandidates(ledger, ledger.generatedAt), null, 2) + '\n';
+  await writeFile(new URL('data/selection-audit.json', root), auditOutput);
+  await writeFile(new URL('site/data/selection-audit.json', root), auditOutput);
   process.stdout.write('Daily shortlist: ' + added + ' new, ' + dailySummary(ledger).settled + ' settled.\n');
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();

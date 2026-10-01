@@ -47,6 +47,12 @@
       <div id="quickStatus" class="quick-status" role="status" aria-live="polite"><div class="metric">Nalagam stanje …</div></div>
       <p id="quickFreshness" class="hint"></p>
     </section>
+    <section class="card span" aria-labelledby="evidenceTitle">
+      <p class="eyebrow">Preverjanje na novih tekmah</p><h2 id="evidenceTitle">Ali dnevni izbor deluje?</h2>
+      <p class="hint">Štejejo samo izbori in kvote, zaklenjeni pred tekmo. Aplikacija bo prikazala rezultat vseh izbir in obeh trgov posebej; posamezni zadetki še niso dokaz prednosti.</p>
+      <div id="selectionAudit" class="quick-status" role="status" aria-live="polite" style="margin-top:15px"><div class="metric">Nalagam uspešnost …</div></div>
+      <p class="fine">Prva ocena šele po 100 zaključenih izborih v posamezni skupini. Približen 95 % interval iz ponovnega vzorčenja se prikaže po 30 izbirah. Tudi pozitiven signal zahteva nadaljnje preverjanje; pretekli preizkusi so bili večinoma negativni.</p>
+    </section>
     <section class="card span" aria-labelledby="candidateBoardTitle">
       <p class="eyebrow">Seznam se še spreminja</p><h2 id="candidateBoardTitle">Kandidati za spremljanje</h2>
       <p class="hint">Aplikacija primerja vnaprej shranjeno oceno modela z zadnjo zajeto kvoto Betsson. Kvote niso v živo in se lahko spremenijo. Dosedanji zgodovinski rezultati so negativni, zato so izbire samo za preizkus.</p>
@@ -649,6 +655,27 @@
     }
     if(rows.length>visible.length){const note=document.createElement('p');note.className='fine';note.textContent='Prikazanih '+visible.length+' od '+rows.length+' zaklenjenih izborov.';area.append(note)}
   }
+  function renderSelectionAudit(report){
+    if(report?.version!==1||!report.overall||!report.byMarket?.h2h||!report.byMarket?.goals)throw Error('Pregled uspešnosti ima neveljavno obliko.');
+    const area=$('selectionAudit');area.innerHTML='';
+    for(const [label,group] of [['Vsi izbori',report.overall],['1 / X / 2',report.byMarket.h2h],['Več/manj 2,5 gola',report.byMarket.goals]]){
+      const card=document.createElement('div'),title=document.createElement('small'),value=document.createElement('strong'),detail=document.createElement('p');
+      card.className='metric';title.textContent=label;
+      value.textContent=group.settled+'/'+report.minimumSettled+' zaključenih';
+      const status=group.status==='review'?'Pozitiven signal za dodatno preverjanje':group.status==='negative'?'Za zdaj brez prednosti':group.status==='uncertain'?'Rezultat še ni prepričljiv':'Zbiramo podatke';
+      const result=group.settled?' · '+(group.profitUnits>=0?'+':'')+group.profitUnits.toFixed(2).replace('.',',')+' enot · ROI '+pct(group.roi):'';
+      const interval=Array.isArray(group.interval95)?' · okvirni 95 % razpon ROI '+group.interval95.map(pct).join(' do '):'';
+      detail.textContent=status+' · '+group.open+' odprtih'+result+interval+'.';
+      card.append(title,value,detail);area.append(card)
+    }
+  }
+  async function loadSelectionAudit(){
+    try{
+      const response=await fetch('data/selection-audit.json',{cache:'no-store'});
+      if(!response.ok)throw Error('Pregled uspešnosti še ni objavljen.');
+      renderSelectionAudit(await response.json());
+    }catch(error){$('selectionAudit').textContent=error.message||'Pregleda uspešnosti ni mogoče prenesti.'}
+  }
   async function loadDailyCandidates(){
     try{
       const response=await fetch('data/daily-candidates.json',{cache:'no-store'});
@@ -1077,7 +1104,7 @@
   for(const id of ['candidateDays','candidateMarket','candidateFresh','candidateLeague','candidateSort'])$(id).addEventListener('change',renderCandidateBoard);
   $('goalView').addEventListener('change',()=>{if(lastGoalData&&lastGoalReport)renderGoalMarkets(lastGoalData,lastGoalReport)});$('syncApi').addEventListener('click',syncApi);$('saveAllForecasts').addEventListener('click',saveAllForecasts);$('autoCapture').addEventListener('change',toggleAutoCapture);
   for(const id of ['snapshotStatus','snapshotLeague'])$(id).addEventListener('change',()=>{snapshotLimit=8;renderSnapshots()});$('runBacktest').addEventListener('click',renderBacktest);$('fixture').addEventListener('change',selectFixture);$('fixtureRange').addEventListener('change',refreshFixtures);$('matchLeague').addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();refreshTeams()});for(const id of ['matchDate','home','away'])$(id).addEventListener('change',()=>{selectedFixture=null;$('fixture').value='';clearMatchOdds();invalidate()});$('calculate').addEventListener('click',calculate);$('compareOdds').addEventListener('click',compareOdds);$('compareGoalOdds').addEventListener('click',compareGoalOdds);for(const id of ['oddsH','oddsD','oddsA'])$(id).addEventListener('input',()=>{$('oddsComparison').innerHTML=''});for(const id of ['pick','odds'])$(id).addEventListener('input',refreshValue);$('saveBet').addEventListener('click',saveBet);$('scoreMode').addEventListener('change',renderBets);
-  const tomorrow=new Date(Date.now()+86400000);tomorrow.setHours(18,0,0,0);$('matchDate').value=`${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,'0')}-${String(tomorrow.getDate()).padStart(2,'0')}T18:00`;$('autoCapture').checked=!!state.autoCapture;refreshLists();renderBets();syncApi();loadPublicLedger();loadDailyCandidates();loadBenchmark();loadProfitBacktest();loadHistoricalGoals();
+  const tomorrow=new Date(Date.now()+86400000);tomorrow.setHours(18,0,0,0);$('matchDate').value=`${tomorrow.getFullYear()}-${String(tomorrow.getMonth()+1).padStart(2,'0')}-${String(tomorrow.getDate()).padStart(2,'0')}T18:00`;$('autoCapture').checked=!!state.autoCapture;refreshLists();renderBets();syncApi();loadPublicLedger();loadDailyCandidates();loadSelectionAudit();loadBenchmark();loadProfitBacktest();loadHistoricalGoals();
   window.BetMetricsMath={csvRows,parseGames,predict,isoDate};
 })();
 </script>
