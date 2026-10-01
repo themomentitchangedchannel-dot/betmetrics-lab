@@ -24,7 +24,9 @@
     @media(max-width:750px){.grid{grid-template-columns:1fr}.shell{padding:18px 14px 50px}.card{padding:18px}.top{margin-bottom:24px}.metrics{gap:6px}.metric{padding:10px}.metric strong{font-size:19px}.tag{font-size:10px}.row.triple{grid-template-columns:1fr 1fr}.row.triple>div:last-child{grid-column:1/-1}}
     .season-panel{border:1px solid #38566a;background:#112638;border-radius:16px;padding:18px 20px}.season-panel h3{margin:0 0 10px}.season-panel p{margin:8px 0}.season-panel .fine{line-height:1.5}
     .overview{background:#102736;border:1px solid #3b5364;border-radius:14px;padding:16px;margin:18px 0;color:#d3e8ed;line-height:1.5}.overview strong{display:block;font-size:19px;color:#eaf1fa;margin-bottom:4px}.overview small{color:#9db6c6}.candidate-card{grid-template-columns:1fr auto}.candidate-card .details-line{grid-column:1/-1}.candidate-card details{border-top:1px solid #304157;padding-top:8px;margin-top:3px}.candidate-card summary{cursor:pointer;color:#9cd8d0;font-size:13px;font-weight:700}.candidate-card .right strong{color:#eaf1fa}.candidate-card .right small{font-size:12px}.candidate-card .fine{margin:8px 0 0}
+    .quick-status{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.quick-status .metric{border:1px solid #304157}.quick-status .metric strong{font-size:19px}.quick-status .metric p{font-size:12px;color:#afc4d2;margin:7px 0 0;line-height:1.4}
     @media(max-width:750px){.tabs{overflow-x:auto;scrollbar-width:thin}.tab-button{white-space:nowrap;padding:9px 12px;font-size:13px;flex:none}.candidate-card{grid-template-columns:1fr}.candidate-card .right{text-align:left}.candidate-card .right strong{font-size:17px}}
+    @media(max-width:600px){.quick-status{grid-template-columns:1fr}.quick-status .metric{padding:13px}.quick-status .metric p{margin-top:3px}}
     .auto-capture{display:flex;align-items:center;gap:10px;margin:16px 0 0;cursor:pointer}.auto-capture input{width:20px;height:20px;min-height:20px;padding:0;accent-color:#64e5bf;flex:none}.auto-capture span{font-size:14px}
   </style>
 </head>
@@ -40,8 +42,13 @@
     <button type="button" class="tab-button" role="tab" id="tab-diary" aria-selected="false" aria-controls="panel-diary" tabindex="-1" data-tab="diary">Moj dnevnik</button>
   </nav>
   <div class="grid tab-panel" id="panel-candidates" role="tabpanel" aria-labelledby="tab-candidates">
+    <section class="card span" aria-labelledby="quickTitle">
+      <p class="eyebrow">Stanje danes</p><h2 id="quickTitle">Kaj se dogaja?</h2>
+      <div id="quickStatus" class="quick-status" role="status" aria-live="polite"><div class="metric">Nalagam stanje …</div></div>
+      <p id="quickFreshness" class="hint"></p>
+    </section>
     <section class="card span" aria-labelledby="candidateBoardTitle">
-      <p class="eyebrow">Prihajajoče tekme</p><h2 id="candidateBoardTitle">Papirni kandidati</h2>
+      <p class="eyebrow">Seznam se še spreminja</p><h2 id="candidateBoardTitle">Kandidati za spremljanje</h2>
       <p class="hint">Aplikacija primerja vnaprej shranjeno oceno modela z zadnjo zajeto kvoto Betsson. Kvote niso v živo in se lahko spremenijo. Dosedanji zgodovinski rezultati so negativni, zato so izbire samo za preizkus.</p>
       <div id="candidateOverview" class="overview" role="status"><strong>Nalaganje pregleda …</strong></div>
       <details class="advanced-data"><summary>Filtri in razvrstitev</summary>
@@ -56,7 +63,7 @@
       <p class="fine">Prikazana je največ ena papirna izbira na tekmo in pet tekem na dan. Nobena stava se ne odda samodejno.</p>
     </section>
     <section class="card span" aria-labelledby="dailyTitle">
-      <p class="eyebrow">Vnaprej zaklenjen preizkus</p><h2 id="dailyTitle">Dnevni papirni izbor in rezultat</h2>
+      <p class="eyebrow">Javni papirni preizkus</p><h2 id="dailyTitle">Zaklenjeni izbori in rezultati</h2>
       <p class="hint">Največ pet različnih tekem na dan se zaklene ob prvem ustreznem zajemu v 72 urah pred tekmo. Izid, kvota in čas izbire ostanejo v javnem dnevniku, tudi če se poznejše kvote spremenijo. Preteklih izbir ne dodajava za nazaj.</p>
       <div id="dailyStatus" role="status"></div><div id="dailyResults" class="list" aria-live="polite"></div>
       <p class="fine">Enota je namišljen enak vložek. Ta dnevni izbor je ločen od sprotnega seznama zgoraj in še nima potrjene donosnosti.</p>
@@ -527,8 +534,29 @@
       card.append(main,right);area.append(card);
     }
   }
-  let candidateLedger=null,candidateFeedStatus=null;
+  let candidateLedger=null,candidateFeedStatus=null,dailyLedger=null;
   const candidateDay=utc=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Ljubljana',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(utc));
+  function renderQuickStatus(){
+    const area=$('quickStatus');area.innerHTML='';
+    if(!candidateLedger){area.textContent='Pregled tekem trenutno ni na voljo.';return}
+    const now=Date.now(),today=candidateDay(now);
+    const candidates=candidateRows(candidateLedger.records,{now,days:14,market:'all',league:'all',fresh:true}).shortlist;
+    const todayCount=candidates.filter(row=>candidateDay(row.kickoff)===today).length;
+    const soonCount=candidates.filter(row=>row.kickoff<=now+72*3600000).length;
+    const locked=(dailyLedger?.records||[]).filter(row=>row.result===null&&Date.parse(row.kickoffUtc)>now);
+    const next=candidates.filter(row=>row.kickoff>now+72*3600000).sort((a,b)=>a.kickoff-b.kickoff)[0];
+    const nextText=next?'Naslednji kandidat: '+new Date(next.kickoff).toLocaleDateString('sl-SI',{timeZone:'Europe/Ljubljana',day:'numeric',month:'long'})+'.':'Trenutno ni poznejših svežih kandidatov.';
+    for(const [label,value,detail] of [
+      ['Danes',String(todayCount),todayCount?'Spremenljivi kandidati za današnje tekme.':'Za danes ni svežih kandidatov.'],
+      ['Naslednjih 72 ur',String(soonCount),soonCount?'Sveži kandidati za bližnje tekme.':nextText],
+      ['Zaklenjeno',dailyLedger?String(locked.length):'…',dailyLedger?'Izbori s trajno shranjeno kvoto, ki še čakajo na izid.':'Nalaganje javnega dnevnega izbora.']
+    ]){
+      const card=document.createElement('div'),strong=document.createElement('strong'),small=document.createElement('small'),p=document.createElement('p');
+      card.className='metric';strong.textContent=value;small.textContent=label;p.textContent=detail;card.append(strong,small,p);area.append(card)
+    }
+    const checked=Date.parse(candidateFeedStatus?.generatedAt),freshness=$('quickFreshness');
+    freshness.textContent=Number.isFinite(checked)?'Kvote zadnjič preverjene '+new Date(checked).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana',day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'})+'.'+(now-checked>36*3600000?' Podatki o kvotah so starejši od 36 ur; pred uporabo počakaj na nov zajem.':''):'Čas zadnjega zajema kvot ni na voljo.';
+  }
   function candidateRows(records,{now,days,market,league,fresh}){
     const horizon=now+days*86400000,raw=[];
     const matches=records.filter(r=>r&&r.result==null&&Number.isFinite(Date.parse(r.kickoffUtc))&&Date.parse(r.kickoffUtc)>now&&Date.parse(r.kickoffUtc)<=horizon&&(league==='all'||r.league===league));
@@ -598,6 +626,7 @@
   }
   function renderDailyCandidates(data){
     if(data?.version!==1||!Array.isArray(data.records))throw Error('Dnevni dnevnik ima neveljavno obliko.');
+    dailyLedger=data;renderQuickStatus();
     const area=$('dailyResults');area.innerHTML='';
     const rows=data.records.filter(r=>r&&Number.isFinite(Date.parse(r.selectedAt))&&Number.isFinite(Date.parse(r.quotedAt))&&Number.isFinite(Date.parse(r.predictedAt))&&Date.parse(r.predictedAt)<Date.parse(r.quotedAt)&&Date.parse(r.quotedAt)<=Date.parse(r.selectedAt)&&Date.parse(r.selectedAt)<Date.parse(r.kickoffUtc)&&Number.isFinite(r.odds)&&r.odds>1&&['h2h','goals'].includes(r.market));
     const settled=rows.filter(r=>r.result!==null),profit=settled.reduce((sum,r)=>sum+(r.result===r.pick?r.odds-1:-1),0);
@@ -625,15 +654,15 @@
       const response=await fetch('data/daily-candidates.json',{cache:'no-store'});
       if(!response.ok)throw Error('Javni dnevni izbor še ni objavljen.');
       renderDailyCandidates(await response.json());$('dailyStatus').textContent='';
-    }catch(error){$('dailyStatus').textContent=error.message||'Dnevnega izbora ni mogoče prenesti.'}
+    }catch(error){dailyLedger=null;renderQuickStatus();$('dailyStatus').textContent=error.message||'Dnevnega izbora ni mogoče prenesti.'}
   }
   async function loadPublicLedger(){
     try{
       const response=await fetch('data/forecast-ledger.json',{cache:'no-store'});
       if(!response.ok)throw Error('Javni dnevnik še ni objavljen.');
-      const data=await response.json();renderPublicLedger(data);const statusResponse=await fetch('data/live-odds-status.json',{cache:'no-store'});const feedStatus=statusResponse.ok?await statusResponse.json():null;candidateLedger=data;candidateFeedStatus=feedStatus;renderCandidateBoard();renderLiveOdds(data,feedStatus);renderGoalCoverage(feedStatus);const auditResponse=await fetch('data/prospective-report.json',{cache:'no-store'});if(auditResponse.ok)renderProspectiveAudit(await auditResponse.json());const goalsResponse=await fetch('data/goals-report.json',{cache:'no-store'});if(goalsResponse.ok)renderGoalMarkets(data,await goalsResponse.json());
+      const data=await response.json();renderPublicLedger(data);const statusResponse=await fetch('data/live-odds-status.json',{cache:'no-store'});const feedStatus=statusResponse.ok?await statusResponse.json():null;candidateLedger=data;candidateFeedStatus=feedStatus;renderCandidateBoard();renderQuickStatus();renderLiveOdds(data,feedStatus);renderGoalCoverage(feedStatus);const auditResponse=await fetch('data/prospective-report.json',{cache:'no-store'});if(auditResponse.ok)renderProspectiveAudit(await auditResponse.json());const goalsResponse=await fetch('data/goals-report.json',{cache:'no-store'});if(goalsResponse.ok)renderGoalMarkets(data,await goalsResponse.json());
       $('publicLedgerStatus').innerHTML='';
-    }catch(e){candidateLedger=null;renderCandidateBoard();show('publicLedgerStatus',e.message||'Javnega dnevnika ni mogoče prenesti. Poskusi pozneje.','bad')}
+    }catch(e){candidateLedger=null;renderCandidateBoard();renderQuickStatus();show('publicLedgerStatus',e.message||'Javnega dnevnika ni mogoče prenesti. Poskusi pozneje.','bad')}
   }
   function renderForward(){
     const area=$('forwardResults');area.innerHTML='';
