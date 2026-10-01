@@ -33,8 +33,28 @@ export function opportunity(record, market, nowIso) {
     id: String(record.id), league: record.league, home: record.home, away: record.away,
     kickoffUtc: record.kickoffUtc, day: dayOf(record.kickoffUtc), market,
     pick: choices[i], label: labels[market][i], odds, probability: p, ev,
-    predictedAt, quotedAt: quote.quotedAt, bookmaker: quote.bookmaker
+    predictedAt, quotedAt: quote.quotedAt, bookmaker: quote.bookmaker,
+    bookmakerUpdatedAt: quote.bookmakerUpdatedAt, eventId: quote.eventId
   };
+}
+
+function comparableQuote(row, fixture) {
+  if (fixture.league !== row.league || fixture.kickoffUtc !== row.kickoffUtc) return null;
+  const quote = row.market === 'h2h'
+    ? fixture.latestOddsSnapshot : fixture.latestTotals25Snapshot;
+  const choices = row.market === 'h2h' ? ['H', 'D', 'A'] : ['Over', 'Under'];
+  const index = choices.indexOf(row.pick), quoted = Date.parse(quote?.quotedAt);
+  const odds = quote?.odds?.[index], kickoff = Date.parse(row.kickoffUtc);
+  if (quote?.bookmaker !== row.bookmaker || (row.eventId && quote.eventId !== row.eventId) ||
+      (row.market === 'goals' && quote.point !== 2.5) || index < 0 ||
+      !Number.isFinite(quoted) || quoted <= Date.parse(row.selectedAt) || quoted >= kickoff ||
+      !Number.isFinite(odds) || odds <= 1.01 || odds >= 100) return null;
+  const updated = Date.parse(quote.bookmakerUpdatedAt), originalUpdated = Date.parse(row.bookmakerUpdatedAt);
+  if (Number.isFinite(originalUpdated) && (!Number.isFinite(updated) || updated <= originalUpdated)) return null;
+  const previous = row.latestComparableQuote;
+  if (previous && (quoted <= Date.parse(previous.quotedAt) ||
+      (Number.isFinite(Date.parse(previous.bookmakerUpdatedAt)) && updated <= Date.parse(previous.bookmakerUpdatedAt)))) return null;
+  return { odds, quotedAt: quote.quotedAt, bookmakerUpdatedAt: quote.bookmakerUpdatedAt };
 }
 
 export function evolveDailyCandidates(previous, forecasts, nowIso) {
@@ -48,7 +68,8 @@ export function evolveDailyCandidates(previous, forecasts, nowIso) {
       ? (['H', 'D', 'A'].includes(fixture.result) ? fixture.result : null)
       : (Number.isInteger(fixture.resultGoals?.home) && Number.isInteger(fixture.resultGoals?.away)
           ? fixture.resultGoals.home + fixture.resultGoals.away > 2 ? 'Over' : 'Under' : null);
-    return { ...row, result };
+    const latest = comparableQuote(row, fixture);
+    return { ...row, result, ...(latest ? { latestComparableQuote: latest } : {}) };
   });
   const selectedIds = new Set(records.map(row => String(row.id)));
   const countByDay = new Map();
@@ -114,8 +135,18 @@ export function auditDailyCandidates(ledger, nowIso) {
     const returns = settled.map(row => row.result === row.pick ? row.odds - 1 : -1);
     const profitUnits = returns.reduce((sum, value) => sum + value, 0);
     const interval95 = bootstrapInterval(returns);
+    const started = rows.filter(row => Date.parse(row.kickoffUtc) <= Date.parse(nowIso));
+    const compared = started.filter(row => {
+      const quote = row.latestComparableQuote;
+      return Number.isFinite(quote?.odds) && quote.odds > 1.01 &&
+        Date.parse(quote.quotedAt) > Date.parse(row.selectedAt) && Date.parse(quote.quotedAt) < Date.parse(row.kickoffUtc);
+    });
+    const marketMovement = { started: started.length, compared: compared.length,
+      favorable: compared.filter(row => row.latestComparableQuote.odds < row.odds).length,
+      average: compared.length ? compared.reduce((sum, row) => sum + row.odds / row.latestComparableQuote.odds - 1, 0) / compared.length : null };
     return { locked: rows.length, settled: settled.length, open: rows.length - settled.length,
       profitUnits, roi: settled.length ? profitUnits / settled.length : null, interval95,
+      marketMovement,
       status: settled.length < 100 ? 'collecting' : interval95[0] > 0 ? 'review' : profitUnits <= 0 ? 'negative' : 'uncertain' };
   };
   return { version: 1, generatedAt: nowIso, minimumSettled: 100,

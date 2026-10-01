@@ -51,7 +51,7 @@
       <p class="eyebrow">Preverjanje na novih tekmah</p><h2 id="evidenceTitle">Ali dnevni izbor deluje?</h2>
       <p class="hint">Štejejo samo izbori in kvote, zaklenjeni pred tekmo. Aplikacija bo prikazala rezultat vseh izbir in obeh trgov posebej; posamezni zadetki še niso dokaz prednosti.</p>
       <div id="selectionAudit" class="quick-status" role="status" aria-live="polite" style="margin-top:15px"><div class="metric">Nalagam uspešnost …</div></div>
-      <p class="fine">Prva ocena šele po 100 zaključenih izborih v posamezni skupini. Približen 95 % interval iz ponovnega vzorčenja se prikaže po 30 izbirah. Tudi pozitiven signal zahteva nadaljnje preverjanje; pretekli preizkusi so bili večinoma negativni.</p>
+      <p class="fine">Prva ocena šele po 100 zaključenih izborih v posamezni skupini. Približen 95 % interval iz ponovnega vzorčenja se prikaže po 30 izbirah. Premik kvote primerja zaklenjeno ceno z zadnjo zajeto pred tekmo pri isti stavnici; to ni nujno zaključna kvota. Tudi pozitiven signal zahteva nadaljnje preverjanje.</p>
     </section>
     <section class="card span" aria-labelledby="candidateBoardTitle">
       <p class="eyebrow">Seznam se še spreminja</p><h2 id="candidateBoardTitle">Kandidati za spremljanje</h2>
@@ -651,7 +651,13 @@
       info.textContent=r.league.replace(' · API','')+' · '+new Date(r.kickoffUtc).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+' · zaklenjeno '+new Date(r.selectedAt).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'});
       pick.textContent=r.label+' @ '+r.odds.toFixed(2).replace('.',',');
       state.textContent=r.result===null?'Čaka na izid':r.result===r.pick?'Zadetek · +'+(r.odds-1).toFixed(2).replace('.',',')+' enot':'Zgrešeno · −1 enota';
-      main.append(title,info);right.append(pick,state);card.append(main,right);area.append(card)
+      main.append(title,info);right.append(pick,state);
+      if(Number.isFinite(r.latestComparableQuote?.odds)){
+        const movement=document.createElement('small'),change=r.odds/r.latestComparableQuote.odds-1;
+        movement.textContent='Zadnja zajeta kvota '+r.latestComparableQuote.odds.toFixed(2).replace('.',',')+' · premik '+(change>=0?'+':'')+pct(change);
+        right.append(movement)
+      }
+      card.append(main,right);area.append(card)
     }
     if(rows.length>visible.length){const note=document.createElement('p');note.className='fine';note.textContent='Prikazanih '+visible.length+' od '+rows.length+' zaklenjenih izborov.';area.append(note)}
   }
@@ -665,7 +671,9 @@
       const status=group.status==='review'?'Pozitiven signal za dodatno preverjanje':group.status==='negative'?'Za zdaj brez prednosti':group.status==='uncertain'?'Rezultat še ni prepričljiv':'Zbiramo podatke';
       const result=group.settled?' · '+(group.profitUnits>=0?'+':'')+group.profitUnits.toFixed(2).replace('.',',')+' enot · ROI '+pct(group.roi):'';
       const interval=Array.isArray(group.interval95)?' · okvirni 95 % razpon ROI '+group.interval95.map(pct).join(' do '):'';
-      detail.textContent=status+' · '+group.open+' odprtih'+result+interval+'.';
+      const movement=group.marketMovement;
+      const movementText=movement?.started?' · premik kvote: '+movement.compared+'/'+movement.started+' primerljivih'+(movement.compared?' · povprečje '+(movement.average>=0?'+':'')+pct(movement.average):''):'';
+      detail.textContent=status+' · '+group.open+' odprtih'+result+interval+movementText+'.';
       card.append(title,value,detail);area.append(card)
     }
   }

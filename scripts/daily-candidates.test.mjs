@@ -64,3 +64,25 @@ test('public audit keeps the two markets separate and waits for enough settled p
   assert.equal(early.overall.status,'collecting');
   assert.equal(early.overall.interval95,null);
 });
+
+test('tracks the same locked outcome at later bookmaker quotes without changing the paper price', () => {
+  const original={...fixture(21),totals25Snapshot:{...fixture(21).totals25Snapshot,
+    eventId:'match-21',point:2.5,bookmakerUpdatedAt:'2026-10-08T10:55:00Z'}};
+  const first=evolveDailyCandidates({version:1,records:[]},{version:1,records:[original]},now).ledger;
+  assert.equal(first.records[0].pick,'Over');
+  const newer={...original,latestTotals25Snapshot:{bookmaker:'betsson',eventId:'match-21',point:2.5,
+    quotedAt:'2026-10-09T10:00:00Z',bookmakerUpdatedAt:'2026-10-09T09:55:00Z',odds:[1.8,2.1],pick:'Under'}};
+  const second=evolveDailyCandidates(first,{version:1,records:[newer]},'2026-10-09T11:00:00Z').ledger;
+  assert.equal(second.records[0].odds,2);
+  assert.equal(second.records[0].latestComparableQuote.odds,1.8);
+  const wrongEvent={...newer,latestTotals25Snapshot:{...newer.latestTotals25Snapshot,eventId:'other',quotedAt:'2026-10-09T12:00:00Z',odds:[1.5,2.5]}};
+  assert.deepEqual(evolveDailyCandidates(second,{version:1,records:[wrongEvent]},'2026-10-09T13:00:00Z').ledger.records[0].latestComparableQuote,second.records[0].latestComparableQuote);
+  const late={...newer,latestTotals25Snapshot:{...newer.latestTotals25Snapshot,quotedAt:'2026-10-10T13:00:00Z',odds:[1.5,2.5]}};
+  assert.deepEqual(evolveDailyCandidates(second,{version:1,records:[late]},'2026-10-11T09:00:00Z').ledger.records[0].latestComparableQuote,second.records[0].latestComparableQuote);
+  const finished=evolveDailyCandidates(second,{version:1,records:[{...newer,resultGoals:{home:3,away:1}}]},'2026-10-11T12:00:00Z').ledger;
+  const movement=auditDailyCandidates(finished,'2026-10-11T12:00:00Z').overall.marketMovement;
+  assert.equal(finished.records[0].result,'Over');
+  assert.equal(movement.compared,1);
+  assert.equal(movement.favorable,1);
+  assert.ok(Math.abs(movement.average-(2/1.8-1))<1e-9);
+});
