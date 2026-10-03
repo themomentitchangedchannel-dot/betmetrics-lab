@@ -26,6 +26,15 @@ test('prediction contains normalized 1/X/2 probabilities and frozen baseline', (
   assert.equal(result.n, 60);
 });
 
+test('Bundesliga enters the same pre-match ledger using only its own older results', () => {
+  const time='2026-09-30T08:00:00Z';
+  const german=evolveLedger(empty,{BL1:[...oldMatches,fixture]},time);
+  assert.equal(german.added,1);
+  assert.equal(german.ledger.records[0].league,'Bundesliga · API');
+  assert.equal(german.ledger.records[0].trainingMatches,60);
+  assert.equal(evolveLedger(empty,{BL1:[fixture],PL:oldMatches},time).added,0);
+});
+
 test('creates once before kickoff and settles without changing original probabilities', () => {
   const time = '2026-09-30T08:00:00Z';
   const first = evolveLedger(empty, { PL: [...oldMatches, fixture], PD: [], SA: [] }, time);

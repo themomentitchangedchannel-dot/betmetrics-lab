@@ -2,8 +2,8 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import { teamKey } from './backtest-odds.mjs';
 
-const sports = { PL: 'soccer_epl', PD: 'soccer_spain_la_liga', SA: 'soccer_italy_serie_a' };
-const leagues = { PL: 'Premier League · API', PD: 'La Liga · API', SA: 'Serie A · API' };
+const sports = { PL: 'soccer_epl', PD: 'soccer_spain_la_liga', SA: 'soccer_italy_serie_a', BL1: 'soccer_germany_bundesliga' };
+const leagues = { PL: 'Premier League · API', PD: 'La Liga · API', SA: 'Serie A · API', BL1: 'Bundesliga · API' };
 const bookmaker = 'betsson';
 const picks = ['H', 'D', 'A'];
 const clubAliases = {
@@ -137,14 +137,27 @@ async function main() {
   const root = new URL('../', import.meta.url), file = new URL('data/forecast-ledger.json', root);
   const ledger = JSON.parse(await readFile(file, 'utf8'));
   const key = process.env.THE_ODDS_API_KEY?.trim(), now = new Date().toISOString();
-  let status = { version: 2, generatedAt: now, source: 'The Odds API', bookmaker: 'Betsson', configured: !!key, fetched: false, warnings: [], coverage: null };
+  let status = { version: 2, generatedAt: now, source: 'The Odds API', bookmaker: 'Betsson', configured: !!key, fetched: false, warnings: [], coverage: null, quotaRemaining: null, quotaUsed: null, skippedLeagues: [] };
   if (key && process.env.FETCH_LIVE_ODDS !== 'false') {
     const byLeague = {};
     for (const [code, sport] of Object.entries(sports)) {
+      if (code === 'BL1' && process.env.FETCH_BL1_ODDS === 'false') {
+        status.skippedLeagues.push(code);
+        continue;
+      }
+      if (status.quotaRemaining !== null && status.quotaRemaining < 22) {
+        status.warnings.push('Quota below 22 credits; remaining league requests deferred.');
+        status.skippedLeagues.push(code);
+        continue;
+      }
       try {
         const url = new URL(`https://api.the-odds-api.com/v4/sports/${sport}/odds/`);
         url.search = new URLSearchParams({ apiKey: key, regions: 'eu', markets: 'h2h,totals', oddsFormat: 'decimal', bookmakers: bookmaker }).toString();
         const response = await fetch(url, { signal: AbortSignal.timeout(15000) });
+        const remaining = Number(response.headers.get('x-requests-remaining'));
+        const used = Number(response.headers.get('x-requests-used'));
+        if (response.headers.has('x-requests-remaining') && Number.isFinite(remaining)) status.quotaRemaining = remaining;
+        if (response.headers.has('x-requests-used') && Number.isFinite(used)) status.quotaUsed = used;
         if (!response.ok) throw Error(`HTTP ${response.status}`);
         const events = await response.json();
         if (!Array.isArray(events)) throw Error('unexpected response');

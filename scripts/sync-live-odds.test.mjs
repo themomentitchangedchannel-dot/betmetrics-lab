@@ -13,7 +13,9 @@ test('match exactly one fixture with club aliases and kickoff tolerance', () => 
   const pairs=[
     ['Club Atlético de Madrid','Atletico Madrid'],['Athletic Club','Athletic Bilbao'],
     ['RC Celta de Vigo','Celta Vigo'],['Real Betis Balompié','Real Betis'],
-    ['FC Internazionale Milano','Inter Milan'],['Genoa CFC','Genoa']
+    ['FC Internazionale Milano','Inter Milan'],['Genoa CFC','Genoa'],
+    ['FC Bayern München','Bayern Munich'],['Bayer 04 Leverkusen','Bayer Leverkusen'],
+    ['1. FC Union Berlin','Union Berlin'],['TSG 1899 Hoffenheim','Hoffenheim']
   ];
   for(const [api,odds] of pairs){
     const fixture={...record,home:api,away:'Arsenal FC'};

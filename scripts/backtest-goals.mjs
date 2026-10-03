@@ -3,7 +3,7 @@ import { pathToFileURL } from 'node:url';
 import { predict, goalProbabilities } from './build-forecast-ledger.mjs';
 import { csvRows, teamKey } from './backtest-odds.mjs';
 
-const divisions={PL:['E0','Premier League · API'],PD:['SP1','La Liga · API'],SA:['I1','Serie A · API']};
+const divisions={PL:['E0','Premier League · API'],PD:['SP1','La Liga · API'],SA:['I1','Serie A · API'],BL1:['D1','Bundesliga · API']};
 const localDay=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Ljubljana',year:'numeric',month:'2-digit',day:'2-digit'});
 function csvDate(value){
   const parts=String(value||'').split('/').map(Number);if(parts.length!==3||parts.some(x=>!Number.isInteger(x)))return null;
@@ -111,7 +111,8 @@ async function main(){
   let previous=null;try{previous=JSON.parse(await readFile(cachePath,'utf8'))}catch{/* first run */}
   await mkdir(new URL('site/data/',root),{recursive:true});
   const age=Date.now()-Date.parse(previous?.generatedAt);
-  if(previous?.version===3&&Array.isArray(previous.seasons)&&Number.isFinite(age)&&age>=0&&age<7*86400000&&process.env.GOALS_BACKTEST_REFRESH!=='1'){
+  const bundesligaCovered=previous?.seasons?.length&&previous.seasons.every(s=>s.byLeague?.some(row=>row.league==='Bundesliga · API'));
+  if(previous?.version===3&&bundesligaCovered&&Number.isFinite(age)&&age>=0&&age<7*86400000&&process.env.GOALS_BACKTEST_REFRESH!=='1'){
     await writeFile(sitePath,JSON.stringify(previous,null,2)+'\n');process.stdout.write(`Using cached goal odds report from ${previous.generatedAt}.\n`);return;
   }
   const parts=[],warnings=[];

@@ -63,10 +63,10 @@
         <div><label for="candidateMarket">Trg</label><select id="candidateMarket"><option value="all">Vsi trgi</option><option value="h2h">1 / X / 2</option><option value="goals">Več/manj 2,5</option></select></div>
         <div><label for="candidateFresh">Kvote</label><select id="candidateFresh"><option value="fresh">Zajete v zadnjih 24 h</option><option value="all">Vse shranjene</option></select></div>
       </div>
-      <div class="row"><div><label for="candidateLeague">Liga</label><select id="candidateLeague"><option value="all">Vse lige</option><option value="Premier League · API">Premier League</option><option value="La Liga · API">La Liga</option><option value="Serie A · API">Serie A</option></select></div><div><label for="candidateSort">Vrstni red</label><select id="candidateSort"><option value="time">Najprej bližnje tekme</option><option value="value">Največja modelna razlika</option></select></div></div>
+      <div class="row"><div><label for="candidateLeague">Liga</label><select id="candidateLeague"><option value="all">Vse lige</option><option value="Premier League · API">Premier League</option><option value="La Liga · API">La Liga</option><option value="Serie A · API">Serie A</option><option value="Bundesliga · API">Bundesliga</option></select></div><div><label for="candidateSort">Vrstni red</label><select id="candidateSort"><option value="time">Najprej bližnje tekme</option><option value="value">Največja modelna razlika</option></select></div></div>
       </details>
       <div id="candidateBoardStatus" class="hint" role="status"></div><div id="candidateBoard" class="list" style="margin-top:16px" aria-live="polite"></div>
-      <p class="fine">Prikazana je največ ena papirna izbira na tekmo in pet tekem na dan. Nobena stava se ne odda samodejno.</p>
+      <p class="fine">Prikazana je največ ena papirna izbira na tekmo in pet tekem na dan. Bundesliga dobi kvote enkrat dnevno. Nobena stava se ne odda samodejno.</p>
     </section>
     <section class="card span" aria-labelledby="dailyTitle">
       <p class="eyebrow">Javni papirni preizkus</p><h2 id="dailyTitle">Zaklenjeni izbori in rezultati</h2>
@@ -79,13 +79,13 @@
     <section class="card span" aria-labelledby="dataTitle">
       <p class="eyebrow">01 · Podatki</p><h2 id="dataTitle">Tekme prek API</h2>
       <p class="hint">Podatki iz football-data.org se pripravijo dvakrat na dan. API ključ je shranjen kot skrivnost v GitHub Actions, zato ga tukaj ni treba vnašati.</p>
-      <label for="apiLeague">Tekmovanje</label><select id="apiLeague"><option value="ALL">Vse tri lige</option><option value="PL">Premier League</option><option value="PD">La Liga</option><option value="SA">Serie A</option></select>
+      <label for="apiLeague">Tekmovanje</label><select id="apiLeague"><option value="ALL">Vse štiri lige</option><option value="PL">Premier League</option><option value="PD">La Liga</option><option value="SA">Serie A</option><option value="BL1">Bundesliga</option></select>
       <div class="actions"><button class="button" id="syncApi">Osveži tekme in rezultate</button></div><div id="apiMessage" role="status"></div>
       <p class="hint" id="dataSummary">Podatki še niso uvoženi.</p><p class="fine" id="dataFreshness"></p>
       <details class="advanced-data">
         <summary>Rezervni uvoz CSV</summary>
         <p class="hint">Uporabi, če objavljeni podatki niso na voljo. CSV mora vsebovati stolpce <code>Date,HomeTeam,AwayTeam,FTHG,FTAG</code>. Sprejme datume YYYY-MM-DD ali DD/MM/YYYY ter eno ligo na datoteko.</p>
-        <div class="row"><div><label for="league">Ime lige</label><input id="league" list="leagueSuggestions" placeholder="Premier League" autocomplete="off"><datalist id="leagueSuggestions"><option value="Premier League"><option value="La Liga"><option value="Serie A"></datalist></div><div><label for="csv">CSV z rezultati</label><input id="csv" type="file" accept=".csv,text/csv"></div></div>
+        <div class="row"><div><label for="league">Ime lige</label><input id="league" list="leagueSuggestions" placeholder="Premier League" autocomplete="off"><datalist id="leagueSuggestions"><option value="Premier League"><option value="La Liga"><option value="Serie A"><option value="Bundesliga"></datalist></div><div><label for="csv">CSV z rezultati</label><input id="csv" type="file" accept=".csv,text/csv"></div></div>
         <div class="actions"><button class="button" id="importCsv">Uvozi rezultate</button></div>
         <div id="importMessage" role="status"></div>
       </details>
@@ -135,7 +135,7 @@
   const $=id=>document.getElementById(id);
   const state=readState();
   let current=null,selectedFixture=null,calibrationSource=null,calibrationResult=null,snapshotLimit=8;
-  const API_LEAGUES={PL:'Premier League · API',PD:'La Liga · API',SA:'Serie A · API'};
+  const API_LEAGUES={PL:'Premier League · API',PD:'La Liga · API',SA:'Serie A · API',BL1:'Bundesliga · API'};
   const money=n=>new Intl.NumberFormat('sl-SI',{style:'currency',currency:'EUR'}).format(n);
   const pct=n=>(100*n).toFixed(1).replace('.',',')+' %';
   function switchTab(view,{scroll=true}={}){
@@ -770,7 +770,7 @@
   async function syncApi(){
     const btn=$('syncApi'),selection=$('apiLeague').value,codes=selection==='ALL'?Object.keys(API_LEAGUES):[selection];
     btn.disabled=true;
-    show('apiMessage',codes.length>1?'Prenašam podatke za vse tri lige …':'Prenašam pripravljene podatke …');
+    show('apiMessage',codes.length>1?'Prenašam podatke za vse štiri lige …':'Prenašam pripravljene podatke …');
     try{
       const downloads=await Promise.allSettled(codes.map(code=>apiRequest(code)));
       const ready=[],failed=[];

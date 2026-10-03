@@ -61,6 +61,7 @@ jobs:
         env:
           THE_ODDS_API_KEY: ${{ secrets.THE_ODDS_API_KEY }}
           FETCH_LIVE_ODDS: ${{ github.event_name != 'push' || contains(github.event.head_commit.message, '[refresh-odds]') }}
+          FETCH_BL1_ODDS: ${{ github.event_name != 'schedule' || github.event.schedule == '17 17 * * *' }}
         run: node scripts/sync-live-odds.mjs
       - name: Test daily shortlist
         run: node --test scripts/daily-candidates.test.mjs

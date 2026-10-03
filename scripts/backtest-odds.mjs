@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 import { predict } from './build-forecast-ledger.mjs';
 
-const leagues = { PL: ['E0', 'Premier League · API'], PD: ['SP1', 'La Liga · API'], SA: ['I1', 'Serie A · API'] };
+const leagues = { PL: ['E0', 'Premier League · API'], PD: ['SP1', 'La Liga · API'], SA: ['I1', 'Serie A · API'], BL1: ['D1', 'Bundesliga · API'] };
 const localDay = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Ljubljana', year: 'numeric', month: '2-digit', day: '2-digit' });
 const aliases = {
   'manchester united': 'man united', 'manchester city': 'man city', 'tottenham hotspur': 'tottenham', 'nottingham forest': 'nottm forest', 'nott m forest': 'nottm forest', 'wolverhampton wanderers': 'wolves',
@@ -15,6 +15,11 @@ const aliases = {
   'acf fiorentina': 'fiorentina', 'parma': 'parma', 'bologna': 'bologna', 'lecce': 'lecce',
   'us sassuolo calcio': 'sassuolo', 'cagliari calcio': 'cagliari', 'genoa': 'genoa', 'udinese calcio': 'udinese',
   'juventus': 'juventus', 'atalanta': 'atalanta', 'torino': 'torino', 'frosinone calcio': 'frosinone',
+  'bayern munchen': 'bayern', 'bayern munich': 'bayern', 'bayer 04 leverkusen': 'leverkusen', 'bayer leverkusen': 'leverkusen',
+  'vfb stuttgart': 'stuttgart', 'vfl wolfsburg': 'wolfsburg', 'vfl bochum': 'bochum', 'sc freiburg': 'freiburg',
+  'tsg 1899 hoffenheim': 'hoffenheim', 'tsg hoffenheim': 'hoffenheim', 'sv werder bremen': 'werder bremen',
+  '1 union berlin': 'union berlin', '1 fsv mainz 05': 'mainz', 'mainz 05': 'mainz',
+  '1 koln': 'koln', 'cologne': 'koln', '1 heidenheim 1846': 'heidenheim',
 };
 
 export function teamKey(name) {
@@ -107,7 +112,8 @@ async function main() {
   try { previous = JSON.parse(await readFile(cachePath,'utf8')); } catch { /* first run */ }
   await mkdir(new URL('site/data/',root),{recursive:true});
   const age = Date.now() - Date.parse(previous?.generatedAt);
-  if (previous?.version === 1 && Array.isArray(previous.seasons) && Number.isFinite(age) && age >= 0 && age < 7*86400000 && process.env.ODDS_BACKTEST_REFRESH !== '1') {
+  const bundesligaCovered = previous?.seasons?.length && previous.seasons.every(s => s.byLeague?.some(row => row.league === 'Bundesliga · API'));
+  if (previous?.version === 1 && bundesligaCovered && Number.isFinite(age) && age >= 0 && age < 7*86400000 && process.env.ODDS_BACKTEST_REFRESH !== '1') {
     await writeFile(new URL('site/data/profit-backtest.json',root),JSON.stringify(previous,null,2)+'\n');
     process.stdout.write(`Using historical odds report from ${previous.generatedAt}; weekly refresh due later.\n`);
     return;

@@ -1,7 +1,7 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 
-const codes = { PL: 'Premier League · API', PD: 'La Liga · API', SA: 'Serie A · API' };
+const codes = { PL: 'Premier League · API', PD: 'La Liga · API', SA: 'Serie A · API', BL1: 'Bundesliga · API' };
 const day = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Ljubljana', year: 'numeric', month: '2-digit', day: '2-digit' });
 const dateOf = utc => day.format(new Date(utc));
 const poisson = lambda => { const p = [Math.exp(-lambda)]; for (let i = 1; i <= 12; i++) p.push(p[i - 1] * lambda / i); return p; };

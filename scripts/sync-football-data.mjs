@@ -5,7 +5,7 @@ if (!token) throw new Error('Missing FOOTBALL_DATA_TOKEN repository secret.');
 
 const now = new Date();
 const season = now.getUTCMonth() >= 6 ? now.getUTCFullYear() : now.getUTCFullYear() - 1;
-const leagues = ['PL', 'PD', 'SA'];
+const leagues = ['PL', 'PD', 'SA', 'BL1'];
 const output = new URL('../site/', import.meta.url);
 await mkdir(new URL('data/', output), { recursive: true });
 await copyFile(new URL('../index.html', import.meta.url), new URL('index.html', output));
