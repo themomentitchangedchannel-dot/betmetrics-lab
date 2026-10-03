@@ -43,7 +43,27 @@ test('settles the original paper selection after the result arrives', () => {
   assert.equal(second.added,0);
   assert.equal(second.ledger.records[0].result,'Over');
   assert.equal(second.ledger.records[0].selectedAt,now);
-  assert.deepEqual(dailySummary(second.ledger),{selected:1,settled:1,wins:1,profitUnits:1,roi:1});
+  assert.deepEqual(dailySummary(second.ledger),{selected:1,voided:0,settled:1,wins:1,profitUnits:1,roi:1});
+});
+
+test('a moved or cancelled fixture voids a locked pick permanently without counting its later result', () => {
+  const first=evolveDailyCandidates({version:1,records:[]},{version:1,records:[fixture(1)]},now).ledger;
+  const moved={...fixture(1,'2026-10-11T12:00:00Z'),scheduleChangedAt:'2026-10-09T09:00:00Z'};
+  const second=evolveDailyCandidates(first,{version:1,records:[moved]},'2026-10-09T12:00:00Z').ledger;
+  assert.equal(second.records[0].voidReason,'Spremenjen termin tekme');
+  const finished=evolveDailyCandidates(second,{version:1,records:[{...moved,result:'H',resultGoals:{home:3,away:1}}]},'2026-10-12T12:00:00Z').ledger;
+  assert.equal(finished.records[0].result,null);
+  assert.equal(dailySummary(finished).voided,1);
+  assert.equal(dailySummary(finished).settled,0);
+  const audit=auditDailyCandidates(finished,'2026-10-12T12:00:00Z');
+  assert.equal(audit.overall.voided,1);
+  assert.equal(audit.overall.open,0);
+  assert.equal(audit.overall.marketMovement.started,0);
+  const cancelled=evolveDailyCandidates(first,{version:1,records:[{...fixture(1),fixtureStatus:'POSTPONED'}]},'2026-10-09T12:00:00Z');
+  assert.equal(cancelled.ledger.records[0].voidReason,'Preložena ali odpovedana tekma');
+  assert.equal(cancelled.added,0);
+  assert.equal(opportunity({...fixture(1),fixtureStatus:'CANCELLED'},'h2h',now),null);
+  assert.equal(opportunity(moved,'h2h',now),null);
 });
 
 test('public audit keeps the two markets separate and waits for enough settled picks', () => {

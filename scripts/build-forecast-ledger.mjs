@@ -97,6 +97,21 @@ export function evolveLedger(previous, payloads, nowIso) {
     if (!league || !Array.isArray(matches)) throw new Error(`Invalid matches: ${code}`);
     const finished = matches.filter(m => m.status === 'FINISHED' && Number.isInteger(m.score?.fullTime?.home) && Number.isInteger(m.score?.fullTime?.away));
     const games = finishedGames(matches, league);
+    for (const m of matches) {
+      const record = byId.get(String(m.id));
+      if (!record || record.league !== league) continue;
+      record.fixtureStatus = m.status;
+      const oldKickoff = Date.parse(record.kickoffUtc), newKickoff = Date.parse(m.utcDate);
+      if (Number.isFinite(oldKickoff) && Number.isFinite(newKickoff) &&
+          Math.abs(newKickoff - oldKickoff) > 30 * 60000) {
+        record.scheduleChangedAt ||= nowIso;
+        record.kickoffUtc = m.utcDate;
+        delete record.oddsSnapshot;
+        delete record.totals25Snapshot;
+        delete record.latestOddsSnapshot;
+        delete record.latestTotals25Snapshot;
+      }
+    }
     for (const m of finished) {
       const record = byId.get(String(m.id));
       if (!record) continue;
@@ -123,7 +138,7 @@ export function evolveLedger(previous, payloads, nowIso) {
       }
       const forecast = predict(games, league, home, away, dateOf(m.utcDate));
       if (!forecast) { skipped++; continue; }
-      const record = { id: m.id, league, kickoffUtc: m.utcDate, home, away, predictedAt: nowIso, probs: forecast.probs, baseline: forecast.baseline, trainingMatches: forecast.n, result: null };
+      const record = { id: m.id, league, fixtureStatus: m.status, kickoffUtc: m.utcDate, home, away, predictedAt: nowIso, probs: forecast.probs, baseline: forecast.baseline, trainingMatches: forecast.n, result: null };
       record.goalsForecast = goalsForecast(forecast, nowIso);
       const challenge = predictChallenger(games, league, home, away, dateOf(m.utcDate));
       if (challenge) record.challenger = { model: 'recency-v2', predictedAt: nowIso, probs: challenge.probs };

@@ -10,7 +10,9 @@ const labels = { h2h: ['1', 'X', '2'], goals: ['Več 2,5', 'Manj 2,5'] };
 
 export function opportunity(record, market, nowIso) {
   const now = Date.parse(nowIso), kickoff = Date.parse(record.kickoffUtc);
-  if (record.result !== null || !Number.isFinite(now) || !Number.isFinite(kickoff) ||
+  if (record.result !== null || record.scheduleChangedAt ||
+      (record.fixtureStatus && !['SCHEDULED', 'TIMED'].includes(record.fixtureStatus)) ||
+      !Number.isFinite(now) || !Number.isFinite(kickoff) ||
       kickoff <= now || kickoff > now + 72 * 3600000) return null;
   const quote = market === 'h2h'
     ? (record.latestOddsSnapshot || record.oddsSnapshot)
@@ -64,6 +66,13 @@ export function evolveDailyCandidates(previous, forecasts, nowIso) {
   const records = previous.records.map(row => {
     const fixture = byId.get(String(row.id));
     if (!fixture) return row;
+    if (row.voidReason) return row;
+    const moved = fixture.league !== row.league ||
+      Math.abs(Date.parse(fixture.kickoffUtc) - Date.parse(row.kickoffUtc)) > 30 * 60000 ||
+      !!fixture.scheduleChangedAt;
+    const voidReason = moved ? 'Spremenjen termin tekme' :
+      ['POSTPONED', 'CANCELLED', 'SUSPENDED'].includes(fixture.fixtureStatus) ? 'Preložena ali odpovedana tekma' : null;
+    if (voidReason) return { ...row, voidReason, result: null };
     const result = row.market === 'h2h'
       ? (['H', 'D', 'A'].includes(fixture.result) ? fixture.result : null)
       : (Number.isInteger(fixture.resultGoals?.home) && Number.isInteger(fixture.resultGoals?.away)
@@ -94,10 +103,10 @@ export function evolveDailyCandidates(previous, forecasts, nowIso) {
 }
 
 export function dailySummary(ledger) {
-  const settled = ledger.records.filter(row => row.result !== null);
+  const settled = ledger.records.filter(row => !row.voidReason && row.result !== null);
   const profit = settled.reduce((sum, row) => sum + (row.result === row.pick ? row.odds - 1 : -1), 0);
   return {
-    selected: ledger.records.length, settled: settled.length,
+    selected: ledger.records.length, voided: ledger.records.filter(row => row.voidReason).length, settled: settled.length,
     wins: settled.filter(row => row.result === row.pick).length,
     profitUnits: profit, roi: settled.length ? profit / settled.length : null
   };
@@ -131,11 +140,13 @@ export function auditDailyCandidates(ledger, nowIso) {
       (row.result === null || (row.market === 'h2h' ? ['H', 'D', 'A'] : ['Over', 'Under']).includes(row.result));
   });
   const summarize = rows => {
-    const settled = rows.filter(row => row.result !== null);
+    const voided = rows.filter(row => row.voidReason);
+    const active = rows.filter(row => !row.voidReason);
+    const settled = active.filter(row => row.result !== null);
     const returns = settled.map(row => row.result === row.pick ? row.odds - 1 : -1);
     const profitUnits = returns.reduce((sum, value) => sum + value, 0);
     const interval95 = bootstrapInterval(returns);
-    const started = rows.filter(row => Date.parse(row.kickoffUtc) <= Date.parse(nowIso));
+    const started = active.filter(row => Date.parse(row.kickoffUtc) <= Date.parse(nowIso));
     const compared = started.filter(row => {
       const quote = row.latestComparableQuote;
       return Number.isFinite(quote?.odds) && quote.odds > 1.01 &&
@@ -144,7 +155,7 @@ export function auditDailyCandidates(ledger, nowIso) {
     const marketMovement = { started: started.length, compared: compared.length,
       favorable: compared.filter(row => row.latestComparableQuote.odds < row.odds).length,
       average: compared.length ? compared.reduce((sum, row) => sum + row.odds / row.latestComparableQuote.odds - 1, 0) / compared.length : null };
-    return { locked: rows.length, settled: settled.length, open: rows.length - settled.length,
+    return { locked: rows.length, voided: voided.length, settled: settled.length, open: active.length - settled.length,
       profitUnits, roi: settled.length ? profitUnits / settled.length : null, interval95,
       marketMovement,
       status: settled.length < 100 ? 'collecting' : interval95[0] > 0 ? 'review' : profitUnits <= 0 ? 'negative' : 'uncertain' };

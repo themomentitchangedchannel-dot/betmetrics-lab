@@ -70,7 +70,7 @@
     </section>
     <section class="card span" aria-labelledby="dailyTitle">
       <p class="eyebrow">Javni papirni preizkus</p><h2 id="dailyTitle">Zaklenjeni izbori in rezultati</h2>
-      <p class="hint">Največ pet različnih tekem na dan se zaklene ob prvem ustreznem zajemu v 72 urah pred tekmo. Izid, kvota in čas izbire ostanejo v javnem dnevniku, tudi če se poznejše kvote spremenijo. Preteklih izbir ne dodajava za nazaj.</p>
+      <p class="hint">Največ pet različnih tekem na dan se zaklene ob prvem ustreznem zajemu v 72 urah pred tekmo. Izid, kvota in čas izbire ostanejo v javnem dnevniku, tudi če se poznejše kvote spremenijo. Ob prestavitvi termina ali odpovedi se izbor označi kot razveljavljen in ne vpliva na rezultat. Preteklih izbir ne dodajava za nazaj.</p>
       <div id="dailyStatus" role="status"></div><div id="dailyResults" class="list" aria-live="polite"></div>
       <p class="fine">Enota je namišljen enak vložek. Ta dnevni izbor je ločen od sprotnega seznama zgoraj in še nima potrjene donosnosti.</p>
     </section>
@@ -549,7 +549,7 @@
     const candidates=candidateRows(candidateLedger.records,{now,days:14,market:'all',league:'all',fresh:true}).shortlist;
     const todayCount=candidates.filter(row=>candidateDay(row.kickoff)===today).length;
     const soonCount=candidates.filter(row=>row.kickoff<=now+72*3600000).length;
-    const locked=(dailyLedger?.records||[]).filter(row=>row.result===null&&Date.parse(row.kickoffUtc)>now);
+    const locked=(dailyLedger?.records||[]).filter(row=>!row.voidReason&&row.result===null&&Date.parse(row.kickoffUtc)>now);
     const next=candidates.filter(row=>row.kickoff>now+72*3600000).sort((a,b)=>a.kickoff-b.kickoff)[0];
     const nextText=next?'Naslednji kandidat: '+new Date(next.kickoff).toLocaleDateString('sl-SI',{timeZone:'Europe/Ljubljana',day:'numeric',month:'long'})+'.':'Trenutno ni poznejših svežih kandidatov.';
     for(const [label,value,detail] of [
@@ -565,7 +565,7 @@
   }
   function candidateRows(records,{now,days,market,league,fresh}){
     const horizon=now+days*86400000,raw=[];
-    const matches=records.filter(r=>r&&r.result==null&&Number.isFinite(Date.parse(r.kickoffUtc))&&Date.parse(r.kickoffUtc)>now&&Date.parse(r.kickoffUtc)<=horizon&&(league==='all'||r.league===league));
+    const matches=records.filter(r=>r&&r.result==null&&!r.scheduleChangedAt&&(!r.fixtureStatus||['SCHEDULED','TIMED'].includes(r.fixtureStatus))&&Number.isFinite(Date.parse(r.kickoffUtc))&&Date.parse(r.kickoffUtc)>now&&Date.parse(r.kickoffUtc)<=horizon&&(league==='all'||r.league===league));
     for(const r of matches){
       for(const kind of ['h2h','goals']){
         if(market!=='all'&&market!==kind)continue;
@@ -635,9 +635,9 @@
     dailyLedger=data;renderQuickStatus();
     const area=$('dailyResults');area.innerHTML='';
     const rows=data.records.filter(r=>r&&Number.isFinite(Date.parse(r.selectedAt))&&Number.isFinite(Date.parse(r.quotedAt))&&Number.isFinite(Date.parse(r.predictedAt))&&Date.parse(r.predictedAt)<Date.parse(r.quotedAt)&&Date.parse(r.quotedAt)<=Date.parse(r.selectedAt)&&Date.parse(r.selectedAt)<Date.parse(r.kickoffUtc)&&Number.isFinite(r.odds)&&r.odds>1&&['h2h','goals'].includes(r.market));
-    const settled=rows.filter(r=>r.result!==null),profit=settled.reduce((sum,r)=>sum+(r.result===r.pick?r.odds-1:-1),0);
+    const settled=rows.filter(r=>!r.voidReason&&r.result!==null),profit=settled.reduce((sum,r)=>sum+(r.result===r.pick?r.odds-1:-1),0);
     const metrics=document.createElement('div');metrics.className='metrics';
-    for(const [label,value] of [['Zaklenjene',String(rows.length)],['Zaključene',String(settled.length)],['Papirni rezultat',settled.length?(profit>=0?'+':'')+profit.toFixed(2).replace('.',',')+' enot':'—'],['ROI',settled.length?pct(profit/settled.length):'—']]){
+    for(const [label,value] of [['Zaklenjene',String(rows.length)],['Razveljavljene',String(rows.filter(r=>r.voidReason).length)],['Zaključene',String(settled.length)],['Papirni rezultat',settled.length?(profit>=0?'+':'')+profit.toFixed(2).replace('.',',')+' enot':'—'],['ROI',settled.length?pct(profit/settled.length):'—']]){
       const item=document.createElement('div'),strong=document.createElement('strong'),small=document.createElement('small');item.className='metric';
       strong.textContent=value;small.textContent=label;item.append(strong,small);metrics.append(item)
     }
@@ -650,7 +650,7 @@
       title.textContent=r.home+' – '+r.away;
       info.textContent=r.league.replace(' · API','')+' · '+new Date(r.kickoffUtc).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'})+' · zaklenjeno '+new Date(r.selectedAt).toLocaleString('sl-SI',{timeZone:'Europe/Ljubljana'});
       pick.textContent=r.label+' @ '+r.odds.toFixed(2).replace('.',',');
-      state.textContent=r.result===null?'Čaka na izid':r.result===r.pick?'Zadetek · +'+(r.odds-1).toFixed(2).replace('.',',')+' enot':'Zgrešeno · −1 enota';
+      state.textContent=r.voidReason?'Razveljavljeno · '+r.voidReason:r.result===null?'Čaka na izid':r.result===r.pick?'Zadetek · +'+(r.odds-1).toFixed(2).replace('.',',')+' enot':'Zgrešeno · −1 enota';
       main.append(title,info);right.append(pick,state);
       if(Number.isFinite(r.latestComparableQuote?.odds)){
         const movement=document.createElement('small'),change=r.odds/r.latestComparableQuote.odds-1;
@@ -673,7 +673,7 @@
       const interval=Array.isArray(group.interval95)?' · okvirni 95 % razpon ROI '+group.interval95.map(pct).join(' do '):'';
       const movement=group.marketMovement;
       const movementText=movement?.started?' · premik kvote: '+movement.compared+'/'+movement.started+' primerljivih'+(movement.compared?' · povprečje '+(movement.average>=0?'+':'')+pct(movement.average):''):'';
-      detail.textContent=status+' · '+group.open+' odprtih'+result+interval+movementText+'.';
+      detail.textContent=status+' · '+group.open+' odprtih'+(group.voided?' · '+group.voided+' razveljavljenih':'')+result+interval+movementText+'.';
       card.append(title,value,detail);area.append(card)
     }
   }

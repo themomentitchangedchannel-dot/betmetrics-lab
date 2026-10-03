@@ -54,6 +54,24 @@ test('creates once before kickoff and settles without changing original probabil
   assert.deepEqual(finished.ledger.records[0].probs, frozen);
 });
 
+test('a moved fixture clears stale odds and cannot get a new quote under the old prediction', () => {
+  const first=evolveLedger(empty,{PL:[...oldMatches,fixture]},'2026-09-30T08:00:00Z').ledger;
+  const record=first.records[0];
+  record.oddsSnapshot={quotedAt:'2026-10-01T08:00:00Z',odds:[2,3,4]};
+  record.latestTotals25Snapshot={quotedAt:'2026-10-01T08:00:00Z',odds:[2,2]};
+  const moved={...fixture,utcDate:'2026-10-11T18:00:00Z'};
+  const next=evolveLedger(first,{PL:[...oldMatches,moved]},'2026-10-02T08:00:00Z').ledger.records[0];
+  assert.equal(next.kickoffUtc,moved.utcDate);
+  assert.equal(next.scheduleChangedAt,'2026-10-02T08:00:00Z');
+  assert.equal(next.fixtureStatus,'TIMED');
+  assert.equal(next.oddsSnapshot,undefined);
+  assert.equal(next.latestTotals25Snapshot,undefined);
+  assert.deepEqual(next.probs,record.probs);
+  const finished=evolveLedger({version:1,records:[next]},{PL:[...oldMatches,{...moved,status:'FINISHED',score:{fullTime:{home:2,away:1}}}]},'2026-10-12T08:00:00Z').ledger.records[0];
+  assert.equal(finished.result,'H');
+  assert.equal(finished.scheduleChangedAt,next.scheduleChangedAt);
+});
+
 test('adds goal probabilities to existing upcoming fixtures but never after kickoff', () => {
   const old=evolveLedger(empty,{PL:[...oldMatches,fixture]},'2026-09-30T08:00:00Z').ledger;
   delete old.records[0].goalsForecast;

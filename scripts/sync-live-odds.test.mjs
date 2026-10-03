@@ -50,6 +50,7 @@ test('no retroactive, ambiguous, stale or incomplete bookmaker quotes', () => {
   assert.equal(quote(record,stale,now),null);
   const missing=structuredClone(event);missing.bookmakers[0].markets[0].outcomes.pop();
   assert.equal(quote(record,missing,now),null);
+  assert.equal(quote({...record,scheduleChangedAt:now},event,now),null);
 });
 
 test('locks only the 2.5 goal line and never changes an existing 1/X/2 quote',()=>{

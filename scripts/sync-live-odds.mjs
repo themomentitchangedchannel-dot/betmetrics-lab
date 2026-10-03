@@ -29,7 +29,7 @@ export function eventFor(record, events) {
 
 export function quote(record, event, nowIso) {
   const now = Date.parse(nowIso), kickoff = Date.parse(record.kickoffUtc);
-  if (!event || !Number.isFinite(now) || !Number.isFinite(kickoff) || now >= kickoff || Date.parse(record.predictedAt) > now) return null;
+  if (!event || record.scheduleChangedAt || !Number.isFinite(now) || !Number.isFinite(kickoff) || now >= kickoff || Date.parse(record.predictedAt) > now) return null;
   const book = event.bookmakers?.find(b => b.key === bookmaker);
   const market = book?.markets?.find(m => m.key === 'h2h');
   const updatedAt = market?.last_update || book?.last_update;
@@ -49,7 +49,7 @@ export function quote(record, event, nowIso) {
 
 export function quoteTotals25(record, event, nowIso) {
   const forecast=record.goalsForecast,now=Date.parse(nowIso),kickoff=Date.parse(record.kickoffUtc);
-  if (!event || !forecast || !Number.isFinite(now) || now >= kickoff || Date.parse(forecast.predictedAt) > now) return null;
+  if (!event || !forecast || record.scheduleChangedAt || !Number.isFinite(now) || now >= kickoff || Date.parse(forecast.predictedAt) > now) return null;
   const book=event.bookmakers?.find(b=>b.key===bookmaker),market=book?.markets?.find(m=>m.key==='totals');
   const updatedAt=market?.last_update || book?.last_update,updated=Date.parse(updatedAt);
   if(!Number.isFinite(updated)||updated>now+60000||updated>=kickoff||now-updated>6*3600000)return null;
