@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-03T17:48:38.879Z",
+  "generatedAt": "2026-10-03T19:47:41.297Z",
   "records": [
     {
       "id": 560593,
@@ -115,7 +115,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 560592,
@@ -230,7 +231,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 560595,
@@ -345,7 +347,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 560601,
@@ -460,7 +463,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 560600,
@@ -575,7 +579,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 560596,
@@ -690,7 +695,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 560598,
@@ -805,7 +811,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 564698,
@@ -920,7 +927,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 564699,
@@ -1035,7 +1043,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 564700,
@@ -1150,7 +1159,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 564702,
@@ -1265,7 +1275,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 564703,
@@ -1380,7 +1391,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 564701,
@@ -1495,7 +1507,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 564704,
@@ -1610,7 +1623,8 @@
         ],
         "pick": "Over",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 558588,
@@ -1725,7 +1739,8 @@
         ],
         "pick": "Over",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 558582,
@@ -1840,7 +1855,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 558585,
@@ -1955,7 +1971,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 558581,
@@ -2070,7 +2087,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 558580,
@@ -2185,7 +2203,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 558584,
@@ -2300,7 +2319,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 558587,
@@ -2415,7 +2435,8 @@
         ],
         "pick": "Over",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 560603,
@@ -2530,7 +2551,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 560611,
@@ -2645,7 +2667,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 560607,
@@ -2760,7 +2783,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 564710,
@@ -2799,7 +2823,8 @@
           0.2548342271636014,
           0.3974689664041312
         ]
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 564708,
@@ -2914,7 +2939,8 @@
         ],
         "pick": "Over",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 564713,
@@ -3029,7 +3055,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 558571,
@@ -3144,7 +3171,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 565820,
@@ -3259,7 +3287,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 565812,
@@ -3298,7 +3327,8 @@
           0.23533457949431857,
           0.41858421889817865
         ]
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 565818,
@@ -3413,7 +3443,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 565819,
@@ -3528,7 +3559,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 565815,
@@ -3643,7 +3675,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 565814,
@@ -3758,7 +3791,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 565828,
@@ -3873,7 +3907,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 565821,
@@ -3988,7 +4023,8 @@
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 565822,
@@ -4103,7 +4139,8 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
-      }
+      },
+      "fixtureStatus": "TIMED"
     },
     {
       "id": 565825,
@@ -4218,6 +4255,87 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "fixtureStatus": "TIMED"
+    },
+    {
+      "id": 564711,
+      "league": "La Liga · API",
+      "fixtureStatus": "TIMED",
+      "kickoffUtc": "2026-10-17T19:00:00Z",
+      "home": "Valencia CF",
+      "away": "Athletic Club",
+      "predictedAt": "2026-10-03T19:47:41.297Z",
+      "probs": [
+        0.4255425743614007,
+        0.25155095274577766,
+        0.3229064728928217
+      ],
+      "baseline": [
+        0.48329621380846327,
+        0.24498886414253898,
+        0.2717149220489978
+      ],
+      "trainingMatches": 449,
+      "result": null,
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-10-03T19:47:41.297Z",
+        "expectedHome": 1.5075665404523009,
+        "expectedAway": 1.281197529778606,
+        "probs": {
+          "over25": 0.527863657465742,
+          "btts": 0.5623444232924734
+        }
+      },
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-10-03T19:47:41.297Z",
+        "probs": [
+          0.3872439470374914,
+          0.24802351578099666,
+          0.364732537181512
+        ]
+      }
+    },
+    {
+      "id": 558572,
+      "league": "Serie A · API",
+      "fixtureStatus": "TIMED",
+      "kickoffUtc": "2026-10-17T18:45:00Z",
+      "home": "AS Roma",
+      "away": "Genoa CFC",
+      "predictedAt": "2026-10-03T19:47:41.297Z",
+      "probs": [
+        0.6399639709438841,
+        0.22758931706126384,
+        0.13244671199485208
+      ],
+      "baseline": [
+        0.3953488372093023,
+        0.25116279069767444,
+        0.35348837209302325
+      ],
+      "trainingMatches": 430,
+      "result": null,
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-10-03T19:47:41.297Z",
+        "expectedHome": 1.7451458885941644,
+        "expectedAway": 0.6433195890609905,
+        "probs": {
+          "over25": 0.4272747798894445,
+          "btts": 0.39160595553686345
+        }
+      },
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-10-03T19:47:41.297Z",
+        "probs": [
+          0.5984940914601053,
+          0.23756439518221067,
+          0.1639415133576839
+        ]
       }
     }
   ]

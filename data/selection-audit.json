@@ -1,9 +1,10 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-03T17:48:40.508Z",
+  "generatedAt": "2026-10-03T19:47:41.769Z",
   "minimumSettled": 100,
   "overall": {
     "locked": 0,
+    "voided": 0,
     "settled": 0,
     "open": 0,
     "profitUnits": 0,
@@ -20,6 +21,7 @@
   "byMarket": {
     "h2h": {
       "locked": 0,
+      "voided": 0,
       "settled": 0,
       "open": 0,
       "profitUnits": 0,
@@ -35,6 +37,7 @@
     },
     "goals": {
       "locked": 0,
+      "voided": 0,
       "settled": 0,
       "open": 0,
       "profitUnits": 0,
