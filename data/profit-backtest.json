@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-30T09:40:20.104Z",
+  "generatedAt": "2026-10-03T17:48:45.623Z",
   "source": "football-data.co.uk",
   "book": "Bet365",
   "oddsType": "closing",
@@ -8,93 +8,115 @@
   "seasons": [
     {
       "season": 2025,
-      "n": 702,
-      "matched": 888,
-      "completed": 1140,
-      "brierModel": 0.613844206721216,
-      "brierMarket": 0.5852134216890498,
-      "selected": 454,
-      "profitUnits": -58.53000000000001,
-      "roi": -0.128920704845815,
+      "n": 961,
+      "matched": 1222,
+      "completed": 1446,
+      "brierModel": 0.6154119367928015,
+      "brierMarket": 0.5865133997985866,
+      "selected": 627,
+      "profitUnits": -97.30000000000004,
+      "roi": -0.15518341307814998,
       "byLeague": [
         {
           "league": "Premier League · API",
           "completed": 380,
-          "matched": 342,
+          "matched": 380,
           "missingOdds": 0,
           "resultMismatch": 0,
-          "noPrediction": 72,
-          "eligible": 270,
-          "selected": 172,
-          "profitUnits": -7.550000000000001
+          "noPrediction": 80,
+          "eligible": 300,
+          "selected": 196,
+          "profitUnits": -11.809999999999999
         },
         {
           "league": "La Liga · API",
+          "completed": 380,
+          "matched": 380,
+          "missingOdds": 0,
+          "resultMismatch": 0,
+          "noPrediction": 80,
+          "eligible": 300,
+          "selected": 192,
+          "profitUnits": -16.490000000000002
+        },
+        {
+          "league": "Serie A · API",
           "completed": 380,
           "matched": 306,
           "missingOdds": 0,
           "resultMismatch": 0,
           "noPrediction": 64,
           "eligible": 242,
-          "selected": 150,
-          "profitUnits": -7.99
+          "selected": 173,
+          "profitUnits": -54.84000000000001
         },
         {
-          "league": "Serie A · API",
-          "completed": 380,
-          "matched": 240,
+          "league": "Bundesliga · API",
+          "completed": 306,
+          "matched": 156,
           "missingOdds": 0,
           "resultMismatch": 0,
-          "noPrediction": 50,
-          "eligible": 190,
-          "selected": 132,
-          "profitUnits": -42.99
+          "noPrediction": 37,
+          "eligible": 119,
+          "selected": 66,
+          "profitUnits": -14.16
         }
       ]
     },
     {
       "season": 2026,
-      "n": 94,
-      "matched": 111,
-      "completed": 169,
-      "brierModel": 0.5963701483206848,
-      "brierMarket": 0.5770074904574383,
-      "selected": 63,
-      "profitUnits": -4.42,
-      "roi": -0.07015873015873016,
+      "n": 129,
+      "matched": 179,
+      "completed": 205,
+      "brierModel": 0.5769890944576012,
+      "brierMarket": 0.5569894076422385,
+      "selected": 78,
+      "profitUnits": 0.2300000000000022,
+      "roi": 0.002948717948717977,
       "byLeague": [
         {
           "league": "Premier League · API",
           "completed": 50,
-          "matched": 32,
+          "matched": 50,
           "missingOdds": 0,
           "resultMismatch": 0,
-          "noPrediction": 0,
-          "eligible": 32,
-          "selected": 23,
-          "profitUnits": -6.249999999999998
+          "noPrediction": 14,
+          "eligible": 36,
+          "selected": 26,
+          "profitUnits": -1.5499999999999994
         },
         {
           "league": "La Liga · API",
           "completed": 69,
-          "matched": 43,
+          "matched": 69,
           "missingOdds": 0,
           "resultMismatch": 0,
-          "noPrediction": 5,
-          "eligible": 38,
-          "selected": 26,
-          "profitUnits": 5.449999999999999
+          "noPrediction": 20,
+          "eligible": 49,
+          "selected": 32,
+          "profitUnits": 4.9
         },
         {
           "league": "Serie A · API",
           "completed": 50,
-          "matched": 36,
+          "matched": 45,
           "missingOdds": 0,
           "resultMismatch": 0,
-          "noPrediction": 12,
-          "eligible": 24,
-          "selected": 14,
-          "profitUnits": -3.6199999999999997
+          "noPrediction": 13,
+          "eligible": 32,
+          "selected": 17,
+          "profitUnits": -3.22
+        },
+        {
+          "league": "Bundesliga · API",
+          "completed": 36,
+          "matched": 15,
+          "missingOdds": 0,
+          "resultMismatch": 0,
+          "noPrediction": 3,
+          "eligible": 12,
+          "selected": 3,
+          "profitUnits": 0.10000000000000009
         }
       ]
     }
