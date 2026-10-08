@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-08T05:32:47.506Z",
+  "generatedAt": "2026-10-08T17:33:00.318Z",
   "records": [
     {
       "id": "564700",
@@ -24,8 +24,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 4.02,
-        "quotedAt": "2026-10-08T05:32:46.909Z",
-        "bookmakerUpdatedAt": "2026-10-08T05:32:28Z"
+        "quotedAt": "2026-10-08T17:32:59.850Z",
+        "bookmakerUpdatedAt": "2026-10-08T17:32:54Z"
       }
     },
     {
@@ -49,9 +49,9 @@
       "selectedAt": "2026-10-07T17:34:38.032Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 4.89,
-        "quotedAt": "2026-10-08T05:32:46.909Z",
-        "bookmakerUpdatedAt": "2026-10-08T05:32:10Z"
+        "odds": 4.59,
+        "quotedAt": "2026-10-08T17:32:59.850Z",
+        "bookmakerUpdatedAt": "2026-10-08T17:32:50Z"
       }
     },
     {
@@ -76,8 +76,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 4.25,
-        "quotedAt": "2026-10-08T05:32:46.909Z",
-        "bookmakerUpdatedAt": "2026-10-08T05:32:28Z"
+        "quotedAt": "2026-10-08T17:32:59.850Z",
+        "bookmakerUpdatedAt": "2026-10-08T17:32:54Z"
       }
     },
     {
@@ -101,9 +101,9 @@
       "selectedAt": "2026-10-07T17:34:38.032Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.65,
-        "quotedAt": "2026-10-08T05:32:46.909Z",
-        "bookmakerUpdatedAt": "2026-10-08T05:32:28Z"
+        "odds": 2.72,
+        "quotedAt": "2026-10-08T17:32:59.850Z",
+        "bookmakerUpdatedAt": "2026-10-08T17:32:54Z"
       }
     },
     {
@@ -128,9 +128,114 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 3.2,
-        "quotedAt": "2026-10-08T05:32:46.909Z",
-        "bookmakerUpdatedAt": "2026-10-08T05:32:28Z"
+        "quotedAt": "2026-10-08T17:32:59.850Z",
+        "bookmakerUpdatedAt": "2026-10-08T17:32:55Z"
       }
+    },
+    {
+      "id": "560596",
+      "league": "Premier League · API",
+      "home": "Crystal Palace FC",
+      "away": "Nottingham Forest FC",
+      "kickoffUtc": "2026-10-11T13:00:00Z",
+      "day": "2026-10-11",
+      "market": "h2h",
+      "pick": "A",
+      "label": "2",
+      "odds": 2.7,
+      "probability": 0.47994409828622253,
+      "ev": 0.295849065372801,
+      "predictedAt": "2026-09-30T08:30:18.778Z",
+      "quotedAt": "2026-10-08T17:32:59.850Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-08T17:32:50Z",
+      "eventId": "86effab5c6e7bfd58c8e88b1fb7c6ba9",
+      "selectedAt": "2026-10-08T17:33:00.318Z",
+      "result": null
+    },
+    {
+      "id": "558585",
+      "league": "Serie A · API",
+      "home": "Como 1907",
+      "away": "AS Roma",
+      "kickoffUtc": "2026-10-11T10:30:00Z",
+      "day": "2026-10-11",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 2.3,
+      "probability": 0.5413238590289338,
+      "ev": 0.24504487576654754,
+      "predictedAt": "2026-09-30T12:25:43.452Z",
+      "quotedAt": "2026-10-08T17:32:59.850Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-08T17:32:55Z",
+      "eventId": "2547c0dbddd26d23fa532228e36348cb",
+      "selectedAt": "2026-10-08T17:33:00.318Z",
+      "result": null
+    },
+    {
+      "id": "560598",
+      "league": "Premier League · API",
+      "home": "Liverpool FC",
+      "away": "Manchester City FC",
+      "kickoffUtc": "2026-10-11T15:30:00Z",
+      "day": "2026-10-11",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 2.46,
+      "probability": 0.4874169604890799,
+      "ev": 0.1990457228031366,
+      "predictedAt": "2026-09-30T12:25:43.452Z",
+      "quotedAt": "2026-10-08T17:32:59.850Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-08T17:32:50Z",
+      "eventId": "6dbab232dd8d2aed0cb1d6f7978fb7b1",
+      "selectedAt": "2026-10-08T17:33:00.318Z",
+      "result": null
+    },
+    {
+      "id": "564701",
+      "league": "La Liga · API",
+      "home": "Real Betis Balompié",
+      "away": "CA Osasuna",
+      "kickoffUtc": "2026-10-11T16:30:00Z",
+      "day": "2026-10-11",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 2.06,
+      "probability": 0.5687921103217541,
+      "ev": 0.17171174726281357,
+      "predictedAt": "2026-09-30T12:25:43.452Z",
+      "quotedAt": "2026-10-08T17:32:59.850Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-08T17:32:54Z",
+      "eventId": "984691837d31fd0c59c088f377f55f75",
+      "selectedAt": "2026-10-08T17:33:00.318Z",
+      "result": null
+    },
+    {
+      "id": "558580",
+      "league": "Serie A · API",
+      "home": "US Sassuolo Calcio",
+      "away": "AC Milan",
+      "kickoffUtc": "2026-10-11T16:00:00Z",
+      "day": "2026-10-11",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 2.1,
+      "probability": 0.5177796590165197,
+      "ev": 0.08733728393469131,
+      "predictedAt": "2026-09-30T12:25:43.452Z",
+      "quotedAt": "2026-10-08T17:32:59.850Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-08T17:32:55Z",
+      "eventId": "1cf64166dda1e0da8b325161deb39662",
+      "selectedAt": "2026-10-08T17:33:00.318Z",
+      "result": null
     }
   ]
 }
