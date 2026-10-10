@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-10-09T17:31:27.645Z",
+  "generatedAt": "2026-10-10T05:30:58.016Z",
   "source": "The Odds API",
   "bookmaker": "Betsson",
   "configured": true,
@@ -8,7 +8,7 @@
   "warnings": [],
   "coverage": {
     "total": {
-      "forecasts": 43,
+      "forecasts": 45,
       "matched": 41,
       "h2h": 41,
       "totals": 41,
@@ -25,7 +25,7 @@
         "valid25": 14
       },
       "La Liga · API": {
-        "forecasts": 15,
+        "forecasts": 17,
         "matched": 13,
         "h2h": 13,
         "totals": 13,
@@ -42,8 +42,8 @@
       }
     }
   },
-  "quotaRemaining": 384,
-  "quotaUsed": 116,
+  "quotaRemaining": 378,
+  "quotaUsed": 122,
   "skippedLeagues": [
     "BL1"
   ]
