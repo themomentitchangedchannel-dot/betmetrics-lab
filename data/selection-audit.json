@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-10T17:29:02.108Z",
+  "generatedAt": "2026-10-11T05:31:43.936Z",
   "minimumSettled": 100,
   "overall": {
     "locked": 12,
     "voided": 1,
-    "settled": 2,
-    "open": 9,
-    "profitUnits": -2,
+    "settled": 4,
+    "open": 7,
+    "profitUnits": -4,
     "roi": -1,
     "interval95": null,
     "marketMovement": {
@@ -38,10 +38,10 @@
     "goals": {
       "locked": 7,
       "voided": 0,
-      "settled": 0,
-      "open": 7,
-      "profitUnits": 0,
-      "roi": null,
+      "settled": 2,
+      "open": 5,
+      "profitUnits": -2,
+      "roi": -1,
       "interval95": null,
       "marketMovement": {
         "started": 2,
