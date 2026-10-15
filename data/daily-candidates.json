@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-15T05:45:58.889Z",
+  "generatedAt": "2026-10-15T17:44:53.439Z",
   "records": [
     {
       "id": "564700",
@@ -337,8 +337,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 4.02,
-        "quotedAt": "2026-10-15T05:45:58.347Z",
-        "bookmakerUpdatedAt": "2026-10-15T05:45:21Z"
+        "quotedAt": "2026-10-15T17:44:52.800Z",
+        "bookmakerUpdatedAt": "2026-10-15T17:44:31Z"
       }
     },
     {
@@ -363,8 +363,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2.34,
-        "quotedAt": "2026-10-15T05:45:58.347Z",
-        "bookmakerUpdatedAt": "2026-10-15T05:45:51Z"
+        "quotedAt": "2026-10-15T17:44:52.800Z",
+        "bookmakerUpdatedAt": "2026-10-15T17:44:13Z"
       }
     },
     {
@@ -388,9 +388,9 @@
       "selectedAt": "2026-10-14T17:46:40.666Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 3.19,
-        "quotedAt": "2026-10-15T05:45:58.347Z",
-        "bookmakerUpdatedAt": "2026-10-15T05:45:51Z"
+        "odds": 3.28,
+        "quotedAt": "2026-10-15T17:44:52.800Z",
+        "bookmakerUpdatedAt": "2026-10-15T17:44:13Z"
       }
     },
     {
@@ -415,8 +415,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2.26,
-        "quotedAt": "2026-10-15T05:45:58.347Z",
-        "bookmakerUpdatedAt": "2026-10-15T05:45:22Z"
+        "quotedAt": "2026-10-15T17:44:52.800Z",
+        "bookmakerUpdatedAt": "2026-10-15T17:44:47Z"
       }
     },
     {
@@ -438,6 +438,116 @@
       "bookmakerUpdatedAt": "2026-10-15T05:45:21Z",
       "eventId": "f00cd1ea41fa39149729d14ebc07aa6c",
       "selectedAt": "2026-10-15T05:45:58.889Z",
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 3.3,
+        "quotedAt": "2026-10-15T17:44:52.800Z",
+        "bookmakerUpdatedAt": "2026-10-15T17:44:31Z"
+      }
+    },
+    {
+      "id": "558569",
+      "league": "Serie A · API",
+      "home": "AC Milan",
+      "away": "Atalanta BC",
+      "kickoffUtc": "2026-10-18T16:00:00Z",
+      "day": "2026-10-18",
+      "market": "h2h",
+      "pick": "A",
+      "label": "2",
+      "odds": 4.35,
+      "probability": 0.3172952372519272,
+      "ev": 0.3802342820458833,
+      "predictedAt": "2026-10-04T21:02:38.522Z",
+      "quotedAt": "2026-10-15T17:44:52.800Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-15T17:44:48Z",
+      "eventId": "f9403dd597edbfaa73abdc974e55344c",
+      "selectedAt": "2026-10-15T17:44:53.439Z",
+      "result": null
+    },
+    {
+      "id": "558577",
+      "league": "Serie A · API",
+      "home": "ACF Fiorentina",
+      "away": "Como 1907",
+      "kickoffUtc": "2026-10-18T13:00:00Z",
+      "day": "2026-10-18",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 2.22,
+      "probability": 0.5819547499987686,
+      "ev": 0.2919395449972664,
+      "predictedAt": "2026-10-04T21:02:38.522Z",
+      "quotedAt": "2026-10-15T17:44:52.800Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-15T17:44:47Z",
+      "eventId": "3ea32a0aa44a5f0ef7fd088155430087",
+      "selectedAt": "2026-10-15T17:44:53.439Z",
+      "result": null
+    },
+    {
+      "id": "564715",
+      "league": "La Liga · API",
+      "home": "CA Osasuna",
+      "away": "Real Racing Club de Santander",
+      "kickoffUtc": "2026-10-18T12:00:00Z",
+      "day": "2026-10-18",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 2.05,
+      "probability": 0.6224430621053711,
+      "ev": 0.27600827731601085,
+      "predictedAt": "2026-10-12T05:35:16.084Z",
+      "quotedAt": "2026-10-15T17:44:52.800Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-15T17:44:31Z",
+      "eventId": "1f566f17c50fe5162724ec2863d2207b",
+      "selectedAt": "2026-10-15T17:44:53.439Z",
+      "result": null
+    },
+    {
+      "id": "558574",
+      "league": "Serie A · API",
+      "home": "Udinese Calcio",
+      "away": "US Lecce",
+      "kickoffUtc": "2026-10-18T10:30:00Z",
+      "day": "2026-10-18",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 1.81,
+      "probability": 0.7018926719908285,
+      "ev": 0.2704257363033997,
+      "predictedAt": "2026-10-04T11:04:20.036Z",
+      "quotedAt": "2026-10-15T17:44:52.800Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-15T17:44:47Z",
+      "eventId": "367da93aa21a1e13eeafb94fd2263c75",
+      "selectedAt": "2026-10-15T17:44:53.439Z",
+      "result": null
+    },
+    {
+      "id": "560609",
+      "league": "Premier League · API",
+      "home": "Brighton & Hove Albion FC",
+      "away": "Crystal Palace FC",
+      "kickoffUtc": "2026-10-18T13:00:00Z",
+      "day": "2026-10-18",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 2.4,
+      "probability": 0.5219113755145682,
+      "ev": 0.25258730123496376,
+      "predictedAt": "2026-10-04T21:02:38.522Z",
+      "quotedAt": "2026-10-15T17:44:52.800Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-15T17:44:14Z",
+      "eventId": "9fc08b390a49c4434f7cf631a0bb88fb",
+      "selectedAt": "2026-10-15T17:44:53.439Z",
       "result": null
     }
   ]
