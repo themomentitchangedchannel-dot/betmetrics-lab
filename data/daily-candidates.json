@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-14T17:46:40.666Z",
+  "generatedAt": "2026-10-15T05:45:58.889Z",
   "records": [
     {
       "id": "564700",
@@ -334,7 +334,12 @@
       "bookmakerUpdatedAt": "2026-10-14T17:46:11Z",
       "eventId": "846e496fc232b2fc20214754836727d0",
       "selectedAt": "2026-10-14T17:46:40.666Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 4.02,
+        "quotedAt": "2026-10-15T05:45:58.347Z",
+        "bookmakerUpdatedAt": "2026-10-15T05:45:21Z"
+      }
     },
     {
       "id": "560611",
@@ -355,7 +360,12 @@
       "bookmakerUpdatedAt": "2026-10-14T17:46:25Z",
       "eventId": "8f1945e7272bc7e89016439f5ab321c7",
       "selectedAt": "2026-10-14T17:46:40.666Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.34,
+        "quotedAt": "2026-10-15T05:45:58.347Z",
+        "bookmakerUpdatedAt": "2026-10-15T05:45:51Z"
+      }
     },
     {
       "id": "560603",
@@ -376,7 +386,12 @@
       "bookmakerUpdatedAt": "2026-10-14T17:46:25Z",
       "eventId": "764e6513cb3f348881503df70ccb90e0",
       "selectedAt": "2026-10-14T17:46:40.666Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 3.19,
+        "quotedAt": "2026-10-15T05:45:58.347Z",
+        "bookmakerUpdatedAt": "2026-10-15T05:45:51Z"
+      }
     },
     {
       "id": "558571",
@@ -397,6 +412,32 @@
       "bookmakerUpdatedAt": "2026-10-14T17:46:27Z",
       "eventId": "bfefc309177723410230fee52f650315",
       "selectedAt": "2026-10-14T17:46:40.666Z",
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.26,
+        "quotedAt": "2026-10-15T05:45:58.347Z",
+        "bookmakerUpdatedAt": "2026-10-15T05:45:22Z"
+      }
+    },
+    {
+      "id": "564711",
+      "league": "La Liga · API",
+      "home": "Valencia CF",
+      "away": "Athletic Club",
+      "kickoffUtc": "2026-10-17T19:00:00Z",
+      "day": "2026-10-17",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 3.3,
+      "probability": 0.4255425743614007,
+      "ev": 0.4042904953926223,
+      "predictedAt": "2026-10-03T19:47:41.297Z",
+      "quotedAt": "2026-10-15T05:45:58.347Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-15T05:45:21Z",
+      "eventId": "f00cd1ea41fa39149729d14ebc07aa6c",
+      "selectedAt": "2026-10-15T05:45:58.889Z",
       "result": null
     }
   ]
