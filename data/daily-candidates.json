@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-20T05:46:22.018Z",
+  "generatedAt": "2026-10-20T17:43:58.174Z",
   "records": [
     {
       "id": "564700",
@@ -626,6 +626,27 @@
         "quotedAt": "2026-10-19T17:44:59.695Z",
         "bookmakerUpdatedAt": "2026-10-19T17:44:26Z"
       }
+    },
+    {
+      "id": "564685",
+      "league": "La Liga · API",
+      "home": "Levante UD",
+      "away": "Athletic Club",
+      "kickoffUtc": "2026-10-21T18:00:00Z",
+      "day": "2026-10-21",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 3.45,
+      "probability": 0.4547096657449593,
+      "ev": 0.5687483468201098,
+      "predictedAt": "2026-10-08T05:32:46.469Z",
+      "quotedAt": "2026-10-20T17:43:57.178Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-20T17:43:38Z",
+      "eventId": "a362cccad837f1ffae61ff43a3536688",
+      "selectedAt": "2026-10-20T17:43:58.174Z",
+      "result": null
     }
   ]
 }
