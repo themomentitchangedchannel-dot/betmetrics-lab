@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-19T17:45:00.433Z",
+  "generatedAt": "2026-10-20T05:46:22.018Z",
   "records": [
     {
       "id": "564700",
@@ -594,7 +594,7 @@
       "bookmakerUpdatedAt": "2026-10-17T05:42:35Z",
       "eventId": "4a88bc4de574d43ef34677fd8d78722f",
       "selectedAt": "2026-10-17T05:43:23.770Z",
-      "result": null,
+      "result": "D",
       "latestComparableQuote": {
         "odds": 2.95,
         "quotedAt": "2026-10-19T17:44:59.695Z",
@@ -620,7 +620,7 @@
       "bookmakerUpdatedAt": "2026-10-17T05:42:35Z",
       "eventId": "07014d9adc65ca39710bd9f0c7c0d3f0",
       "selectedAt": "2026-10-17T05:43:23.770Z",
-      "result": null,
+      "result": "A",
       "latestComparableQuote": {
         "odds": 3.4,
         "quotedAt": "2026-10-19T17:44:59.695Z",
