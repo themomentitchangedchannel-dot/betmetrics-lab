@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-23T17:44:52.805Z",
+  "generatedAt": "2026-10-24T05:46:17.796Z",
   "records": [
     {
       "id": "564700",
@@ -674,9 +674,9 @@
       "selectedAt": "2026-10-21T17:45:36.548Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 4.26,
-        "quotedAt": "2026-10-23T17:44:52.134Z",
-        "bookmakerUpdatedAt": "2026-10-23T17:44:26Z"
+        "odds": 3.92,
+        "quotedAt": "2026-10-24T05:46:16.866Z",
+        "bookmakerUpdatedAt": "2026-10-24T05:45:51Z"
       }
     },
     {
@@ -700,9 +700,9 @@
       "selectedAt": "2026-10-21T17:45:36.548Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.9,
-        "quotedAt": "2026-10-23T17:44:52.134Z",
-        "bookmakerUpdatedAt": "2026-10-23T17:44:34Z"
+        "odds": 2.95,
+        "quotedAt": "2026-10-24T05:46:16.866Z",
+        "bookmakerUpdatedAt": "2026-10-24T05:46:16Z"
       }
     },
     {
@@ -726,9 +726,9 @@
       "selectedAt": "2026-10-21T17:45:36.548Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 4.9,
-        "quotedAt": "2026-10-23T17:44:52.134Z",
-        "bookmakerUpdatedAt": "2026-10-23T17:44:26Z"
+        "odds": 4.86,
+        "quotedAt": "2026-10-24T05:46:16.866Z",
+        "bookmakerUpdatedAt": "2026-10-24T05:45:51Z"
       }
     },
     {
@@ -752,9 +752,9 @@
       "selectedAt": "2026-10-21T17:45:36.548Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 1.99,
-        "quotedAt": "2026-10-23T17:44:52.134Z",
-        "bookmakerUpdatedAt": "2026-10-23T17:44:26Z"
+        "odds": 1.96,
+        "quotedAt": "2026-10-24T05:46:16.866Z",
+        "bookmakerUpdatedAt": "2026-10-24T05:45:51Z"
       }
     },
     {
@@ -778,9 +778,9 @@
       "selectedAt": "2026-10-21T17:45:36.548Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.8,
-        "quotedAt": "2026-10-23T17:44:52.134Z",
-        "bookmakerUpdatedAt": "2026-10-23T17:44:34Z"
+        "odds": 2.6,
+        "quotedAt": "2026-10-24T05:46:16.866Z",
+        "bookmakerUpdatedAt": "2026-10-24T05:46:16Z"
       }
     },
     {
@@ -804,9 +804,9 @@
       "selectedAt": "2026-10-22T17:44:18.557Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.45,
-        "quotedAt": "2026-10-23T17:44:52.134Z",
-        "bookmakerUpdatedAt": "2026-10-23T17:44:26Z"
+        "odds": 2.43,
+        "quotedAt": "2026-10-24T05:46:16.866Z",
+        "bookmakerUpdatedAt": "2026-10-24T05:45:51Z"
       }
     },
     {
@@ -831,8 +831,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2.93,
-        "quotedAt": "2026-10-23T17:44:52.134Z",
-        "bookmakerUpdatedAt": "2026-10-23T17:44:26Z"
+        "quotedAt": "2026-10-24T05:46:16.866Z",
+        "bookmakerUpdatedAt": "2026-10-24T05:45:51Z"
       }
     },
     {
@@ -856,9 +856,9 @@
       "selectedAt": "2026-10-22T17:44:18.557Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 3.9,
-        "quotedAt": "2026-10-23T17:44:52.134Z",
-        "bookmakerUpdatedAt": "2026-10-23T17:44:09Z"
+        "odds": 3.8,
+        "quotedAt": "2026-10-24T05:46:16.866Z",
+        "bookmakerUpdatedAt": "2026-10-24T05:45:57Z"
       }
     },
     {
@@ -883,8 +883,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 1.64,
-        "quotedAt": "2026-10-23T17:44:52.134Z",
-        "bookmakerUpdatedAt": "2026-10-23T17:44:26Z"
+        "quotedAt": "2026-10-24T05:46:16.866Z",
+        "bookmakerUpdatedAt": "2026-10-24T05:45:51Z"
       }
     },
     {
@@ -909,9 +909,30 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2,
-        "quotedAt": "2026-10-23T17:44:52.134Z",
-        "bookmakerUpdatedAt": "2026-10-23T17:44:34Z"
+        "quotedAt": "2026-10-24T05:46:16.866Z",
+        "bookmakerUpdatedAt": "2026-10-24T05:46:16Z"
       }
+    },
+    {
+      "id": "564721",
+      "league": "La Liga · API",
+      "home": "Sevilla FC",
+      "away": "CA Osasuna",
+      "kickoffUtc": "2026-10-26T20:00:00Z",
+      "day": "2026-10-26",
+      "market": "h2h",
+      "pick": "A",
+      "label": "2",
+      "odds": 4.15,
+      "probability": 0.2759458514242395,
+      "ev": 0.14517528341059394,
+      "predictedAt": "2026-10-13T05:35:47.322Z",
+      "quotedAt": "2026-10-24T05:46:16.866Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-24T05:45:58Z",
+      "eventId": "85e464708d03287f24590e1478aeca31",
+      "selectedAt": "2026-10-24T05:46:17.796Z",
+      "result": null
     }
   ]
 }
