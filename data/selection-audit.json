@@ -1,53 +1,56 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-25T09:50:42.575Z",
+  "generatedAt": "2026-10-25T19:40:33.158Z",
   "minimumSettled": 100,
   "overall": {
-    "locked": 38,
+    "locked": 41,
     "voided": 1,
-    "settled": 29,
-    "open": 8,
-    "profitUnits": -3.3000000000000007,
-    "roi": -0.11379310344827588,
-    "interval95": null,
+    "settled": 34,
+    "open": 6,
+    "profitUnits": -2.2600000000000007,
+    "roi": -0.06647058823529414,
+    "interval95": [
+      -0.5094117647058823,
+      0.4247058823529411
+    ],
     "marketMovement": {
-      "started": 29,
-      "compared": 29,
-      "favorable": 17,
-      "average": 0.011933785978322665
+      "started": 34,
+      "compared": 34,
+      "favorable": 18,
+      "average": 0.00885208491308861
     },
     "status": "collecting"
   },
   "byMarket": {
     "h2h": {
-      "locked": 19,
+      "locked": 21,
       "voided": 1,
-      "settled": 15,
+      "settled": 17,
       "open": 3,
-      "profitUnits": -0.4299999999999997,
-      "roi": -0.02866666666666665,
+      "profitUnits": -2.4299999999999997,
+      "roi": -0.1429411764705882,
       "interval95": null,
       "marketMovement": {
-        "started": 15,
-        "compared": 15,
-        "favorable": 10,
-        "average": 0.030298060033112195
+        "started": 17,
+        "compared": 17,
+        "favorable": 11,
+        "average": 0.03058753775741137
       },
       "status": "collecting"
     },
     "goals": {
-      "locked": 19,
+      "locked": 20,
       "voided": 0,
-      "settled": 14,
-      "open": 5,
-      "profitUnits": -2.87,
-      "roi": -0.20500000000000002,
+      "settled": 17,
+      "open": 3,
+      "profitUnits": 0.1699999999999997,
+      "roi": 0.009999999999999983,
       "interval95": null,
       "marketMovement": {
-        "started": 14,
-        "compared": 14,
+        "started": 17,
+        "compared": 17,
         "favorable": 7,
-        "average": -0.007742221937523259
+        "average": -0.01288336793123415
       },
       "status": "collecting"
     }
