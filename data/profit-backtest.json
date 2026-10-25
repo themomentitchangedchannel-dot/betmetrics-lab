@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-18T05:43:37.627Z",
+  "generatedAt": "2026-10-25T09:50:46.140Z",
   "source": "football-data.co.uk",
   "book": "Bet365",
   "oddsType": "closing",
@@ -8,14 +8,14 @@
   "seasons": [
     {
       "season": 2025,
-      "n": 961,
-      "matched": 1222,
-      "completed": 1446,
-      "brierModel": 0.6154119367928015,
-      "brierMarket": 0.5865133997985866,
-      "selected": 627,
-      "profitUnits": -97.30000000000004,
-      "roi": -0.15518341307814998,
+      "n": 542,
+      "matched": 686,
+      "completed": 760,
+      "brierModel": 0.6266324173552275,
+      "brierMarket": 0.596403624833792,
+      "selected": 369,
+      "profitUnits": -66.65,
+      "roi": -0.18062330623306236,
       "byLeague": [
         {
           "league": "Premier League · API",
@@ -30,14 +30,14 @@
         },
         {
           "league": "La Liga · API",
-          "completed": 380,
-          "matched": 380,
+          "completed": 0,
+          "matched": 0,
           "missingOdds": 0,
           "resultMismatch": 0,
-          "noPrediction": 80,
-          "eligible": 300,
-          "selected": 192,
-          "profitUnits": -16.490000000000002
+          "noPrediction": 0,
+          "eligible": 0,
+          "selected": 0,
+          "profitUnits": 0
         },
         {
           "league": "Serie A · API",
@@ -52,71 +52,71 @@
         },
         {
           "league": "Bundesliga · API",
-          "completed": 306,
-          "matched": 156,
+          "completed": 0,
+          "matched": 0,
           "missingOdds": 0,
           "resultMismatch": 0,
-          "noPrediction": 37,
-          "eligible": 119,
-          "selected": 66,
-          "profitUnits": -14.16
+          "noPrediction": 0,
+          "eligible": 0,
+          "selected": 0,
+          "profitUnits": 0
         }
       ]
     },
     {
       "season": 2026,
-      "n": 150,
-      "matched": 210,
-      "completed": 264,
-      "brierModel": 0.579363432964808,
-      "brierMarket": 0.5572304387142456,
-      "selected": 90,
-      "profitUnits": -7.42,
-      "roi": -0.08244444444444445,
+      "n": 101,
+      "matched": 243,
+      "completed": 305,
+      "brierModel": 0.5918439381625449,
+      "brierMarket": 0.5650697460078209,
+      "selected": 63,
+      "profitUnits": -9.189999999999998,
+      "roi": -0.14587301587301585,
       "byLeague": [
         {
           "league": "Premier League · API",
-          "completed": 65,
-          "matched": 60,
+          "completed": 75,
+          "matched": 70,
           "missingOdds": 0,
           "resultMismatch": 0,
-          "noPrediction": 17,
-          "eligible": 43,
-          "selected": 32,
-          "profitUnits": -7.549999999999999
+          "noPrediction": 20,
+          "eligible": 50,
+          "selected": 35,
+          "profitUnits": -10.549999999999999
         },
         {
           "league": "La Liga · API",
-          "completed": 83,
-          "matched": 78,
+          "completed": 94,
+          "matched": 89,
           "missingOdds": 0,
           "resultMismatch": 0,
-          "noPrediction": 23,
-          "eligible": 55,
-          "selected": 35,
-          "profitUnits": 1.9000000000000004
+          "noPrediction": 82,
+          "eligible": 7,
+          "selected": 4,
+          "profitUnits": 2.95
         },
         {
           "league": "Serie A · API",
-          "completed": 64,
-          "matched": 54,
+          "completed": 75,
+          "matched": 63,
           "missingOdds": 0,
           "resultMismatch": 0,
-          "noPrediction": 16,
-          "eligible": 38,
-          "selected": 19,
-          "profitUnits": -3.12
+          "noPrediction": 19,
+          "eligible": 44,
+          "selected": 24,
+          "profitUnits": -1.5899999999999999
         },
         {
           "league": "Bundesliga · API",
-          "completed": 52,
-          "matched": 18,
+          "completed": 61,
+          "matched": 21,
           "missingOdds": 0,
           "resultMismatch": 0,
-          "noPrediction": 4,
-          "eligible": 14,
-          "selected": 4,
-          "profitUnits": 1.35
+          "noPrediction": 21,
+          "eligible": 0,
+          "selected": 0,
+          "profitUnits": 0
         }
       ]
     }
