@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-25T19:40:33.158Z",
+  "generatedAt": "2026-10-26T11:10:06.652Z",
   "records": [
     {
       "id": "564700",
@@ -934,9 +934,9 @@
       "selectedAt": "2026-10-24T05:46:17.796Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 4.35,
-        "quotedAt": "2026-10-25T19:40:32.266Z",
-        "bookmakerUpdatedAt": "2026-10-25T19:40:10Z"
+        "odds": 4.45,
+        "quotedAt": "2026-10-26T11:10:05.984Z",
+        "bookmakerUpdatedAt": "2026-10-26T11:09:09Z"
       }
     },
     {
@@ -960,9 +960,9 @@
       "selectedAt": "2026-10-24T19:30:54.524Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.18,
-        "quotedAt": "2026-10-25T19:40:32.266Z",
-        "bookmakerUpdatedAt": "2026-10-25T19:40:14Z"
+        "odds": 2.21,
+        "quotedAt": "2026-10-26T11:10:05.984Z",
+        "bookmakerUpdatedAt": "2026-10-26T11:09:10Z"
       }
     },
     {
@@ -986,9 +986,9 @@
       "selectedAt": "2026-10-25T09:50:42.575Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.16,
-        "quotedAt": "2026-10-25T19:40:32.266Z",
-        "bookmakerUpdatedAt": "2026-10-25T19:40:14Z"
+        "odds": 2.31,
+        "quotedAt": "2026-10-26T11:10:05.984Z",
+        "bookmakerUpdatedAt": "2026-10-26T11:09:10Z"
       }
     },
     {
@@ -1010,7 +1010,12 @@
       "bookmakerUpdatedAt": "2026-10-25T19:40:14Z",
       "eventId": "33320ad169692216a91dec030e7ef6a6",
       "selectedAt": "2026-10-25T19:40:33.158Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 3.31,
+        "quotedAt": "2026-10-26T11:10:05.984Z",
+        "bookmakerUpdatedAt": "2026-10-26T11:09:10Z"
+      }
     },
     {
       "id": "558553",
@@ -1031,7 +1036,12 @@
       "bookmakerUpdatedAt": "2026-10-25T19:40:14Z",
       "eventId": "482c18a8081afdfa310324fa8f37e95a",
       "selectedAt": "2026-10-25T19:40:33.158Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.52,
+        "quotedAt": "2026-10-26T11:10:05.984Z",
+        "bookmakerUpdatedAt": "2026-10-26T11:09:10Z"
+      }
     },
     {
       "id": "558549",
@@ -1052,6 +1062,32 @@
       "bookmakerUpdatedAt": "2026-10-25T19:40:14Z",
       "eventId": "3d0b0fbec194258530882514714c74be",
       "selectedAt": "2026-10-25T19:40:33.158Z",
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 4.1,
+        "quotedAt": "2026-10-26T11:10:05.984Z",
+        "bookmakerUpdatedAt": "2026-10-26T11:09:10Z"
+      }
+    },
+    {
+      "id": "558554",
+      "league": "Serie A · API",
+      "home": "AC Monza",
+      "away": "SSC Napoli",
+      "kickoffUtc": "2026-10-28T19:45:00Z",
+      "day": "2026-10-28",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 4.2,
+      "probability": 0.38635402082613474,
+      "ev": 0.622686887469766,
+      "predictedAt": "2026-10-24T05:46:16.409Z",
+      "quotedAt": "2026-10-26T11:10:05.984Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-26T11:09:10Z",
+      "eventId": "abec89862e33762414fcb8b2232aba08",
+      "selectedAt": "2026-10-26T11:10:06.652Z",
       "result": null
     }
   ]
