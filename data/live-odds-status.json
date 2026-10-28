@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-10-27T21:21:47.787Z",
+  "generatedAt": "2026-10-28T11:22:35.331Z",
   "source": "The Odds API",
   "bookmaker": "Betsson",
   "configured": true,
@@ -42,8 +42,8 @@
       }
     }
   },
-  "quotaRemaining": 168,
-  "quotaUsed": 332,
+  "quotaRemaining": 162,
+  "quotaUsed": 338,
   "skippedLeagues": [
     "BL1"
   ]
