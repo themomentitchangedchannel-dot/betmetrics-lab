@@ -1,56 +1,56 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-28T11:22:35.931Z",
+  "generatedAt": "2026-10-28T21:40:38.297Z",
   "minimumSettled": 100,
   "overall": {
-    "locked": 45,
+    "locked": 50,
     "voided": 1,
-    "settled": 37,
-    "open": 7,
-    "profitUnits": -5.260000000000001,
-    "roi": -0.14216216216216218,
+    "settled": 40,
+    "open": 9,
+    "profitUnits": -4.890000000000001,
+    "roi": -0.12225000000000001,
     "interval95": [
-      -0.5535135135135135,
-      0.3181081081081081
+      -0.53125,
+      0.3464999999999999
     ],
     "marketMovement": {
-      "started": 37,
-      "compared": 37,
-      "favorable": 18,
-      "average": 0.001387885591281782
+      "started": 42,
+      "compared": 41,
+      "favorable": 20,
+      "average": 0.0024598840930708113
     },
     "status": "collecting"
   },
   "byMarket": {
     "h2h": {
-      "locked": 22,
+      "locked": 25,
       "voided": 1,
-      "settled": 18,
-      "open": 3,
-      "profitUnits": -3.4299999999999997,
-      "roi": -0.19055555555555553,
+      "settled": 20,
+      "open": 4,
+      "profitUnits": -5.43,
+      "roi": -0.27149999999999996,
       "interval95": null,
       "marketMovement": {
-        "started": 18,
-        "compared": 18,
-        "favorable": 11,
-        "average": 0.025142911752161927
+        "started": 21,
+        "compared": 21,
+        "favorable": 12,
+        "average": 0.01925504870335961
       },
       "status": "collecting"
     },
     "goals": {
-      "locked": 23,
+      "locked": 25,
       "voided": 0,
-      "settled": 19,
-      "open": 4,
-      "profitUnits": -1.8300000000000003,
-      "roi": -0.09631578947368423,
+      "settled": 20,
+      "open": 5,
+      "profitUnits": 0.5399999999999998,
+      "roi": 0.02699999999999999,
       "interval95": null,
       "marketMovement": {
-        "started": 19,
-        "compared": 19,
-        "favorable": 7,
-        "average": -0.021116876034815203
+        "started": 21,
+        "compared": 20,
+        "favorable": 8,
+        "average": -0.015175038747732423
       },
       "status": "collecting"
     }
