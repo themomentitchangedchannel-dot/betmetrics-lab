@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-29T11:33:03.729Z",
+  "generatedAt": "2026-10-29T21:49:53.321Z",
   "records": [
     {
       "id": "564700",
@@ -1114,7 +1114,7 @@
       "bookmakerUpdatedAt": "2026-10-26T21:38:48Z",
       "eventId": "667cf69986b200753742c90cb9c5126c",
       "selectedAt": "2026-10-26T21:39:00.976Z",
-      "result": null,
+      "result": "Over",
       "latestComparableQuote": {
         "odds": 3,
         "quotedAt": "2026-10-29T11:33:03.168Z",
@@ -1189,9 +1189,9 @@
       "selectedAt": "2026-10-28T21:40:38.297Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 4.08,
-        "quotedAt": "2026-10-29T11:33:03.168Z",
-        "bookmakerUpdatedAt": "2026-10-29T11:32:39Z"
+        "odds": 4.03,
+        "quotedAt": "2026-10-29T21:49:52.811Z",
+        "bookmakerUpdatedAt": "2026-10-29T21:49:35Z"
       }
     },
     {
@@ -1216,8 +1216,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 4.85,
-        "quotedAt": "2026-10-29T11:33:03.168Z",
-        "bookmakerUpdatedAt": "2026-10-29T11:32:45Z"
+        "quotedAt": "2026-10-29T21:49:52.811Z",
+        "bookmakerUpdatedAt": "2026-10-29T21:49:45Z"
       }
     },
     {
@@ -1241,9 +1241,9 @@
       "selectedAt": "2026-10-28T21:40:38.297Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 4.63,
-        "quotedAt": "2026-10-29T11:33:03.168Z",
-        "bookmakerUpdatedAt": "2026-10-29T11:32:43Z"
+        "odds": 4.51,
+        "quotedAt": "2026-10-29T21:49:52.811Z",
+        "bookmakerUpdatedAt": "2026-10-29T21:49:43Z"
       }
     },
     {
@@ -1267,9 +1267,9 @@
       "selectedAt": "2026-10-28T21:40:38.297Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.32,
-        "quotedAt": "2026-10-29T11:33:03.168Z",
-        "bookmakerUpdatedAt": "2026-10-29T11:32:45Z"
+        "odds": 2.36,
+        "quotedAt": "2026-10-29T21:49:52.811Z",
+        "bookmakerUpdatedAt": "2026-10-29T21:49:45Z"
       }
     },
     {
@@ -1294,8 +1294,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2.61,
-        "quotedAt": "2026-10-29T11:33:03.168Z",
-        "bookmakerUpdatedAt": "2026-10-29T11:32:39Z"
+        "quotedAt": "2026-10-29T21:49:52.811Z",
+        "bookmakerUpdatedAt": "2026-10-29T21:49:35Z"
       }
     },
     {
@@ -1317,6 +1317,95 @@
       "bookmakerUpdatedAt": "2026-10-29T11:32:45Z",
       "eventId": "9507f4bcbcfd4e4953720628a2b86a17",
       "selectedAt": "2026-10-29T11:33:03.729Z",
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 3,
+        "quotedAt": "2026-10-29T21:49:52.811Z",
+        "bookmakerUpdatedAt": "2026-10-29T21:49:45Z"
+      }
+    },
+    {
+      "id": "564734",
+      "league": "La Liga · API",
+      "home": "Real Racing Club de Santander",
+      "away": "Real Madrid CF",
+      "kickoffUtc": "2026-11-01T15:15:00Z",
+      "day": "2026-11-01",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 4.63,
+      "probability": 0.3862889730036887,
+      "ev": 0.7885179450070787,
+      "predictedAt": "2026-10-18T17:40:29.885Z",
+      "quotedAt": "2026-10-29T21:49:52.811Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-29T21:49:43Z",
+      "eventId": "6c520ed959578ca3aebe351ee3765d53",
+      "selectedAt": "2026-10-29T21:49:53.321Z",
+      "result": null
+    },
+    {
+      "id": "564733",
+      "league": "La Liga · API",
+      "home": "Getafe CF",
+      "away": "Sevilla FC",
+      "kickoffUtc": "2026-11-01T13:00:00Z",
+      "day": "2026-11-01",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 3.1,
+      "probability": 0.413224473643339,
+      "ev": 0.28099586829435075,
+      "predictedAt": "2026-10-18T17:40:29.885Z",
+      "quotedAt": "2026-10-29T21:49:52.811Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-29T21:49:43Z",
+      "eventId": "ddcc9a51a2d7368e055d1abefacdb74e",
+      "selectedAt": "2026-10-29T21:49:53.321Z",
+      "result": null
+    },
+    {
+      "id": "558544",
+      "league": "Serie A · API",
+      "home": "Frosinone Calcio",
+      "away": "Torino FC",
+      "kickoffUtc": "2026-11-01T14:00:00Z",
+      "day": "2026-11-01",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 2.95,
+      "probability": 0.41662918359389134,
+      "ev": 0.22905609160197948,
+      "predictedAt": "2026-10-25T19:40:31.743Z",
+      "quotedAt": "2026-10-29T21:49:52.811Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-29T21:49:45Z",
+      "eventId": "b7b781db85506536dce5e7ce59a59863",
+      "selectedAt": "2026-10-29T21:49:53.321Z",
+      "result": null
+    },
+    {
+      "id": "558546",
+      "league": "Serie A · API",
+      "home": "SS Lazio",
+      "away": "Cagliari Calcio",
+      "kickoffUtc": "2026-11-01T14:00:00Z",
+      "day": "2026-11-01",
+      "market": "h2h",
+      "pick": "D",
+      "label": "X",
+      "odds": 4.5,
+      "probability": 0.25521122827860865,
+      "ev": 0.14845052725373886,
+      "predictedAt": "2026-10-18T17:40:29.885Z",
+      "quotedAt": "2026-10-29T21:49:52.811Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-29T21:49:45Z",
+      "eventId": "3f9f4bc9a19bf36dcb74be2f29610d55",
+      "selectedAt": "2026-10-29T21:49:53.321Z",
       "result": null
     }
   ]
