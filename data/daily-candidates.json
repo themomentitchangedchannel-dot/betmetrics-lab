@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-10-28T21:40:38.297Z",
+  "generatedAt": "2026-10-29T11:33:03.729Z",
   "records": [
     {
       "id": "564700",
@@ -1088,7 +1088,7 @@
       "bookmakerUpdatedAt": "2026-10-26T11:09:10Z",
       "eventId": "abec89862e33762414fcb8b2232aba08",
       "selectedAt": "2026-10-26T11:10:06.652Z",
-      "result": null,
+      "result": "A",
       "latestComparableQuote": {
         "odds": 4.55,
         "quotedAt": "2026-10-28T11:22:35.331Z",
@@ -1116,9 +1116,9 @@
       "selectedAt": "2026-10-26T21:39:00.976Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.94,
-        "quotedAt": "2026-10-28T21:40:37.699Z",
-        "bookmakerUpdatedAt": "2026-10-28T21:40:33Z"
+        "odds": 3,
+        "quotedAt": "2026-10-29T11:33:03.168Z",
+        "bookmakerUpdatedAt": "2026-10-29T11:32:45Z"
       }
     },
     {
@@ -1142,9 +1142,9 @@
       "selectedAt": "2026-10-26T21:39:00.976Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.36,
-        "quotedAt": "2026-10-28T21:40:37.699Z",
-        "bookmakerUpdatedAt": "2026-10-28T21:40:33Z"
+        "odds": 2.56,
+        "quotedAt": "2026-10-29T11:33:03.168Z",
+        "bookmakerUpdatedAt": "2026-10-29T11:32:45Z"
       }
     },
     {
@@ -1166,7 +1166,7 @@
       "bookmakerUpdatedAt": "2026-10-28T11:21:36Z",
       "eventId": "34848497b90b1392f6a767fc183d3ac1",
       "selectedAt": "2026-10-28T11:22:35.931Z",
-      "result": null
+      "result": "Under"
     },
     {
       "id": "560626",
@@ -1187,7 +1187,12 @@
       "bookmakerUpdatedAt": "2026-10-28T21:39:56Z",
       "eventId": "6601f69175a02f03fb7065aacb538e01",
       "selectedAt": "2026-10-28T21:40:38.297Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 4.08,
+        "quotedAt": "2026-10-29T11:33:03.168Z",
+        "bookmakerUpdatedAt": "2026-10-29T11:32:39Z"
+      }
     },
     {
       "id": "558539",
@@ -1208,7 +1213,12 @@
       "bookmakerUpdatedAt": "2026-10-28T21:40:33Z",
       "eventId": "04aa939b89001eedf55668e66c74836e",
       "selectedAt": "2026-10-28T21:40:38.297Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 4.85,
+        "quotedAt": "2026-10-29T11:33:03.168Z",
+        "bookmakerUpdatedAt": "2026-10-29T11:32:45Z"
+      }
     },
     {
       "id": "564732",
@@ -1229,7 +1239,12 @@
       "bookmakerUpdatedAt": "2026-10-28T21:40:03Z",
       "eventId": "2db2b55e71574a19ff0557898d3e9933",
       "selectedAt": "2026-10-28T21:40:38.297Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 4.63,
+        "quotedAt": "2026-10-29T11:33:03.168Z",
+        "bookmakerUpdatedAt": "2026-10-29T11:32:43Z"
+      }
     },
     {
       "id": "558542",
@@ -1250,7 +1265,12 @@
       "bookmakerUpdatedAt": "2026-10-28T21:40:33Z",
       "eventId": "34cd26b96f78bd7aa3dbff3d1daca7a7",
       "selectedAt": "2026-10-28T21:40:38.297Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.32,
+        "quotedAt": "2026-10-29T11:33:03.168Z",
+        "bookmakerUpdatedAt": "2026-10-29T11:32:45Z"
+      }
     },
     {
       "id": "560629",
@@ -1271,6 +1291,32 @@
       "bookmakerUpdatedAt": "2026-10-28T21:39:56Z",
       "eventId": "1ec76c009147b63859f68c6b5a1dd77b",
       "selectedAt": "2026-10-28T21:40:38.297Z",
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.61,
+        "quotedAt": "2026-10-29T11:33:03.168Z",
+        "bookmakerUpdatedAt": "2026-10-29T11:32:39Z"
+      }
+    },
+    {
+      "id": "558543",
+      "league": "Serie A · API",
+      "home": "Como 1907",
+      "away": "Venezia FC",
+      "kickoffUtc": "2026-11-01T11:30:00Z",
+      "day": "2026-11-01",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 3,
+      "probability": 0.4736879605721813,
+      "ev": 0.42106388171654396,
+      "predictedAt": "2026-10-25T19:40:31.743Z",
+      "quotedAt": "2026-10-29T11:33:03.168Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-10-29T11:32:45Z",
+      "eventId": "9507f4bcbcfd4e4953720628a2b86a17",
+      "selectedAt": "2026-10-29T11:33:03.729Z",
       "result": null
     }
   ]
