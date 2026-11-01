@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generatedAt": "2026-11-01T11:51:41.182Z",
+  "generatedAt": "2026-11-01T21:12:36.159Z",
   "source": "The Odds API",
   "bookmaker": "Betsson",
   "configured": true,
@@ -8,42 +8,42 @@
   "warnings": [],
   "coverage": {
     "total": {
-      "forecasts": 44,
-      "matched": 39,
-      "h2h": 29,
-      "totals": 29,
-      "line25": 29,
-      "valid25": 29
+      "forecasts": 35,
+      "matched": 31,
+      "h2h": 21,
+      "totals": 21,
+      "line25": 21,
+      "valid25": 21
     },
     "byLeague": {
       "Premier League · API": {
-        "forecasts": 12,
-        "matched": 12,
-        "h2h": 12,
-        "totals": 12,
-        "line25": 12,
-        "valid25": 12
-      },
-      "La Liga · API": {
-        "forecasts": 16,
+        "forecasts": 11,
         "matched": 11,
         "h2h": 11,
         "totals": 11,
         "line25": 11,
         "valid25": 11
       },
+      "La Liga · API": {
+        "forecasts": 12,
+        "matched": 8,
+        "h2h": 8,
+        "totals": 8,
+        "line25": 8,
+        "valid25": 8
+      },
       "Serie A · API": {
-        "forecasts": 16,
-        "matched": 16,
-        "h2h": 6,
-        "totals": 6,
-        "line25": 6,
-        "valid25": 6
+        "forecasts": 12,
+        "matched": 12,
+        "h2h": 2,
+        "totals": 2,
+        "line25": 2,
+        "valid25": 2
       }
     }
   },
-  "quotaRemaining": 494,
-  "quotaUsed": 6,
+  "quotaRemaining": 488,
+  "quotaUsed": 12,
   "skippedLeagues": [
     "BL1"
   ]

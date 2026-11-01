@@ -1,56 +1,56 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-01T11:51:41.763Z",
+  "generatedAt": "2026-11-01T21:12:36.589Z",
   "minimumSettled": 100,
   "overall": {
-    "locked": 57,
+    "locked": 58,
     "voided": 1,
-    "settled": 49,
-    "open": 7,
-    "profitUnits": -13.89,
-    "roi": -0.28346938775510205,
+    "settled": 52,
+    "open": 5,
+    "profitUnits": -10.940000000000001,
+    "roi": -0.21038461538461542,
     "interval95": [
-      -0.6167346938775511,
-      0.11979591836734692
+      -0.5457692307692308,
+      0.16365384615384618
     ],
     "marketMovement": {
-      "started": 50,
-      "compared": 49,
-      "favorable": 21,
-      "average": -0.000979883005115425
+      "started": 54,
+      "compared": 53,
+      "favorable": 23,
+      "average": 0.0011859725887669948
     },
     "status": "collecting"
   },
   "byMarket": {
     "h2h": {
-      "locked": 28,
+      "locked": 29,
       "voided": 1,
-      "settled": 24,
+      "settled": 25,
       "open": 3,
-      "profitUnits": -9.43,
-      "roi": -0.39291666666666664,
+      "profitUnits": -10.43,
+      "roi": -0.4172,
       "interval95": null,
       "marketMovement": {
-        "started": 24,
-        "compared": 24,
-        "favorable": 13,
-        "average": 0.022279941388778784
+        "started": 26,
+        "compared": 26,
+        "favorable": 14,
+        "average": 0.020497540851399806
       },
       "status": "collecting"
     },
     "goals": {
       "locked": 29,
       "voided": 0,
-      "settled": 25,
-      "open": 4,
-      "profitUnits": -4.46,
-      "roi": -0.1784,
+      "settled": 27,
+      "open": 2,
+      "profitUnits": -0.5099999999999998,
+      "roi": -0.018888888888888882,
       "interval95": null,
       "marketMovement": {
-        "started": 26,
-        "compared": 25,
-        "favorable": 8,
-        "average": -0.02330931442325387
+        "started": 28,
+        "compared": 27,
+        "favorable": 9,
+        "average": -0.017410352404879426
       },
       "status": "collecting"
     }

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-01T11:51:41.763Z",
+  "generatedAt": "2026-11-01T21:12:36.589Z",
   "records": [
     {
       "id": "564700",
@@ -1317,7 +1317,7 @@
       "bookmakerUpdatedAt": "2026-10-29T11:32:45Z",
       "eventId": "9507f4bcbcfd4e4953720628a2b86a17",
       "selectedAt": "2026-10-29T11:33:03.729Z",
-      "result": null,
+      "result": "Under",
       "latestComparableQuote": {
         "odds": 3,
         "quotedAt": "2026-10-31T20:27:56.767Z",
@@ -1395,7 +1395,7 @@
       "bookmakerUpdatedAt": "2026-10-29T21:49:45Z",
       "eventId": "b7b781db85506536dce5e7ce59a59863",
       "selectedAt": "2026-10-29T21:49:53.321Z",
-      "result": null,
+      "result": "Under",
       "latestComparableQuote": {
         "odds": 3.07,
         "quotedAt": "2026-11-01T11:51:41.182Z",
@@ -1421,7 +1421,7 @@
       "bookmakerUpdatedAt": "2026-10-29T21:49:45Z",
       "eventId": "3f9f4bc9a19bf36dcb74be2f29610d55",
       "selectedAt": "2026-10-29T21:49:53.321Z",
-      "result": null,
+      "result": "H",
       "latestComparableQuote": {
         "odds": 4.25,
         "quotedAt": "2026-11-01T11:51:41.182Z",
@@ -1449,9 +1449,9 @@
       "selectedAt": "2026-10-30T21:32:08.875Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.32,
-        "quotedAt": "2026-11-01T11:51:41.182Z",
-        "bookmakerUpdatedAt": "2026-11-01T11:51:38Z"
+        "odds": 2.36,
+        "quotedAt": "2026-11-01T21:12:36.159Z",
+        "bookmakerUpdatedAt": "2026-11-01T21:12:31Z"
       }
     },
     {
@@ -1476,9 +1476,30 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2.88,
-        "quotedAt": "2026-11-01T11:51:41.182Z",
-        "bookmakerUpdatedAt": "2026-11-01T11:51:38Z"
+        "quotedAt": "2026-11-01T21:12:36.159Z",
+        "bookmakerUpdatedAt": "2026-11-01T21:12:31Z"
       }
+    },
+    {
+      "id": "560622",
+      "league": "Premier League · API",
+      "home": "Newcastle United FC",
+      "away": "Everton FC",
+      "kickoffUtc": "2026-11-02T20:00:00Z",
+      "day": "2026-11-02",
+      "market": "h2h",
+      "pick": "A",
+      "label": "2",
+      "odds": 3,
+      "probability": 0.35153123909830014,
+      "ev": 0.05459371729490048,
+      "predictedAt": "2026-10-20T05:46:20.797Z",
+      "quotedAt": "2026-11-01T21:12:36.159Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-01T21:12:03Z",
+      "eventId": "0f552d9c6990c69474f50ff2fb54e9a3",
+      "selectedAt": "2026-11-01T21:12:36.589Z",
+      "result": null
     }
   ]
 }
