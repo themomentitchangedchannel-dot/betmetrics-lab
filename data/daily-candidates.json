@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-01T21:12:36.589Z",
+  "generatedAt": "2026-11-02T13:33:14.889Z",
   "records": [
     {
       "id": "564700",
@@ -1343,7 +1343,7 @@
       "bookmakerUpdatedAt": "2026-10-29T21:49:43Z",
       "eventId": "6c520ed959578ca3aebe351ee3765d53",
       "selectedAt": "2026-10-29T21:49:53.321Z",
-      "result": null,
+      "result": "Over",
       "latestComparableQuote": {
         "odds": 4.02,
         "quotedAt": "2026-11-01T11:51:41.182Z",
@@ -1369,7 +1369,7 @@
       "bookmakerUpdatedAt": "2026-10-29T21:49:43Z",
       "eventId": "ddcc9a51a2d7368e055d1abefacdb74e",
       "selectedAt": "2026-10-29T21:49:53.321Z",
-      "result": null,
+      "result": "H",
       "latestComparableQuote": {
         "odds": 3.3,
         "quotedAt": "2026-11-01T11:51:41.182Z",
@@ -1449,9 +1449,9 @@
       "selectedAt": "2026-10-30T21:32:08.875Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.36,
-        "quotedAt": "2026-11-01T21:12:36.159Z",
-        "bookmakerUpdatedAt": "2026-11-01T21:12:31Z"
+        "odds": 2.49,
+        "quotedAt": "2026-11-02T13:33:14.147Z",
+        "bookmakerUpdatedAt": "2026-11-02T13:33:10Z"
       }
     },
     {
@@ -1475,9 +1475,9 @@
       "selectedAt": "2026-10-30T21:32:08.875Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.88,
-        "quotedAt": "2026-11-01T21:12:36.159Z",
-        "bookmakerUpdatedAt": "2026-11-01T21:12:31Z"
+        "odds": 2.82,
+        "quotedAt": "2026-11-02T13:33:14.147Z",
+        "bookmakerUpdatedAt": "2026-11-02T13:33:10Z"
       }
     },
     {
@@ -1499,7 +1499,12 @@
       "bookmakerUpdatedAt": "2026-11-01T21:12:03Z",
       "eventId": "0f552d9c6990c69474f50ff2fb54e9a3",
       "selectedAt": "2026-11-01T21:12:36.589Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 3.25,
+        "quotedAt": "2026-11-02T13:33:14.147Z",
+        "bookmakerUpdatedAt": "2026-11-02T13:33:02Z"
+      }
     }
   ]
 }
