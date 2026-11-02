@@ -1,23 +1,23 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-02T13:33:14.889Z",
+  "generatedAt": "2026-11-02T23:53:39.883Z",
   "minimumSettled": 100,
   "overall": {
     "locked": 58,
     "voided": 1,
-    "settled": 54,
-    "open": 3,
+    "settled": 57,
+    "open": 0,
     "profitUnits": -9.84,
-    "roi": -0.18222222222222223,
+    "roi": -0.1726315789473684,
     "interval95": [
-      -0.5225925925925926,
-      0.1959259259259259
+      -0.513859649122807,
+      0.1984210526315789
     ],
     "marketMovement": {
-      "started": 54,
-      "compared": 53,
-      "favorable": 23,
-      "average": 0.0011859725887669948
+      "started": 57,
+      "compared": 56,
+      "favorable": 24,
+      "average": -0.0012803807895636382
     },
     "status": "collecting"
   },
@@ -25,32 +25,32 @@
     "h2h": {
       "locked": 29,
       "voided": 1,
-      "settled": 26,
-      "open": 2,
-      "profitUnits": -8.33,
-      "roi": -0.3203846153846154,
+      "settled": 28,
+      "open": 0,
+      "profitUnits": -7.33,
+      "roi": -0.2617857142857143,
       "interval95": null,
       "marketMovement": {
-        "started": 26,
-        "compared": 26,
-        "favorable": 14,
-        "average": 0.020497540851399806
+        "started": 28,
+        "compared": 28,
+        "favorable": 15,
+        "average": 0.016666117253059238
       },
       "status": "collecting"
     },
     "goals": {
       "locked": 29,
       "voided": 0,
-      "settled": 28,
-      "open": 1,
-      "profitUnits": -1.5099999999999998,
-      "roi": -0.05392857142857142,
+      "settled": 29,
+      "open": 0,
+      "profitUnits": -2.51,
+      "roi": -0.08655172413793102,
       "interval95": null,
       "marketMovement": {
-        "started": 28,
-        "compared": 27,
+        "started": 29,
+        "compared": 28,
         "favorable": 9,
-        "average": -0.017410352404879426
+        "average": -0.01922687883218652
       },
       "status": "collecting"
     }
