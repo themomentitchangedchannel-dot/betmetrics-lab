@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-03T12:49:24.889Z",
+  "generatedAt": "2026-11-03T22:19:31.844Z",
   "records": [
     {
       "id": "564700",
@@ -1505,6 +1505,69 @@
         "quotedAt": "2026-11-02T13:33:14.147Z",
         "bookmakerUpdatedAt": "2026-11-02T13:33:02Z"
       }
+    },
+    {
+      "id": "558537",
+      "league": "Serie A · API",
+      "home": "Venezia FC",
+      "away": "Udinese Calcio",
+      "kickoffUtc": "2026-11-06T19:45:00Z",
+      "day": "2026-11-06",
+      "market": "h2h",
+      "pick": "A",
+      "label": "2",
+      "odds": 3.1,
+      "probability": 0.48029781342770006,
+      "ev": 0.4889232216258703,
+      "predictedAt": "2026-10-25T19:40:31.743Z",
+      "quotedAt": "2026-11-03T22:19:31.080Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-03T22:19:13Z",
+      "eventId": "fa069801a5c9b49143447a1a1d173fd1",
+      "selectedAt": "2026-11-03T22:19:31.844Z",
+      "result": null
+    },
+    {
+      "id": "564740",
+      "league": "La Liga · API",
+      "home": "Sevilla FC",
+      "away": "Deportivo Alavés",
+      "kickoffUtc": "2026-11-06T20:00:00Z",
+      "day": "2026-11-06",
+      "market": "h2h",
+      "pick": "A",
+      "label": "2",
+      "odds": 4.15,
+      "probability": 0.32456908932145895,
+      "ev": 0.34696172068405473,
+      "predictedAt": "2026-10-24T05:46:16.409Z",
+      "quotedAt": "2026-11-03T22:19:31.080Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-03T22:18:50Z",
+      "eventId": "9dd0014685fd62d9b2890d7c33a8c9ab",
+      "selectedAt": "2026-11-03T22:19:31.844Z",
+      "result": null
+    },
+    {
+      "id": "560634",
+      "league": "Premier League · API",
+      "home": "Everton FC",
+      "away": "Coventry City FC",
+      "kickoffUtc": "2026-11-06T20:00:00Z",
+      "day": "2026-11-06",
+      "market": "h2h",
+      "pick": "A",
+      "label": "2",
+      "odds": 4.75,
+      "probability": 0.2734476796024027,
+      "ev": 0.2988764781114128,
+      "predictedAt": "2026-10-25T09:50:41.703Z",
+      "quotedAt": "2026-11-03T22:19:31.080Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-03T22:19:07Z",
+      "eventId": "586bec023ee8ac2f0645d963bd2c9d25",
+      "selectedAt": "2026-11-03T22:19:31.844Z",
+      "result": null
     }
   ]
 }
