@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-03T22:19:31.844Z",
+  "generatedAt": "2026-11-04T13:01:44.217Z",
   "records": [
     {
       "id": "564700",
@@ -1525,7 +1525,12 @@
       "bookmakerUpdatedAt": "2026-11-03T22:19:13Z",
       "eventId": "fa069801a5c9b49143447a1a1d173fd1",
       "selectedAt": "2026-11-03T22:19:31.844Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 3.1,
+        "quotedAt": "2026-11-04T13:01:43.509Z",
+        "bookmakerUpdatedAt": "2026-11-04T13:01:31Z"
+      }
     },
     {
       "id": "564740",
@@ -1546,7 +1551,12 @@
       "bookmakerUpdatedAt": "2026-11-03T22:18:50Z",
       "eventId": "9dd0014685fd62d9b2890d7c33a8c9ab",
       "selectedAt": "2026-11-03T22:19:31.844Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 4.15,
+        "quotedAt": "2026-11-04T13:01:43.509Z",
+        "bookmakerUpdatedAt": "2026-11-04T13:00:46Z"
+      }
     },
     {
       "id": "560634",
@@ -1567,6 +1577,53 @@
       "bookmakerUpdatedAt": "2026-11-03T22:19:07Z",
       "eventId": "586bec023ee8ac2f0645d963bd2c9d25",
       "selectedAt": "2026-11-03T22:19:31.844Z",
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 4.89,
+        "quotedAt": "2026-11-04T13:01:43.509Z",
+        "bookmakerUpdatedAt": "2026-11-04T13:01:26Z"
+      }
+    },
+    {
+      "id": "564744",
+      "league": "La Liga · API",
+      "home": "Málaga CF",
+      "away": "Real Racing Club de Santander",
+      "kickoffUtc": "2026-11-07T13:00:00Z",
+      "day": "2026-11-07",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 2.42,
+      "probability": 0.5411609185958278,
+      "ev": 0.3096094230019033,
+      "predictedAt": "2026-10-24T19:30:53.697Z",
+      "quotedAt": "2026-11-04T13:01:43.509Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-04T13:00:46Z",
+      "eventId": "de935794b7d93f3607ac9ad54d18f4c7",
+      "selectedAt": "2026-11-04T13:01:44.217Z",
+      "result": null
+    },
+    {
+      "id": "560632",
+      "league": "Premier League · API",
+      "home": "Leeds United FC",
+      "away": "Tottenham Hotspur FC",
+      "kickoffUtc": "2026-11-07T12:30:00Z",
+      "day": "2026-11-07",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 2.61,
+      "probability": 0.4402959842764384,
+      "ev": 0.14917251896150407,
+      "predictedAt": "2026-10-24T19:30:53.697Z",
+      "quotedAt": "2026-11-04T13:01:43.509Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-04T13:01:26Z",
+      "eventId": "5c87852253fd11eea5d34ad723356607",
+      "selectedAt": "2026-11-04T13:01:44.217Z",
       "result": null
     }
   ]
