@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-04T13:01:44.217Z",
+  "generatedAt": "2026-11-04T22:39:26.408Z",
   "records": [
     {
       "id": "564700",
@@ -1528,8 +1528,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 3.1,
-        "quotedAt": "2026-11-04T13:01:43.509Z",
-        "bookmakerUpdatedAt": "2026-11-04T13:01:31Z"
+        "quotedAt": "2026-11-04T22:39:25.702Z",
+        "bookmakerUpdatedAt": "2026-11-04T22:38:33Z"
       }
     },
     {
@@ -1553,9 +1553,9 @@
       "selectedAt": "2026-11-03T22:19:31.844Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 4.15,
-        "quotedAt": "2026-11-04T13:01:43.509Z",
-        "bookmakerUpdatedAt": "2026-11-04T13:00:46Z"
+        "odds": 4.1,
+        "quotedAt": "2026-11-04T22:39:25.702Z",
+        "bookmakerUpdatedAt": "2026-11-04T22:38:58Z"
       }
     },
     {
@@ -1580,8 +1580,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 4.89,
-        "quotedAt": "2026-11-04T13:01:43.509Z",
-        "bookmakerUpdatedAt": "2026-11-04T13:01:26Z"
+        "quotedAt": "2026-11-04T22:39:25.702Z",
+        "bookmakerUpdatedAt": "2026-11-04T22:39:16Z"
       }
     },
     {
@@ -1603,7 +1603,12 @@
       "bookmakerUpdatedAt": "2026-11-04T13:00:46Z",
       "eventId": "de935794b7d93f3607ac9ad54d18f4c7",
       "selectedAt": "2026-11-04T13:01:44.217Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.42,
+        "quotedAt": "2026-11-04T22:39:25.702Z",
+        "bookmakerUpdatedAt": "2026-11-04T22:38:58Z"
+      }
     },
     {
       "id": "560632",
@@ -1624,6 +1629,74 @@
       "bookmakerUpdatedAt": "2026-11-04T13:01:26Z",
       "eventId": "5c87852253fd11eea5d34ad723356607",
       "selectedAt": "2026-11-04T13:01:44.217Z",
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.61,
+        "quotedAt": "2026-11-04T22:39:25.702Z",
+        "bookmakerUpdatedAt": "2026-11-04T22:39:16Z"
+      }
+    },
+    {
+      "id": "564739",
+      "league": "La Liga · API",
+      "home": "CA Osasuna",
+      "away": "Athletic Club",
+      "kickoffUtc": "2026-11-07T17:30:00Z",
+      "day": "2026-11-07",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 3.55,
+      "probability": 0.5141408325396937,
+      "ev": 0.8251999555159124,
+      "predictedAt": "2026-10-24T19:30:53.697Z",
+      "quotedAt": "2026-11-04T22:39:25.702Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-04T22:38:58Z",
+      "eventId": "71ca5141a1c532e390c6fa14e080d8bd",
+      "selectedAt": "2026-11-04T22:39:26.408Z",
+      "result": null
+    },
+    {
+      "id": "558531",
+      "league": "Serie A · API",
+      "home": "AS Roma",
+      "away": "US Sassuolo Calcio",
+      "kickoffUtc": "2026-11-07T19:45:00Z",
+      "day": "2026-11-07",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 3.15,
+      "probability": 0.519853230972553,
+      "ev": 0.6375376775635417,
+      "predictedAt": "2026-10-25T09:50:41.703Z",
+      "quotedAt": "2026-11-04T22:39:25.702Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-04T22:38:33Z",
+      "eventId": "f110107bca066ac1a598c89661c88fa3",
+      "selectedAt": "2026-11-04T22:39:26.408Z",
+      "result": null
+    },
+    {
+      "id": "558532",
+      "league": "Serie A · API",
+      "home": "Torino FC",
+      "away": "US Lecce",
+      "kickoffUtc": "2026-11-07T14:00:00Z",
+      "day": "2026-11-07",
+      "market": "h2h",
+      "pick": "A",
+      "label": "2",
+      "odds": 4.5,
+      "probability": 0.3175795706310747,
+      "ev": 0.42910806783983624,
+      "predictedAt": "2026-10-24T19:30:53.697Z",
+      "quotedAt": "2026-11-04T22:39:25.702Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-04T22:38:33Z",
+      "eventId": "0d53a5dbd9d4f4716e923b97e92dfb0d",
+      "selectedAt": "2026-11-04T22:39:26.408Z",
       "result": null
     }
   ]
