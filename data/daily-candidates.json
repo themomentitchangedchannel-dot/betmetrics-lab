@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-08T21:12:35.891Z",
+  "generatedAt": "2026-11-09T13:56:49.885Z",
   "records": [
     {
       "id": "564700",
@@ -1837,7 +1837,7 @@
       "bookmakerUpdatedAt": "2026-11-05T22:40:48Z",
       "eventId": "dd247b356d8fc53e4b4f9bfcfe09c924",
       "selectedAt": "2026-11-05T22:40:58.641Z",
-      "result": null,
+      "result": "A",
       "latestComparableQuote": {
         "odds": 3.25,
         "quotedAt": "2026-11-08T11:57:39.761Z",
