@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-17T23:51:44.918Z",
+  "generatedAt": "2026-11-18T14:03:55.210Z",
   "minimumSettled": 100,
   "overall": {
-    "locked": 71,
+    "locked": 74,
     "voided": 1,
     "settled": 70,
-    "open": 0,
+    "open": 3,
     "profitUnits": -18.14,
     "roi": -0.2591428571428572,
     "interval95": [
@@ -42,10 +42,10 @@
       "status": "collecting"
     },
     "goals": {
-      "locked": 31,
+      "locked": 34,
       "voided": 0,
       "settled": 31,
-      "open": 0,
+      "open": 3,
       "profitUnits": -2.42,
       "roi": -0.07806451612903226,
       "interval95": [
