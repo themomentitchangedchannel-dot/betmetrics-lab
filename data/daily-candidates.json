@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-19T14:27:59.497Z",
+  "generatedAt": "2026-11-19T23:35:59.330Z",
   "records": [
     {
       "id": "564700",
@@ -1866,8 +1866,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2.56,
-        "quotedAt": "2026-11-19T14:27:58.961Z",
-        "bookmakerUpdatedAt": "2026-11-19T14:27:17Z"
+        "quotedAt": "2026-11-19T23:35:58.443Z",
+        "bookmakerUpdatedAt": "2026-11-19T23:35:00Z"
       }
     },
     {
@@ -1891,9 +1891,9 @@
       "selectedAt": "2026-11-18T14:03:55.210Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.4,
-        "quotedAt": "2026-11-19T14:27:58.961Z",
-        "bookmakerUpdatedAt": "2026-11-19T14:27:17Z"
+        "odds": 2.41,
+        "quotedAt": "2026-11-19T23:35:58.443Z",
+        "bookmakerUpdatedAt": "2026-11-19T23:35:00Z"
       }
     },
     {
@@ -1918,8 +1918,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2.66,
-        "quotedAt": "2026-11-19T14:27:58.961Z",
-        "bookmakerUpdatedAt": "2026-11-19T14:27:00Z"
+        "quotedAt": "2026-11-19T23:35:58.443Z",
+        "bookmakerUpdatedAt": "2026-11-19T23:34:39Z"
       }
     },
     {
@@ -1943,9 +1943,9 @@
       "selectedAt": "2026-11-18T23:24:38.355Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 3.15,
-        "quotedAt": "2026-11-19T14:27:58.961Z",
-        "bookmakerUpdatedAt": "2026-11-19T14:26:47Z"
+        "odds": 3.2,
+        "quotedAt": "2026-11-19T23:35:58.443Z",
+        "bookmakerUpdatedAt": "2026-11-19T23:35:55Z"
       }
     },
     {
@@ -1970,8 +1970,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2.56,
-        "quotedAt": "2026-11-19T14:27:58.961Z",
-        "bookmakerUpdatedAt": "2026-11-19T14:27:17Z"
+        "quotedAt": "2026-11-19T23:35:58.443Z",
+        "bookmakerUpdatedAt": "2026-11-19T23:35:00Z"
       }
     },
     {
@@ -1993,7 +1993,12 @@
       "bookmakerUpdatedAt": "2026-11-19T14:27:17Z",
       "eventId": "5bc13c44b33981f3185400163388267e",
       "selectedAt": "2026-11-19T14:27:59.497Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 4.8,
+        "quotedAt": "2026-11-19T23:35:58.443Z",
+        "bookmakerUpdatedAt": "2026-11-19T23:35:00Z"
+      }
     },
     {
       "id": "564749",
@@ -2014,7 +2019,12 @@
       "bookmakerUpdatedAt": "2026-11-19T14:26:47Z",
       "eventId": "214a79b6e08dbe3f508844936158c038",
       "selectedAt": "2026-11-19T14:27:59.497Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 4.97,
+        "quotedAt": "2026-11-19T23:35:58.443Z",
+        "bookmakerUpdatedAt": "2026-11-19T23:35:55Z"
+      }
     },
     {
       "id": "560646",
@@ -2035,7 +2045,12 @@
       "bookmakerUpdatedAt": "2026-11-19T14:27:00Z",
       "eventId": "230a356290e1a358e9dd2f7fa23de3b9",
       "selectedAt": "2026-11-19T14:27:59.497Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 4.4,
+        "quotedAt": "2026-11-19T23:35:58.443Z",
+        "bookmakerUpdatedAt": "2026-11-19T23:34:39Z"
+      }
     },
     {
       "id": "558521",
@@ -2056,7 +2071,12 @@
       "bookmakerUpdatedAt": "2026-11-19T14:27:17Z",
       "eventId": "be2fcabc408be29ca01ce92ab266f8b7",
       "selectedAt": "2026-11-19T14:27:59.497Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.36,
+        "quotedAt": "2026-11-19T23:35:58.443Z",
+        "bookmakerUpdatedAt": "2026-11-19T23:35:00Z"
+      }
     },
     {
       "id": "558524",
@@ -2077,7 +2097,12 @@
       "bookmakerUpdatedAt": "2026-11-19T14:27:17Z",
       "eventId": "76d4698a8417f32cb059f14a469939f3",
       "selectedAt": "2026-11-19T14:27:59.497Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.8,
+        "quotedAt": "2026-11-19T23:35:58.443Z",
+        "bookmakerUpdatedAt": "2026-11-19T23:35:00Z"
+      }
     }
   ]
 }
