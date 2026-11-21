@@ -1,23 +1,23 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-21T13:30:22.978Z",
+  "generatedAt": "2026-11-21T22:11:38.396Z",
   "minimumSettled": 100,
   "overall": {
     "locked": 84,
     "voided": 1,
-    "settled": 70,
-    "open": 13,
-    "profitUnits": -18.14,
-    "roi": -0.2591428571428572,
+    "settled": 75,
+    "open": 8,
+    "profitUnits": -17.92,
+    "roi": -0.23893333333333336,
     "interval95": [
-      -0.5461428571428572,
-      0.05485714285714282
+      -0.5171999999999999,
+      0.054800000000000015
     ],
     "marketMovement": {
-      "started": 71,
-      "compared": 70,
-      "favorable": 29,
-      "average": -0.007652259215580916
+      "started": 75,
+      "compared": 74,
+      "favorable": 30,
+      "average": -0.009156083881986653
     },
     "status": "collecting"
   },
@@ -44,19 +44,19 @@
     "goals": {
       "locked": 39,
       "voided": 0,
-      "settled": 31,
-      "open": 8,
-      "profitUnits": -2.42,
-      "roi": -0.07806451612903226,
+      "settled": 36,
+      "open": 3,
+      "profitUnits": -2.1999999999999997,
+      "roi": -0.0611111111111111,
       "interval95": [
-        -0.4858064516129033,
-        0.35354838709677416
+        -0.44166666666666665,
+        0.33916666666666667
       ],
       "marketMovement": {
-        "started": 32,
-        "compared": 31,
-        "favorable": 10,
-        "average": -0.020813427438888515
+        "started": 36,
+        "compared": 35,
+        "favorable": 11,
+        "average": -0.02248880893662549
       },
       "status": "collecting"
     }
