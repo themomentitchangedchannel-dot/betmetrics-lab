@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-20T23:06:50.128Z",
+  "generatedAt": "2026-11-21T13:30:22.978Z",
   "minimumSettled": 100,
   "overall": {
     "locked": 84,
@@ -14,10 +14,10 @@
       0.05485714285714282
     ],
     "marketMovement": {
-      "started": 70,
-      "compared": 69,
+      "started": 71,
+      "compared": 70,
       "favorable": 29,
-      "average": -0.006338450149926107
+      "average": -0.007652259215580916
     },
     "status": "collecting"
   },
@@ -53,10 +53,10 @@
         0.35354838709677416
       ],
       "marketMovement": {
-        "started": 31,
-        "compared": 30,
+        "started": 32,
+        "compared": 31,
         "favorable": 10,
-        "average": -0.01823037219532604
+        "average": -0.020813427438888515
       },
       "status": "collecting"
     }
