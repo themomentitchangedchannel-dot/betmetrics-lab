@@ -1,23 +1,23 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-22T13:23:25.932Z",
+  "generatedAt": "2026-11-22T22:29:01.379Z",
   "minimumSettled": 100,
   "overall": {
     "locked": 84,
     "voided": 1,
-    "settled": 75,
-    "open": 8,
-    "profitUnits": -17.92,
-    "roi": -0.23893333333333336,
+    "settled": 80,
+    "open": 3,
+    "profitUnits": -22.92,
+    "roi": -0.28650000000000003,
     "interval95": [
-      -0.5171999999999999,
-      0.054800000000000015
+      -0.5442499999999999,
+      0.011999999999999978
     ],
     "marketMovement": {
-      "started": 77,
-      "compared": 76,
-      "favorable": 31,
-      "average": -0.009000992956075395
+      "started": 80,
+      "compared": 79,
+      "favorable": 32,
+      "average": -0.010166438105799607
     },
     "status": "collecting"
   },
@@ -25,32 +25,32 @@
     "h2h": {
       "locked": 45,
       "voided": 1,
-      "settled": 39,
-      "open": 5,
-      "profitUnits": -15.72,
-      "roi": -0.4030769230769231,
+      "settled": 42,
+      "open": 2,
+      "profitUnits": -18.72,
+      "roi": -0.4457142857142857,
       "interval95": [
-        -0.782051282051282,
-        0.05205128205128199
+        -0.8035714285714286,
+        -0.02880952380952382
       ],
       "marketMovement": {
-        "started": 39,
-        "compared": 39,
-        "favorable": 19,
-        "average": 0.0028091821926892247
+        "started": 42,
+        "compared": 42,
+        "favorable": 20,
+        "average": -0.0002265485757514079
       },
       "status": "collecting"
     },
     "goals": {
       "locked": 39,
       "voided": 0,
-      "settled": 36,
-      "open": 3,
-      "profitUnits": -2.1999999999999997,
-      "roi": -0.0611111111111111,
+      "settled": 38,
+      "open": 1,
+      "profitUnits": -4.199999999999999,
+      "roi": -0.11052631578947367,
       "interval95": [
-        -0.44166666666666665,
-        0.33916666666666667
+        -0.4807894736842105,
+        0.27499999999999997
       ],
       "marketMovement": {
         "started": 38,
