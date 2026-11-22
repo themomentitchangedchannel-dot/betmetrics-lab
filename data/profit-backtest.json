@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-15T12:46:39.019Z",
+  "generatedAt": "2026-11-22T13:23:29.629Z",
   "source": "football-data.co.uk",
   "book": "Bet365",
   "oddsType": "closing",
@@ -67,7 +67,7 @@
       "season": 2026,
       "n": 281,
       "matched": 355,
-      "completed": 410,
+      "completed": 433,
       "brierModel": 0.5702996800996687,
       "brierMarket": 0.5389986546035931,
       "selected": 162,
@@ -76,7 +76,7 @@
       "byLeague": [
         {
           "league": "Premier League · API",
-          "completed": 100,
+          "completed": 107,
           "matched": 100,
           "missingOdds": 0,
           "resultMismatch": 0,
@@ -87,7 +87,7 @@
         },
         {
           "league": "La Liga · API",
-          "completed": 119,
+          "completed": 124,
           "matched": 119,
           "missingOdds": 0,
           "resultMismatch": 0,
@@ -98,7 +98,7 @@
         },
         {
           "league": "Serie A · API",
-          "completed": 110,
+          "completed": 114,
           "matched": 99,
           "missingOdds": 0,
           "resultMismatch": 0,
@@ -109,7 +109,7 @@
         },
         {
           "league": "Bundesliga · API",
-          "completed": 81,
+          "completed": 88,
           "matched": 37,
           "missingOdds": 0,
           "resultMismatch": 0,
