@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-25T01:27:05.694Z",
+  "generatedAt": "2026-11-25T15:39:22.811Z",
   "records": [
     {
       "id": "564700",
@@ -2201,7 +2201,12 @@
       "bookmakerUpdatedAt": "2026-11-25T01:27:02Z",
       "eventId": "e9a663f13e7503c0ac20a54804338b60",
       "selectedAt": "2026-11-25T01:27:05.694Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.2,
+        "quotedAt": "2026-11-25T15:39:22.228Z",
+        "bookmakerUpdatedAt": "2026-11-25T15:38:55Z"
+      }
     },
     {
       "id": "560658",
@@ -2222,7 +2227,12 @@
       "bookmakerUpdatedAt": "2026-11-25T01:26:09Z",
       "eventId": "40d95e660c301c2d8a5a7a6317017b65",
       "selectedAt": "2026-11-25T01:27:05.694Z",
-      "result": null
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.74,
+        "quotedAt": "2026-11-25T15:39:22.228Z",
+        "bookmakerUpdatedAt": "2026-11-25T15:38:49Z"
+      }
     },
     {
       "id": "564765",
@@ -2243,6 +2253,116 @@
       "bookmakerUpdatedAt": "2026-11-25T01:26:38Z",
       "eventId": "80c92a163a81b69fef76530221e2edd0",
       "selectedAt": "2026-11-25T01:27:05.694Z",
+      "result": null,
+      "latestComparableQuote": {
+        "odds": 2.05,
+        "quotedAt": "2026-11-25T15:39:22.228Z",
+        "bookmakerUpdatedAt": "2026-11-25T15:38:32Z"
+      }
+    },
+    {
+      "id": "564767",
+      "league": "La Liga · API",
+      "home": "Málaga CF",
+      "away": "Athletic Club",
+      "kickoffUtc": "2026-11-28T15:15:00Z",
+      "day": "2026-11-28",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 4.65,
+      "probability": 0.38902254478498655,
+      "ev": 0.8089548332501875,
+      "predictedAt": "2026-11-14T21:31:46.346Z",
+      "quotedAt": "2026-11-25T15:39:22.228Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-25T15:38:32Z",
+      "eventId": "33d92dabbd2606dfe9d31058f7b20cc8",
+      "selectedAt": "2026-11-25T15:39:22.811Z",
+      "result": null
+    },
+    {
+      "id": "558513",
+      "league": "Serie A · API",
+      "home": "Frosinone Calcio",
+      "away": "Parma Calcio 1913",
+      "kickoffUtc": "2026-11-28T14:00:00Z",
+      "day": "2026-11-28",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 3.05,
+      "probability": 0.5234822637622211,
+      "ev": 0.5966209044747741,
+      "predictedAt": "2026-11-14T21:31:46.346Z",
+      "quotedAt": "2026-11-25T15:39:22.228Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-25T15:38:55Z",
+      "eventId": "af3432ca724da03d38f0ff4e62045e4c",
+      "selectedAt": "2026-11-25T15:39:22.811Z",
+      "result": null
+    },
+    {
+      "id": "560652",
+      "league": "Premier League · API",
+      "home": "Leeds United FC",
+      "away": "Coventry City FC",
+      "kickoffUtc": "2026-11-28T15:00:00Z",
+      "day": "2026-11-28",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 2.3,
+      "probability": 0.534870808787365,
+      "ev": 0.2302028602109394,
+      "predictedAt": "2026-11-14T21:31:46.346Z",
+      "quotedAt": "2026-11-25T15:39:22.228Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-25T15:38:49Z",
+      "eventId": "0bc17a3c7d8153e72b94688960cc603a",
+      "selectedAt": "2026-11-25T15:39:22.811Z",
+      "result": null
+    },
+    {
+      "id": "564760",
+      "league": "La Liga · API",
+      "home": "Real Betis Balompié",
+      "away": "Rayo Vallecano de Madrid",
+      "kickoffUtc": "2026-11-28T13:00:00Z",
+      "day": "2026-11-28",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 2.42,
+      "probability": 0.46426628704214856,
+      "ev": 0.12352441464199959,
+      "predictedAt": "2026-11-14T21:31:46.346Z",
+      "quotedAt": "2026-11-25T15:39:22.228Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-25T15:38:32Z",
+      "eventId": "c81520b9a9794749cfdab57f89bdeb16",
+      "selectedAt": "2026-11-25T15:39:22.811Z",
+      "result": null
+    },
+    {
+      "id": "560655",
+      "league": "Premier League · API",
+      "home": "Manchester United FC",
+      "away": "Brentford FC",
+      "kickoffUtc": "2026-11-28T15:00:00Z",
+      "day": "2026-11-28",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 2.07,
+      "probability": 0.5259625115805263,
+      "ev": 0.08874239897168934,
+      "predictedAt": "2026-11-14T21:31:46.346Z",
+      "quotedAt": "2026-11-25T15:39:22.228Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-25T15:38:49Z",
+      "eventId": "ab87184803a63f7b679f1d12b01c3271",
+      "selectedAt": "2026-11-25T15:39:22.811Z",
       "result": null
     }
   ]
