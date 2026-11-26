@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-26T00:59:57.461Z",
+  "generatedAt": "2026-11-26T15:21:22.752Z",
   "records": [
     {
       "id": "564700",
@@ -2203,9 +2203,9 @@
       "selectedAt": "2026-11-25T01:27:05.694Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.2,
-        "quotedAt": "2026-11-26T00:59:56.547Z",
-        "bookmakerUpdatedAt": "2026-11-26T00:59:14Z"
+        "odds": 2.25,
+        "quotedAt": "2026-11-26T15:21:21.885Z",
+        "bookmakerUpdatedAt": "2026-11-26T15:21:21Z"
       }
     },
     {
@@ -2229,9 +2229,9 @@
       "selectedAt": "2026-11-25T01:27:05.694Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.78,
-        "quotedAt": "2026-11-26T00:59:56.547Z",
-        "bookmakerUpdatedAt": "2026-11-26T00:59:53Z"
+        "odds": 2.87,
+        "quotedAt": "2026-11-26T15:21:21.885Z",
+        "bookmakerUpdatedAt": "2026-11-26T15:20:31Z"
       }
     },
     {
@@ -2256,8 +2256,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2.05,
-        "quotedAt": "2026-11-26T00:59:56.547Z",
-        "bookmakerUpdatedAt": "2026-11-26T00:58:49Z"
+        "quotedAt": "2026-11-26T15:21:21.885Z",
+        "bookmakerUpdatedAt": "2026-11-26T15:21:21Z"
       }
     },
     {
@@ -2281,9 +2281,9 @@
       "selectedAt": "2026-11-25T15:39:22.811Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 4.8,
-        "quotedAt": "2026-11-26T00:59:56.547Z",
-        "bookmakerUpdatedAt": "2026-11-26T00:58:49Z"
+        "odds": 4.75,
+        "quotedAt": "2026-11-26T15:21:21.885Z",
+        "bookmakerUpdatedAt": "2026-11-26T15:21:21Z"
       }
     },
     {
@@ -2307,9 +2307,9 @@
       "selectedAt": "2026-11-25T15:39:22.811Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 3.05,
-        "quotedAt": "2026-11-26T00:59:56.547Z",
-        "bookmakerUpdatedAt": "2026-11-26T00:59:14Z"
+        "odds": 3.07,
+        "quotedAt": "2026-11-26T15:21:21.885Z",
+        "bookmakerUpdatedAt": "2026-11-26T15:21:21Z"
       }
     },
     {
@@ -2333,9 +2333,9 @@
       "selectedAt": "2026-11-25T15:39:22.811Z",
       "result": null,
       "latestComparableQuote": {
-        "odds": 2.3,
-        "quotedAt": "2026-11-26T00:59:56.547Z",
-        "bookmakerUpdatedAt": "2026-11-26T00:59:53Z"
+        "odds": 2.2,
+        "quotedAt": "2026-11-26T15:21:21.885Z",
+        "bookmakerUpdatedAt": "2026-11-26T15:20:31Z"
       }
     },
     {
@@ -2360,8 +2360,8 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2.42,
-        "quotedAt": "2026-11-26T00:59:56.547Z",
-        "bookmakerUpdatedAt": "2026-11-26T00:58:49Z"
+        "quotedAt": "2026-11-26T15:21:21.885Z",
+        "bookmakerUpdatedAt": "2026-11-26T15:21:21Z"
       }
     },
     {
@@ -2386,9 +2386,114 @@
       "result": null,
       "latestComparableQuote": {
         "odds": 2.07,
-        "quotedAt": "2026-11-26T00:59:56.547Z",
-        "bookmakerUpdatedAt": "2026-11-26T00:59:53Z"
+        "quotedAt": "2026-11-26T15:21:21.885Z",
+        "bookmakerUpdatedAt": "2026-11-26T15:20:31Z"
       }
+    },
+    {
+      "id": "560661",
+      "league": "Premier League · API",
+      "home": "Crystal Palace FC",
+      "away": "Hull City AFC",
+      "kickoffUtc": "2026-11-29T14:05:00Z",
+      "day": "2026-11-29",
+      "market": "h2h",
+      "pick": "A",
+      "label": "2",
+      "odds": 3.92,
+      "probability": 0.39545898789383505,
+      "ev": 0.5501992325438334,
+      "predictedAt": "2026-11-15T21:51:05.569Z",
+      "quotedAt": "2026-11-26T15:21:21.885Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-26T15:20:31Z",
+      "eventId": "e12585885a7f135127f276b7f1ecdf89",
+      "selectedAt": "2026-11-26T15:21:22.752Z",
+      "result": null
+    },
+    {
+      "id": "560656",
+      "league": "Premier League · API",
+      "home": "Everton FC",
+      "away": "Liverpool FC",
+      "kickoffUtc": "2026-11-29T12:00:00Z",
+      "day": "2026-11-29",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 4.45,
+      "probability": 0.3426883197815489,
+      "ev": 0.5249630230278928,
+      "predictedAt": "2026-11-15T12:46:33.846Z",
+      "quotedAt": "2026-11-26T15:21:21.885Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-26T15:20:31Z",
+      "eventId": "f45e9062c2f755b977c98d496c22697b",
+      "selectedAt": "2026-11-26T15:21:22.752Z",
+      "result": null
+    },
+    {
+      "id": "560659",
+      "league": "Premier League · API",
+      "home": "Brighton & Hove Albion FC",
+      "away": "Newcastle United FC",
+      "kickoffUtc": "2026-11-29T14:05:00Z",
+      "day": "2026-11-29",
+      "market": "goals",
+      "pick": "Under",
+      "label": "Manj 2,5",
+      "odds": 2.51,
+      "probability": 0.5380192885973472,
+      "ev": 0.35042841437934125,
+      "predictedAt": "2026-11-15T21:51:05.569Z",
+      "quotedAt": "2026-11-26T15:21:21.885Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-26T15:20:31Z",
+      "eventId": "e9c2b74ecaafd494e3b2d8521b52216a",
+      "selectedAt": "2026-11-26T15:21:22.752Z",
+      "result": null
+    },
+    {
+      "id": "560660",
+      "league": "Premier League · API",
+      "home": "Sunderland AFC",
+      "away": "Tottenham Hotspur FC",
+      "kickoffUtc": "2026-11-29T14:05:00Z",
+      "day": "2026-11-29",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 3.73,
+      "probability": 0.36075117768920695,
+      "ev": 0.3456018927807418,
+      "predictedAt": "2026-11-15T21:51:05.569Z",
+      "quotedAt": "2026-11-26T15:21:21.885Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-26T15:20:31Z",
+      "eventId": "09bb0ba9a9025d64fed410375c0c8f80",
+      "selectedAt": "2026-11-26T15:21:22.752Z",
+      "result": null
+    },
+    {
+      "id": "558509",
+      "league": "Serie A · API",
+      "home": "US Sassuolo Calcio",
+      "away": "SSC Napoli",
+      "kickoffUtc": "2026-11-29T14:00:00Z",
+      "day": "2026-11-29",
+      "market": "h2h",
+      "pick": "H",
+      "label": "1",
+      "odds": 4.8,
+      "probability": 0.26860613469998357,
+      "ev": 0.2893094465599211,
+      "predictedAt": "2026-11-15T21:51:05.569Z",
+      "quotedAt": "2026-11-26T15:21:21.885Z",
+      "bookmaker": "betsson",
+      "bookmakerUpdatedAt": "2026-11-26T15:21:21Z",
+      "eventId": "dc63586a1b1d938a461d71bf5b36d982",
+      "selectedAt": "2026-11-26T15:21:22.752Z",
+      "result": null
     }
   ]
 }
