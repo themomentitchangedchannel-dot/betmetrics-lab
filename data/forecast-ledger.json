@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-28T00:32:48.522Z",
+  "generatedAt": "2026-11-28T14:14:45.347Z",
   "records": [
     {
       "id": 560593,
@@ -21914,7 +21914,7 @@
     {
       "id": 564765,
       "league": "La Liga · API",
-      "fixtureStatus": "TIMED",
+      "fixtureStatus": "FINISHED",
       "kickoffUtc": "2026-11-27T20:00:00Z",
       "home": "Levante UD",
       "away": "Real Racing Club de Santander",
@@ -21930,7 +21930,7 @@
         0.2745490981963928
       ],
       "trainingMatches": 499,
-      "result": null,
+      "result": "A",
       "goalsForecast": {
         "model": "independent-poisson-goals-v1",
         "predictedAt": "2026-11-13T22:40:25.598Z",
@@ -22025,6 +22025,10 @@
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
+      },
+      "resultGoals": {
+        "home": 1,
+        "away": 3
       }
     },
     {
@@ -22272,18 +22276,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "0bc17a3c7d8153e72b94688960cc603a",
         "odds": [
-          1.48,
-          4.46,
-          6.53
+          1.45,
+          4.45,
+          7.2
         ],
         "ev": [
-          -0.15297592741385735,
-          0.07199402421295797,
-          0.22325858490061612
+          -0.1701453342906034,
+          0.06959045016763743,
+          0.3487690369501433
         ],
         "pick": "D",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -22291,17 +22295,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "0bc17a3c7d8153e72b94688960cc603a",
         "point": 2.5,
         "odds": [
-          1.69,
-          2.2
+          1.8,
+          2.03
         ],
         "ev": [
-          -0.2139316668506469,
-          0.17671577933220317
+          -0.16276745581725705,
+          0.08578774183835103
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -22388,18 +22392,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "ab87184803a63f7b679f1d12b01c3271",
         "odds": [
-          2.19,
-          3.75,
-          3.05
+          2.27,
+          3.67,
+          2.95
         ],
         "ev": [
-          0.1518579003613525,
-          -0.18920657640883076,
-          -0.2136309781747563
+          0.19393490128779467,
+          -0.20650350277877572,
+          -0.23941356905427247
         ],
         "pick": "H",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -22407,17 +22411,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "ab87184803a63f7b679f1d12b01c3271",
         "point": 2.5,
         "odds": [
-          1.55,
-          2.49
+          1.59,
+          2.4
         ],
         "ev": [
-          0.010929754744360753,
-          -0.1340097350409406
+          0.037018264544215196,
+          -0.1653105879912682
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -22504,18 +22508,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "9d23f6ad21946dd258869ebc22236cf0",
         "odds": [
-          3.53,
-          3.75,
-          1.99
+          3.34,
+          3.66,
+          2.09
         ],
         "ev": [
-          0.34365615374767056,
-          -0.05028321664683777,
-          -0.27145492240702196
+          0.27133471771026074,
+          -0.07307641944731358,
+          -0.23484461700033965
         ],
         "pick": "H",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -22523,17 +22527,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "9d23f6ad21946dd258869ebc22236cf0",
         "point": 2.5,
         "odds": [
-          1.59,
-          2.4
+          1.57,
+          2.43
         ],
         "ev": [
-          -0.15998630671381275,
-          0.13205480258688707
+          -0.17055251669225535,
+          0.14620548761922336
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -22542,7 +22546,7 @@
     {
       "id": 564760,
       "league": "La Liga · API",
-      "fixtureStatus": "TIMED",
+      "fixtureStatus": "IN_PLAY",
       "kickoffUtc": "2026-11-28T13:00:00Z",
       "home": "Real Betis Balompié",
       "away": "Rayo Vallecano de Madrid",
@@ -22736,18 +22740,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "33d92dabbd2606dfe9d31058f7b20cc8",
         "odds": [
-          4.9,
-          3.75,
-          1.7
+          4.8,
+          3.65,
+          1.72
         ],
         "ev": [
-          0.9062104694464341,
-          -0.0656908981703862,
-          -0.3848917856305688
+          0.8673082149679354,
+          -0.09060580755250924,
+          -0.3776552184026931
         ],
         "pick": "H",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -22755,17 +22759,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "33d92dabbd2606dfe9d31058f7b20cc8",
         "point": 2.5,
         "odds": [
-          1.82,
-          2
+          1.89,
+          1.93
         ],
         "ev": [
-          -0.004670867196244655,
-          -0.09376827780632446
+          0.033611022526976564,
+          -0.12548638808310308
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -22852,18 +22856,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "40236ab976955345ebd1edb72abf6b22",
         "odds": [
-          6.7,
-          4.65,
-          1.45
+          6.5,
+          4.4,
+          1.48
         ],
         "ev": [
-          1.1113406507470946,
-          0.20104569489986757,
-          -0.3814515571694591
+          1.0483155566949423,
+          0.13647334571170266,
+          -0.36865400317986163
         ],
         "pick": "D",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -22871,17 +22875,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "40236ab976955345ebd1edb72abf6b22",
         "point": 2.5,
         "odds": [
-          1.6,
-          2.36
+          1.68,
+          2.21
         ],
         "ev": [
-          -0.20606917521438373,
-          0.18895203344121603
+          -0.16637263397510293,
+          0.11338304826486745
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -22968,18 +22972,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "c99772cba1418e72f2eded26e4afeb59",
         "odds": [
-          1.11,
-          9.1,
-          22
+          1.14,
+          8.4,
+          17
         ],
         "ev": [
-          -0.17050564622692577,
-          0.44183754330841807,
-          1.0738102729471342
+          -0.14808687990873481,
+          0.33092696305392444,
+          0.6024897563682403
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -22987,17 +22991,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "c99772cba1418e72f2eded26e4afeb59",
         "point": 2.5,
         "odds": [
           1.3,
-          3.63
+          3.57
         ],
         "ev": [
           -0.1973951400820413,
-          0.38888027576754625
+          0.3659235769945288
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -23006,7 +23010,7 @@
     {
       "id": 558513,
       "league": "Serie A · API",
-      "fixtureStatus": "TIMED",
+      "fixtureStatus": "IN_PLAY",
       "kickoffUtc": "2026-11-28T14:00:00Z",
       "home": "Frosinone Calcio",
       "away": "Parma Calcio 1913",
@@ -23200,8 +23204,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "aec86b479e922f437ba228b9a9d74da1",
         "odds": [
           3.3,
@@ -23219,17 +23223,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "aec86b479e922f437ba228b9a9d74da1",
         "point": 2.5,
         "odds": [
-          1.89,
-          1.93
+          1.91,
+          1.91
         ],
         "ev": [
-          -0.19989184674122196,
-          0.11295834085214707
+          -0.1914250937966846,
+          0.10142509379668452
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -23316,18 +23320,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "f128c19fa7af43e30dbe3c373e7bc27e",
         "odds": [
-          1.29,
-          5.65,
-          9.8
+          1.28,
+          5.8,
+          9.9
         ],
         "ev": [
-          -0.06599836353627109,
-          -0.06182118189656338,
-          0.07720007827943798
+          -0.07323868629955577,
+          -0.03691377964602982,
+          0.08819191581290164
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -23335,17 +23339,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "f128c19fa7af43e30dbe3c373e7bc27e",
         "point": 2.5,
         "odds": [
-          1.52,
-          2.56
+          1.49,
+          2.65
         ],
         "ev": [
-          -0.04260459478915801,
-          -0.05245541930247066
+          -0.06150055673410881,
+          -0.019143305137323208
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -23632,8 +23636,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "f45e9062c2f755b977c98d496c22697b",
         "odds": [
           4.55,
@@ -23651,8 +23655,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "f45e9062c2f755b977c98d496c22697b",
         "point": 2.5,
         "odds": [
@@ -23748,17 +23752,17 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "d3d47b94324eb7cde85bd93993437d1c",
         "odds": [
           3.1,
-          3.45,
+          3.5,
           2.25
         ],
         "ev": [
           0.006667896269395568,
-          -0.08731962316174724,
+          -0.07409237132351176,
           -0.07587238646451566
         ],
         "pick": null,
@@ -23767,8 +23771,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "d3d47b94324eb7cde85bd93993437d1c",
         "point": 2.5,
         "odds": [
@@ -23864,18 +23868,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "56ea91809ff11d3a67557a21b3371cb9",
         "odds": [
-          2.83,
-          3.38,
-          2.48
+          2.8,
+          3.37,
+          2.51
         ],
         "ev": [
-          0.2840939212243383,
-          -0.22073051383613307,
-          -0.21705541294283326
+          0.27048161817249006,
+          -0.2230360448602864,
+          -0.20758430906714187
         ],
         "pick": "H",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -23883,8 +23887,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "56ea91809ff11d3a67557a21b3371cb9",
         "point": 2.5,
         "odds": [
@@ -23980,8 +23984,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "e9c2b74ecaafd494e3b2d8521b52216a",
         "odds": [
           1.53,
@@ -23999,17 +24003,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "e9c2b74ecaafd494e3b2d8521b52216a",
         "point": 2.5,
         "odds": [
-          1.51,
-          2.6
+          1.54,
+          2.52
         ],
         "ev": [
-          -0.3024091257819942,
-          0.39885015035310256
+          -0.28854970443991457,
+          0.3558086072653148
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -24096,8 +24100,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "09bb0ba9a9025d64fed410375c0c8f80",
         "odds": [
           3.97,
@@ -24115,8 +24119,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "09bb0ba9a9025d64fed410375c0c8f80",
         "point": 2.5,
         "odds": [
@@ -24212,18 +24216,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "e12585885a7f135127f276b7f1ecdf89",
         "odds": [
           1.92,
-          3.7,
-          3.82
+          3.66,
+          3.87
         ],
         "ev": [
           -0.3770746844824492,
-          0.03637275134753026,
-          0.5106533337544499
+          0.02516872160323258,
+          0.5304262831491418
         ],
         "pick": "A",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -24231,17 +24235,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "e12585885a7f135127f276b7f1ecdf89",
         "point": 2.5,
         "odds": [
-          1.74,
-          2.11
+          1.79,
+          2.04
         ],
         "ev": [
-          -0.2802423172206955,
-          0.23719039616992377
+          -0.2595596251868074,
+          0.19614616501736704
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -24328,18 +24332,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "d20ede55e54ed7b55fdc36ca373727c0",
         "odds": [
-          1.95,
-          3.67,
-          3.73
+          1.99,
+          3.61,
+          3.67
         ],
         "ev": [
-          0.021157236681867087,
-          -0.07592113478307583,
-          -0.16247693073667901
+          0.04210405179329002,
+          -0.09102869116264412,
+          -0.17594915168997638
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -24347,17 +24351,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "d20ede55e54ed7b55fdc36ca373727c0",
         "point": 2.5,
         "odds": [
-          1.74,
-          2.11
+          1.77,
+          2.08
         ],
         "ev": [
-          -0.1934346813598985,
-          0.13192366532723332
+          -0.17952838276265537,
+          0.11582996392447642
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -24444,8 +24448,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "1ab9541320cecbe9f043565fd4a141e0",
         "odds": [
           2.15,
@@ -24463,16 +24467,16 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "1ab9541320cecbe9f043565fd4a141e0",
         "point": 2.5,
         "odds": [
-          2.27,
+          2.26,
           1.65
         ],
         "ev": [
-          -0.007293676587233344,
+          -0.01166683219698128,
           -0.07157067560839869
         ],
         "pick": null,
@@ -24600,8 +24604,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "20c78c2ef75c4a6d7f4af81dd32e97cd",
         "odds": [
           2.75,
@@ -24619,8 +24623,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "20c78c2ef75c4a6d7f4af81dd32e97cd",
         "point": 2.5,
         "odds": [
@@ -24756,8 +24760,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "dc63586a1b1d938a461d71bf5b36d982",
         "odds": [
           4.8,
@@ -24775,8 +24779,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "dc63586a1b1d938a461d71bf5b36d982",
         "point": 2.5,
         "odds": [
@@ -24872,18 +24876,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "c979bd4559d2d81a8e2fe8f2d4aec376",
         "odds": [
-          1.18,
-          7.5,
-          13.5
+          1.17,
+          7.6,
+          14.5
         ],
         "ev": [
-          -0.09617079147893082,
-          0.09471260928449654,
-          0.18909839224177438
+          -0.10383036104266874,
+          0.10930877740828993,
+          0.27717975463005406
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -24891,8 +24895,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "c979bd4559d2d81a8e2fe8f2d4aec376",
         "point": 2.5,
         "odds": [
@@ -24988,18 +24992,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "3876ad367184af2f8fc04a544fc894aa",
         "odds": [
-          1.98,
+          2,
           3.5,
-          3.8
+          3.7
         ],
         "ev": [
-          -0.06294197959609715,
+          -0.05347674706676475,
           -0.02854745854084295,
-          -0.053114082728802914
+          -0.07803213318330793
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -25007,8 +25011,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "3876ad367184af2f8fc04a544fc894aa",
         "point": 2.5,
         "odds": [
@@ -25264,8 +25268,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "f1d2a6064d1452074570bbc656d36a20",
         "odds": [
           4,
@@ -25283,8 +25287,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "f1d2a6064d1452074570bbc656d36a20",
         "point": 2.5,
         "odds": [
@@ -25380,18 +25384,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "3d57da6bdb20b65145bc2479ee5f2ae7",
         "odds": [
-          4.85,
-          3.85,
-          1.7
+          5.1,
+          3.9,
+          1.68
         ],
         "ev": [
-          0.035566963897381454,
-          0.07916817256823516,
-          -0.13949805122685555
+          0.08894670430446294,
+          0.09318334364054981,
+          -0.14962160356536314
         ],
         "pick": "D",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -25399,17 +25403,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "3d57da6bdb20b65145bc2479ee5f2ae7",
         "point": 2.5,
         "odds": [
-          1.86,
-          1.96
+          1.89,
+          1.93
         ],
         "ev": [
-          -0.3331662254619333,
-          0.25731494726096193
+          -0.32241084200164194,
+          0.23807033072125328
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -25496,18 +25500,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "c7aff6bfea3ca1c4b177694977831b85",
         "odds": [
-          2.27,
-          3.47,
-          3.1
+          2.25,
+          3.57,
+          3.05
         ],
         "ev": [
-          -0.03512456667810593,
-          -0.2396712939520519,
-          0.10307251067005763
+          -0.04362567181750587,
+          -0.21775980386421478,
+          0.08528101856247594
         ],
         "pick": "A",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -25515,17 +25519,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "c7aff6bfea3ca1c4b177694977831b85",
         "point": 2.5,
         "odds": [
-          1.71,
-          2.16
+          1.69,
+          2.19
         ],
         "ev": [
-          0.1876029986190133,
-          -0.3401301035187537
+          0.17371290506791381,
+          -0.33096524384540316
         ],
         "pick": "Over",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -25612,18 +25616,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "9629fcc970336d106d144eaa25cec853",
         "odds": [
-          1.41,
-          4.87,
-          7.2
+          1.4,
+          4.91,
+          7.38
         ],
         "ev": [
-          -0.21705532317035425,
-          0.16376748889129789,
-          0.4814248917851143
+          -0.2226081222968056,
+          0.17332615409779728,
+          0.518460514079742
         ],
         "pick": "D",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -25631,8 +25635,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "9629fcc970336d106d144eaa25cec853",
         "point": 2.5,
         "odds": [
@@ -25728,8 +25732,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "4bd9a6fe4abb6774b3e8700b3dbe8d00",
         "odds": [
           4.11,
@@ -25747,8 +25751,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "4bd9a6fe4abb6774b3e8700b3dbe8d00",
         "point": 2.5,
         "odds": [
@@ -25844,8 +25848,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "836ad618789e171f7357649ce8e62b49",
         "odds": [
           1.63,
@@ -25863,8 +25867,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "836ad618789e171f7357649ce8e62b49",
         "point": 2.5,
         "odds": [
@@ -25960,8 +25964,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "10abd18165c999264777913e42c9f96c",
         "odds": [
           1.56,
@@ -25979,8 +25983,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "10abd18165c999264777913e42c9f96c",
         "point": 2.5,
         "odds": [
@@ -26076,18 +26080,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "2198fb9aab762e9e1c8c6af4113a1d31",
         "odds": [
-          1.99,
-          3.65,
-          3.63
+          2.02,
+          3.66,
+          3.53
         ],
         "ev": [
-          -0.177372843567823,
-          0.009845206889455227,
-          0.12511704685682012
+          -0.16497142914924745,
+          0.012611906086412716,
+          0.09412208688831258
         ],
         "pick": "A",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -26095,8 +26099,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "2198fb9aab762e9e1c8c6af4113a1d31",
         "point": 2.5,
         "odds": [
@@ -26192,8 +26196,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "5f5235df01a384e23ff224101ff175e1",
         "odds": [
           4.21,
@@ -26211,17 +26215,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "5f5235df01a384e23ff224101ff175e1",
         "point": 2.5,
         "odds": [
-          1.83,
-          2
+          1.79,
+          2.04
         ],
         "ev": [
-          -0.2547037115382025,
-          0.18546853720022138
+          -0.27099434079419815,
+          0.20917790794422575
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -26308,18 +26312,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "0c405290d0f977236962e55ba90c2c04",
         "odds": [
           2.61,
-          3.76,
-          2.48
+          3.7,
+          2.51
         ],
         "ev": [
           -0.01869174477975666,
-          -0.125633360306168,
-          -0.02914074383385923
+          -0.13958601945021842,
+          -0.017396478638301183
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -26327,17 +26331,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "0c405290d0f977236962e55ba90c2c04",
         "point": 2.5,
         "odds": [
-          1.48,
-          2.68
+          1.47,
+          2.73
         ],
         "ev": [
-          -0.06961069978684076,
-          -0.004759003088693814
+          -0.07589711397747023,
+          0.013808925958158857
         ],
         "pick": null,
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -26424,18 +26428,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "28546d4aefd5efb320c2d2ceee11b66d",
         "odds": [
-          2.48,
+          2.46,
           3.52,
-          2.74
+          2.76
         ],
         "ev": [
-          0.030716291191201783,
+          0.022404063036434163,
           -0.05993742447354733,
-          -0.13052851201638738
+          -0.12418200480482833
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -26443,17 +26447,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "28546d4aefd5efb320c2d2ceee11b66d",
         "point": 2.5,
         "odds": [
-          1.69,
-          2.19
+          1.73,
+          2.13
         ],
         "ev": [
-          -0.22061122701278202,
-          0.18002283263786545
+          -0.20216415546278865,
+          0.14769343996285533
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -26580,8 +26584,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "b8a455b28ca30fd95640228161c7c5c5",
         "odds": [
           1.37,
@@ -26599,8 +26603,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "b8a455b28ca30fd95640228161c7c5c5",
         "point": 2.5,
         "odds": [
@@ -26696,8 +26700,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "0c1ccc010b185ada698661a21316696c",
         "odds": [
           1.85,
@@ -26715,8 +26719,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:38Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:40Z",
         "eventId": "0c1ccc010b185ada698661a21316696c",
         "point": 2.5,
         "odds": [
@@ -26852,18 +26856,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "7a3763ed676aa657abff78f841bb851c",
         "odds": [
-          4.25,
-          3.85,
-          1.8
+          4.2,
+          3.95,
+          1.78
         ],
         "ev": [
-          -0.05396455062072891,
-          -0.0427612563848081,
-          -0.04821402920425166
+          -0.06509437943695562,
+          -0.017897912394803095,
+          -0.05878942887976002
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -26871,17 +26875,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "7a3763ed676aa657abff78f841bb851c",
         "point": 2.5,
         "odds": [
-          1.7,
-          2.18
+          1.68,
+          2.22
         ],
         "ev": [
-          -0.19464403304678723,
-          0.1472494070835273
+          -0.20411880912858982,
+          0.1682998549199224
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -27328,18 +27332,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "188e30796d25595e117480df1cfb19b8",
         "odds": [
-          1.82,
-          3.7,
-          4.15
+          1.78,
+          3.8,
+          4.3
         ],
         "ev": [
-          -0.07826464166442049,
-          0.010189731953962333,
-          -0.08480984150446957
+          -0.0985225616278399,
+          0.037492157141907345,
+          -0.05173067914920959
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -27347,17 +27351,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "188e30796d25595e117480df1cfb19b8",
         "point": 2.5,
         "odds": [
-          1.76,
-          2.09
+          1.73,
+          2.13
         ],
         "ev": [
-          -0.32023672174394735,
-          0.2827811070709374
+          -0.3318235958051301,
+          0.3073319416560272
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -27484,8 +27488,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "a6378d2226c38068085412dcfe6ed2c9",
         "odds": [
           1.07,
@@ -27503,8 +27507,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "a6378d2226c38068085412dcfe6ed2c9",
         "point": 2.5,
         "odds": [
@@ -27600,18 +27604,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "a57d8cacc423d2a63545b240790dcdba",
         "odds": [
-          6.4,
-          4.6,
-          1.47
+          6.7,
+          4.7,
+          1.45
         ],
         "ev": [
-          0.48182865483720083,
-          0.05240334854999795,
-          -0.20666902402063636
+          0.5512893730326947,
+          0.07528168221412845,
+          -0.217462642741444
         ],
         "pick": "D",
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -27619,8 +27623,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "a57d8cacc423d2a63545b240790dcdba",
         "point": 2.5,
         "odds": [
@@ -27716,8 +27720,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "11e1b8546651036ec5c70eb8e91bb622",
         "odds": [
           6,
@@ -27735,8 +27739,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "11e1b8546651036ec5c70eb8e91bb622",
         "point": 2.5,
         "odds": [
@@ -27832,8 +27836,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "7d32e6e9bbd769e7d505467971c4d7ca",
         "odds": [
           1.32,
@@ -27851,8 +27855,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "7d32e6e9bbd769e7d505467971c4d7ca",
         "point": 2.5,
         "odds": [
@@ -28188,8 +28192,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "b3ecf4f05571a5c613459857c9b3f7b0",
         "odds": [
           2.05,
@@ -28207,8 +28211,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "b3ecf4f05571a5c613459857c9b3f7b0",
         "point": 2.5,
         "odds": [
@@ -28304,18 +28308,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "388c70bbc3bc49af4a2245b4caebd730",
         "odds": [
-          2.28,
-          3.2,
-          3.35
+          2.25,
+          3.15,
+          3.4
         ],
         "ev": [
-          -0.017166802079922716,
-          -0.14898237268454517,
-          0.015015827968932305
+          -0.030098817842028947,
+          -0.1622795231113493,
+          0.030165317938617875
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -28323,8 +28327,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "388c70bbc3bc49af4a2245b4caebd730",
         "point": 2.5,
         "odds": [
@@ -28540,8 +28544,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "59e9722830fbf906910c1526eddf110c",
         "odds": [
           4.9,
@@ -28559,8 +28563,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "59e9722830fbf906910c1526eddf110c",
         "point": 2.5,
         "odds": [
@@ -28656,8 +28660,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "93deed2cc6f80d75270abbb13437c51c",
         "odds": [
           2.4,
@@ -28675,8 +28679,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "93deed2cc6f80d75270abbb13437c51c",
         "point": 2.5,
         "odds": [
@@ -28772,18 +28776,18 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "24d5861f7f820bd4e070deaaa063fac9",
         "odds": [
-          1.6,
-          4.25,
-          5.05
+          1.58,
+          4.35,
+          5.1
         ],
         "ev": [
-          -0.12370264142136445,
-          -0.011113931555336132,
-          0.10915713359899293
+          -0.13465635840359735,
+          0.012153975937479355,
+          0.12013888739700262
         ],
         "pick": null,
         "rule": "v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -28791,17 +28795,17 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:32:39Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:14Z",
         "eventId": "24d5861f7f820bd4e070deaaa063fac9",
         "point": 2.5,
         "odds": [
-          1.53,
-          2.54
+          1.52,
+          2.56
         ],
         "ev": [
-          -0.18058196908333468,
-          0.1796589552102419
+          -0.1859376424880188,
+          0.18894760840087366
         ],
         "pick": "Under",
         "rule": "goals-v1: EV >= 5%; odds 1.4–5; highest EV; 1 unit"
@@ -28888,8 +28892,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "7b643abf36a551631acaae1f1a8e01f6",
         "odds": [
           1.88,
@@ -28907,8 +28911,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "7b643abf36a551631acaae1f1a8e01f6",
         "point": 2.5,
         "odds": [
@@ -29004,8 +29008,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "7c5bfc26c8bcf7406d9ef8aa7dda19f1",
         "odds": [
           1.35,
@@ -29023,8 +29027,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "7c5bfc26c8bcf7406d9ef8aa7dda19f1",
         "point": 2.5,
         "odds": [
@@ -29120,8 +29124,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "c392b1fa1b32963c5daf3a415a0dfc2a",
         "odds": [
           1.22,
@@ -29139,8 +29143,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "c392b1fa1b32963c5daf3a415a0dfc2a",
         "point": 2.5,
         "odds": [
@@ -29356,8 +29360,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "b179b898dfd55412a2e75dfe42752adc",
         "odds": [
           2.2,
@@ -29375,8 +29379,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "b179b898dfd55412a2e75dfe42752adc",
         "point": 2.5,
         "odds": [
@@ -29472,8 +29476,8 @@
         "bookmaker": "betsson",
         "bookmakerTitle": "Betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "e14f8c52d44db0f33abb0c108145fb09",
         "odds": [
           1.65,
@@ -29491,8 +29495,8 @@
       "latestTotals25Snapshot": {
         "bookmaker": "betsson",
         "source": "The Odds API",
-        "quotedAt": "2026-11-28T00:32:48.993Z",
-        "bookmakerUpdatedAt": "2026-11-28T00:31:28Z",
+        "quotedAt": "2026-11-28T14:14:45.920Z",
+        "bookmakerUpdatedAt": "2026-11-28T14:14:27Z",
         "eventId": "e14f8c52d44db0f33abb0c108145fb09",
         "point": 2.5,
         "odds": [
@@ -29624,6 +29628,86 @@
           0.44888232818191187,
           0.2442413033683286,
           0.3068763684497594
+        ]
+      }
+    },
+    {
+      "id": 564782,
+      "league": "La Liga · API",
+      "fixtureStatus": "TIMED",
+      "kickoffUtc": "2026-12-12T13:00:00Z",
+      "home": "Levante UD",
+      "away": "Deportivo Alavés",
+      "predictedAt": "2026-11-28T14:14:45.347Z",
+      "probs": [
+        0.453503862284524,
+        0.24055068879911087,
+        0.30594544891636516
+      ],
+      "baseline": [
+        0.4764705882352941,
+        0.24705882352941178,
+        0.27647058823529413
+      ],
+      "trainingMatches": 510,
+      "result": null,
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-11-28T14:14:45.347Z",
+        "expectedHome": 1.654167673424481,
+        "expectedAway": 1.3185651206412452,
+        "probs": {
+          "over25": 0.570673248073908,
+          "btts": 0.5923932434070882
+        }
+      },
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-11-28T14:14:45.347Z",
+        "probs": [
+          0.48539633844157815,
+          0.23039084036633703,
+          0.2842128211920849
+        ]
+      }
+    },
+    {
+      "id": 558494,
+      "league": "Serie A · API",
+      "fixtureStatus": "TIMED",
+      "kickoffUtc": "2026-12-12T14:00:00Z",
+      "home": "Cagliari Calcio",
+      "away": "Venezia FC",
+      "predictedAt": "2026-11-28T14:14:45.347Z",
+      "probs": [
+        0.5133865788118481,
+        0.2659002749063379,
+        0.220713146281814
+      ],
+      "baseline": [
+        0.4091816367265469,
+        0.24151696606786427,
+        0.34930139720558884
+      ],
+      "trainingMatches": 501,
+      "result": null,
+      "goalsForecast": {
+        "model": "independent-poisson-goals-v1",
+        "predictedAt": "2026-11-28T14:14:45.347Z",
+        "expectedHome": 1.4631481952674423,
+        "expectedAway": 0.8584126462404505,
+        "probs": {
+          "over25": 0.4096705795198974,
+          "btts": 0.442779692873331
+        }
+      },
+      "challenger": {
+        "model": "recency-v2",
+        "predictedAt": "2026-11-28T14:14:45.347Z",
+        "probs": [
+          0.5038292928177579,
+          0.2672417325870485,
+          0.22892897459519362
         ]
       }
     }
